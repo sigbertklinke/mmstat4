@@ -1,0 +1,20 @@
+Package: mmstat4
+Title: Material for teaching statistics course: data sets, R programs and course materials
+Version: 21.0312
+Authors@R: 
+    person(given = "Sigbert",
+           family = "Klinke",
+           role = c("aut", "cre"),
+           email = "sigbert@hu-berlin.de")
+Description: The package collects teaching material for various statistics course. It contains datasets, programs mainly in R and course material. 
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+Depends: 
+    R (>= 2.10)
