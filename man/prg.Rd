@@ -4,10 +4,13 @@
 \alias{prg}
 \title{prg}
 \usage{
-prg(file = NULL)
+prg(file = NULL, pattern = NULL)
 }
 \arguments{
-\item{file}{character: file name (defauilt. \code{NULL})}
+\item{file}{character: file name (default: \code{NULL})}
+
+\item{pattern}{character: an optional regular expression, see \code{\link[base:list.files]{base::list.files()}}.
+Only file names which match the regular expression will be returned (default: \code{NULL})}
 }
 \value{
 the complete path including the file name

@@ -9,14 +9,15 @@ run(name, ...)
 \arguments{
 \item{name}{character: name of example file}
 
-\item{...}{further parameters to \code{source}}
+\item{...}{further parameters to \code{\link[base:source]{base::source()}}}
 }
 \value{
 nothing
 }
 \description{
-\code{source}s the example file
+\code{source}s the example file. The parameter \code{echo} from \code{source} is set to \code{TRUE} by default.
 }
 \examples{
 run("mmstat/lottozahlen.R")
+run("mmstat/lottozahlen.R", echo=FALSE)
 }
