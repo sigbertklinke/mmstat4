@@ -1,0 +1,10 @@
+library("rio")
+library("psych")
+x <- import("https://shinyapps.wiwi.hu-berlin.de/d/BANK2.sav")
+
+pdf("scree.pdf", width=10, height=7, bg="transparent")
+par(mfrow=c(1,2))
+pc <- prcomp(x, scale=T, center=T)
+plot(pc$sdev^2, type="b", ylim=c(0, max(pc$sdev^2)), main="Scree plot (handmade)")
+scree(x, main="Scree plot (psych)")
+dev.off()

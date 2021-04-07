@@ -4,25 +4,25 @@
 \alias{prg}
 \title{prg}
 \usage{
-prg(file = NULL, pattern = NULL)
+prg(file = NULL, n = 5)
 }
 \arguments{
-\item{file}{character: file name (default: \code{NULL})}
+\item{file}{character: a file name (default: \code{NULL})}
 
-\item{pattern}{character: an optional regular expression, see \code{\link[base:list.files]{base::list.files()}}.
-Only file names which match the regular expression will be returned (default: \code{NULL})}
+\item{n}{integer: number of similar files shown if no \code{file} can be found}
 }
 \value{
-the complete path including the file name
+the complete path including the file name(s)
 }
 \description{
-Returns the full name of an example file in \code{mmstat4} or a list of available example files.
+Returns a list of matching names of an example file or app in \code{mmstat4}. Note that \code{file}
+is interpreted as a regular expression.
 }
 \examples{
 prg() # all available example files
 prg("mmstat/lottozahlen.R")
 if(interactive()) {
-  edit(prg("mmstat/lottozahlen.R"))        # open text editor
-  file.edit (prg("mmstat/lottozahlen.R"))  # open in RStudio
+  edit(prg("mmstat/lottozahlen.R"))       # open text editor
+  file.edit(prg("mmstat/lottozahlen.R"))  # open in RStudio
 }
 }

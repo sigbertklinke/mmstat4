@@ -7,10 +7,10 @@ library("rio")
 lotto <- import("mmstat/lottozahlen.csv")
 use_data(lotto, overwrite = TRUE)
 #
-data12411 <- import("stat/12411-0006.csv")
+data12411 <- import("stat/12411-0006.csv", encoding="UTF-8")
 use_data(data12411, overwrite = TRUE)
 #
-data13211 <- import("stat/13211-0002.csv")
+data13211 <- import("stat/13211-0002.csv", encoding="UTF-8")
 for (name in names(data13211)[4:9]) {
   data13211[[name]] <- as.numeric(gsub(",", ".", data13211[[name]], fixed=TRUE))
 }

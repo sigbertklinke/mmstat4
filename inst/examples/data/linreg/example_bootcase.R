@@ -1,0 +1,8 @@
+library("rio")
+x  <- import("https://shinyapps.wiwi.hu-berlin.de/d/CPS78-85.tsv")
+library("car")
+lm <- lm (lwage~educ, data=x, subset=(year==85))
+lmboot <- Boot(lm)
+summary(lmboot)
+confint(lmboot)
+hist(lmboot)

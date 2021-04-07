@@ -6,41 +6,23 @@
 \title{German lotto numbers}
 \format{
 A data frame with 4181 rows and 10 variables:
-\describe{
-\item{Datum}{date of drawing}
-\item{Wochentag}{week day of drawing (in german)}
-\item{Gewinnzahlen}{first drawn number}
-\item{V4}{second drawn number}
-\item{V5}{third drawn number}
-\item{V6}{fourth drawn number}
-\item{V7}{fifth drawn number}
-\item{V8}{sixth drawn number}
-\item{Zusatzzahl}{bonus number, always \code{NA}}
-\item{Superzahl}{super number, always \code{NA}}
-}
-
-A data frame with 4181 rows and 10 variables:
-\describe{
-\item{Datum}{date of drawing}
-\item{Wochentag}{week day of drawing (in german)}
-\item{Gewinnzahlen}{first drawn number}
-\item{V4}{second drawn number}
-\item{V5}{third drawn number}
-\item{V6}{fourth drawn number}
-\item{V7}{fifth drawn number}
-\item{V8}{sixth drawn number}
-\item{Zusatzzahl}{bonus number, always \code{NA}}
-\item{Superzahl}{super number, always \code{NA}}
+\enumerate{
+\item \strong{Datum}  date of drawing
+\item \strong{Wochentag}   week day of drawing (in german)
+\item \strong{Gewinnzahlen}   first drawn number
+\item \strong{V4}   second drawn number
+\item \strong{V5}   third drawn number
+\item \strong{V6}   fourth drawn number
+\item \strong{V7}   fifth drawn number
+\item \strong{V8}   sixth drawn number
+\item \strong{Zusatzzahl}   bonus number, always \code{NA}
+\item \strong{Superzahl}   super number, always \code{NA}
 }
 }
 \usage{
 lotto
-
-lotto
 }
 \description{
-Lotto numbers 6 out of 49 including bonus and super number starting from 9 Oct 1955.
-
 Lotto numbers 6 out of 49 including bonus and super number starting from 9 Oct 1955.
 }
 \keyword{datasets}

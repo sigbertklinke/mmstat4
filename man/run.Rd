@@ -9,7 +9,7 @@ run(name, ...)
 \arguments{
 \item{name}{character: name of example file}
 
-\item{...}{further parameters to \code{\link[base:source]{base::source()}}}
+\item{...}{further parameters to \code{\link[base:source]{base::source()}} or \link[shiny:runApp]{shiny::runApp}}
 }
 \value{
 nothing
