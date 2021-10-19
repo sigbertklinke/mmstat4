@@ -3,7 +3,7 @@ diff <- c(1,2,3)
 n    <- 100
 col  <- c("blue", "red")
 clu   <- 2:5 
-png("Norm_diana.png", width=1024, height=768, bg="transparent")
+pdf("Norm_diana.pdf", width=10, height=7, bg="transparent")
 par(mfrow=c(length(diff), length(clu)), mar=c(0,0,0,0), mar=c(2,2,2,2), bg="transparent")
 for (i in seq(diff)) {
   x1     <- matrix(rnorm(2*n), nr=n)
@@ -19,3 +19,4 @@ for (i in seq(diff)) {
   }
 }
 dev.off()
+if (interactive()) browseURL(paste0(getwd(),"/Norm_diana.pdf"))

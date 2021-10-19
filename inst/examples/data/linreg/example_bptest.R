@@ -1,6 +1,6 @@
 library("rio")
-x  <- import("https://shinyapps.wiwi.hu-berlin.de/d/StaedteMietenR.sav")
-x  <- x[complete.cases(x),]
+data("staedtemietenr", package="mmstat4")
+x  <- staedtemietenr[complete.cases(staedtemietenr),]
 lm <- lm (Miete~Fläche, data=x)
 summary(lm)
 plot(x$Fläche, residuals(lm))

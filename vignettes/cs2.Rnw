@@ -1,0 +1,7 @@
+\documentclass{article}
+\usepackage{pdfpages}
+%\VignetteIndexEntry{cs2}
+
+\begin{document}
+\includepdf[pages=-, fitpaper=true]{cs2_roenz.pdf}
+\end{document}

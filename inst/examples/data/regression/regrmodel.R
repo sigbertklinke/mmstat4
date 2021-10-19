@@ -1,15 +1,15 @@
 library("scatterplot3d")
 
-x <- read.csv2("cps78_85.csv")
+data("cps78_85", package="mmstat4")
 # select only year=85
-x <- x[x$year==85,]
+x <- cps78_85[cps78_85$year==85,]
 
 pdf("regrmodel.pdf", width=10, height=4)
 par(mfrow=c(1,2))
 sunflowerplot(x$educ, x$lwage, digits=2, xlab="Education (in years)", ylab="log(wage)", main="Sunflower plot of CPS 1985 data")
 seqeduc <- seq(min(x$educ), max(x$educ), by=1)
 
-# estimate quadratic model 
+# estimate quadratic model
 lr2  <- lm (lwage~educ+I(educ^2), data=x)
 yhat <- lr2$coefficients[1]+lr2$coefficients[2]*seqeduc+lr2$coefficients[3]*seqeduc^2
 lines(seqeduc, yhat, lwd=2, col="blue")
@@ -34,3 +34,4 @@ for (i in seq(1, length(seqeduc), by=5)) {
   s3d$points3d(c(seqeduc[i],seqeduc[i]), c(yhat[i], yhat[i]), c(0, max(rd)), lwd=1, type="l")
 }
 dev.off()
+if (interactive()) browseURL(paste0(getwd(),"/regrmodel.pdf"))

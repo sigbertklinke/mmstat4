@@ -12,4 +12,6 @@ abline(h=0, col="grey")
 abline(h=1, col="grey")
 lines(xval, ecdf)
 dev.off()
+if (interactive()) browseURL(paste0(getwd(),"/R-horsekick_grouped-ecdf.pdf"))
+
 

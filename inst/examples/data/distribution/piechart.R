@@ -6,3 +6,5 @@ pie(tab, col=rainbow(length(tab)), main="pie")
 library("plotrix")
 pie3D (tab, labels=names(tab), explode=0.1, main="pie3D")
 dev.off()
+if (interactive()) browseURL(paste0(getwd(),"/piechart.pdf"))
+

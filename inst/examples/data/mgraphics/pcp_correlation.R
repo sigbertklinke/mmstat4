@@ -19,3 +19,4 @@ for (ri in r) {
 			 main="2D", sub=sprintf("r = %.2f", cor(x)[1,2]))
 }
 dev.off()
+if (interactive()) browseURL(paste0(getwd(),"/pcp_correlation.pdf"))

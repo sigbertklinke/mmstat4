@@ -20,7 +20,22 @@
 #'   file.edit(prg("mmstat/lottozahlen.R"))  # open in RStudio
 #' }
 prg <- function(file=NULL, n=5) {
-  inst  <- list.files(path=system.file("examples", package = "mmstat4"), recursive = TRUE)
+  normPath <- function(file) {
+    if (.Platform$file.sep=="/") {
+      sep <- strsplit(file, .Platform$file.sep, fixed=TRUE)
+    } else {
+      sep <- strsplit(file, sprintf("[/|%s]{1}", .Platform$file.sep), fixed=FALSE)
+    }
+    sapply(sep,
+           function(p) {
+             dontkeep <- (p==".") | (p=="")
+             do.call("file.path", as.list(p[!dontkeep]))
+           })
+  }
+  #
+  if (!is.null(file)) file <- normPath(file)
+  path  <- system.file("examples", package = "mmstat4")
+  inst  <- list.files(path=path, recursive = TRUE)
   # clean for shiny apps
   shiny  <- grepl("/(app|ui|server).R$", inst)
   if (any(shiny)) {

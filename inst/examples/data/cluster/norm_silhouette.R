@@ -2,7 +2,7 @@ library("cluster")
 diff <- 0:3
 n    <- 100
 col  <- c("blue", "red")
-png("norm_silhouette.png", width=1600, height=1024)
+pdf("norm_silhouette.pdf", width=10, height=7)
 par(mfcol=c(3, length(diff))) #, mar=c(2,2,2,2))
 for (i in seq(diff)) {
   x1     <- matrix(rnorm(2*n), nr=n)
@@ -20,3 +20,5 @@ for (i in seq(diff)) {
   plot(si2)
 }
 dev.off()
+if (interactive()) browseURL(paste0(getwd(),"/norm_silhouette.pdf"))
+

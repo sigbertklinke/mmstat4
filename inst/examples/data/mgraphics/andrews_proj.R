@@ -10,4 +10,4 @@ for (i in 1:nrow(c)) {
   plot3d(rbind(c[i,], -c[i,]), type="l", add=T)
 }
 dev.off()
-#rgl.postscript("andrews_proj.pdf","pdf") 
+if (interactive()) browseURL(paste0(getwd(),"/andrews_proj.pdf"))

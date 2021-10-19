@@ -13,7 +13,4 @@ text(v, 50, expression("v=V("* x[1]* ",...,"*x[n]* ")"), col="blue", pos=4)
 text(10, 20, "p-value=P(V>v)", col="red", pos=4)
 for (i in 1:length(x)) { lines(c(x[i],x[i]), c(0,-5))}
 if (dop) { dev.off() }
-
-
-
-
+if (interactive()) browseURL(paste0(getwd(),"/boottest.pdf"))

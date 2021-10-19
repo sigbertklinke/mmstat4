@@ -1,9 +1,8 @@
-library("rio")
-x  <- import("https://shinyapps.wiwi.hu-berlin.de/d/fatalities_statlib.csv")
+data("fatalities_statlib", package="mmstat4")
 # see http://lib.stat.cmu.edu/DASL/Stories/hwfatal.html
-lm <- lm (US~YR, data=x)
+lm <- lm (US~YR, data=fatalities_statlib)
 summary(lm)
-plot(x$YR, x$US)
+plot(fatalities_statlib$YR, fatalities_statlib$US)
 abline(lm, col="red")
 #
 library("car")

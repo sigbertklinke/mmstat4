@@ -1,7 +1,7 @@
 s<-seq(-5,5,b=0.001)
 alpha<-0.025
 par(ps = 12, cex = 1, cex.main = 1)
-png(file="tdist.png", width=840, height=420, bg="transparent")
+pdf(file="tdist.pdf", width=10, height=7, bg="transparent")
 plot (range(s),c(0,0.4),type="n", xlab="",ylab="density",pin=c(2,2),main="t-distribution with n degrees of freedom: densities and 97.5%-quantiles")
 lines(s,dnorm(s),lwd=1.5, col="blue")
 lines(s,dt(s,2), lwd=1.5, col="red" )
@@ -23,3 +23,5 @@ col=c("blue","black","green","red"),
 pch=19,
 title="97.5% quantiles")
 dev.off()
+if (interactive()) browseURL(paste0(getwd(),"/tdist.pdf"))
+

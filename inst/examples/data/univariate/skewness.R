@@ -25,3 +25,5 @@ abline(v=-param(3), col=c("red", "blue", "green"), lwd=2)
 legend("topleft", c("mean", "median", "mode"), col=c("red", "blue", "green"), lwd=2)
 box()
 dev.off()
+if (interactive()) browseURL(paste0(getwd(),"/skewness.pdf"))
+

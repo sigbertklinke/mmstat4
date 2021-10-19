@@ -1,7 +1,7 @@
 library("rio")
-x <- import("https://shinyapps.wiwi.hu-berlin.de/d/BANK2.sav")
+data("bank2", package="mmstat4")
 # do PCA (covariance)
-pc <- prcomp(x)
+pc <- prcomp(bank2)
 pc
 # what R delivers
 summary(pc)

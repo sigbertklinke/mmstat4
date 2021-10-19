@@ -8,4 +8,10 @@ groupm  <- aggregate(zfaithful, list(memb), mean)
 centers <- cbind(groupm$eruptions, groupm$waiting)
 cl2 <- kmeans(zfaithful, centers = centers)
 # compare results (confusion matrix)
-table(memb, cl2$cluster)
+tab <- table(memb, cl2$cluster)
+tab
+# match measures
+psych::cohen.kappa(tab)
+DescTools::ContCoef(tab)
+DescTools::Phi(tab)
+DescTools::CramerV(tab)

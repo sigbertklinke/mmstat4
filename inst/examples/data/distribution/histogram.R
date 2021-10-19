@@ -14,4 +14,4 @@ hist(x, breaks, xlab=sprintf("origin=%.1f, width=%.1f", breaks[1], diff), freq=F
 breaks=breaks+diff/4
 hist(x, breaks, xlab=sprintf("origin=%.1f, width=%.1f", breaks[1], diff), freq=FALSE)
 dev.off()
-
+if (interactive()) browseURL(paste0(getwd(),"/histogram.pdf"))

@@ -14,3 +14,5 @@ par(mfrow=c(1,2))
 persp(nx, ny, z, xlab="p1", ylab="p2", zlab="HN", phi=45, theta=55)
 contour(nx, ny, z, type="n", xlab="p1", ylab="p2")
 dev.off()
+if (interactive()) browseURL(paste0(getwd(),"/normentropy.pdf"))
+

@@ -1,0 +1,7 @@
+\documentclass{article}
+\usepackage{pdfpages}
+%\VignetteIndexEntry{glm}
+
+\begin{document}
+\includepdf[pages=-, fitpaper=true]{glm_roenz.pdf}
+\end{document}

@@ -1,6 +1,5 @@
-library("rio")
-x <- import("https://shinyapps.wiwi.hu-berlin.de/d/ALLBUS2012.SAV")
-body <- as.data.frame(x[,c(220,593,595)])
+data("allbus2012", package="mmstat4")
+body        <- as.data.frame(allbus2012)
 names(body) <- c("age", "height", "weight")
 # number of NAs
 nabody <- is.na(body)

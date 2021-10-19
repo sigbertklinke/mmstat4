@@ -38,3 +38,5 @@ for (i in 1:length(x)) {
   
 }
 dev.off()
+if (interactive()) browseURL(paste0(getwd(),"/andrews.pdf"))
+

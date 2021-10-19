@@ -1,0 +1,8 @@
+data("bostonh", package="mmstat4")
+library("car")
+lm     <- lm(MEDV~LSTAT, data=bostonh)
+lmboot <- Boot(lm)
+pdf("lstat.pdf", width=10, height=3)
+hist(lmboot)
+dev.off()
+if (interactive()) browseURL(paste0(getwd(),"/lstat.pdf"))

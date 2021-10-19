@@ -1,6 +1,6 @@
 library("MASS")
 
-png("pvalue.png", width=840, height=420, bg="transparent")
+pdf("pvalue.pdf", width=12, height=8, bg="transparent")
 c  <- 13.898
 v  <- (0:200)/200*qchisq(0.999, df=8)
 dv <- dchisq(v, df=8)
@@ -27,5 +27,8 @@ text(20, max(dx)/2, expression(paste(alpha, "=0.05")), col="red", pos=4)
 abline(v=qchisq(0.95, df=8), col="red")
 
 t <- capture.output(chisq.test(Boston$chas, Boston$rad))
+t <- gsub("\t", "", t) # take tab out
 legend("topright", legend=t)
 dev.off()
+if (interactive()) browseURL(paste0(getwd(),"/pvalue.pdf"))
+

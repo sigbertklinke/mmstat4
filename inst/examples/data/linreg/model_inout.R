@@ -13,8 +13,10 @@ for (i in 1:B) {
   msr.test[i]  <- mean((bhd.test$medv-medvtest)^2)
 }
 pdf("model_inout.pdf")
-plot(msr.model, msr.test, main="Mean squared residuals", pch=19, cex=0.5, 
+plot(msr.model, msr.test, main="Mean squared residuals", pch=19, cex=0.5,
 		 col = 1+(msr.model<msr.test), sub="Model: 50% sample, Test: 50% sample",
 		 xlab="in-sample error",
-		 ylab="out-of-sample error")
+		 ylab="out-of-sample error", asp=TRUE)
+abline(coef = c(0,1))
 dev.off()
+if (interactive()) browseURL(paste0(getwd(),"/model_inout.pdf"))

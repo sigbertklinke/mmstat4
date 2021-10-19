@@ -1,6 +1,6 @@
-library("rio")
-x <- import("https://shinyapps.wiwi.hu-berlin.de/d/ALLBUS2012.SAV")
-trust <- as.data.frame(x[,52:63])
+data("allbus2018", package="mmstat4")
+vars  <- startsWith(names(allbus2018), "pt")
+trust <- allbus2018[,vars]
 # count number of missing values
 r <- is.na(trust)
 # no. per column

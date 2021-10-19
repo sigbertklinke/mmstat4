@@ -24,3 +24,5 @@ text(pos[3], 0.01+fun(pos[3]), "Score test", pos=4)
 axis(1, at=pos, labels=c(expression(theta), expression(hat(theta)[1]), expression(hat(theta)[0])))
 axis(2, labels=F)
 dev.off()
+if (interactive()) browseURL(paste0(getwd(),"/HolyTrinity.pdf"))
+

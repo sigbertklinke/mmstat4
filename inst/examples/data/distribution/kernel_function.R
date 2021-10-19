@@ -29,3 +29,4 @@ legendl <- c(legendl, kernel[[i]]$name)
 }
 legend("topleft", legendl, lwd=1, col=col)
 dev.off()
+if (interactive()) browseURL(paste0(getwd(),"/kernel_function.pdf"))

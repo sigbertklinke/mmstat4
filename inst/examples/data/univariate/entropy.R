@@ -19,3 +19,4 @@ plot(f2, ylim=ylim, xlab="x", main=sprintf("H=%.3f, HN=%.3f", entropy(f2), entro
 plot(f4, ylim=ylim, xlab="x", main=sprintf("H=%.3f, HN=%.3f", entropy(f4), entropy(f4)/log(6)))
 plot(f1, ylim=ylim, xlab="x", main=sprintf("H=%.3f, HN=%.3f", entropy(f1), entropy(f1)/log(6)))
 dev.off()
+if (interactive()) browseURL(paste0(getwd(),"/entropy.pdf"))

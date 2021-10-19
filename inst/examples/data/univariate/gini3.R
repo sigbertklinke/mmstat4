@@ -13,3 +13,5 @@ par(mfrow=c(1,2))
 persp(nx, ny, z, xlab="p1", ylab="p2", zlab="G", phi=45, theta=55)
 contour(nx, ny, z, xlab="p1", ylab="p2")
 dev.off()
+if (interactive()) browseURL(paste0(getwd(),"/gini.pdf"))
+

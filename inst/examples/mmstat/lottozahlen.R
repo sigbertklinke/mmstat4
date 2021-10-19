@@ -1,5 +1,5 @@
-data(lotto)
-samstag <- lotto[lotto["Wochentag"]=="Samstag",]
+data(lottozahlen)
+samstag <- lottozahlen[lottozahlen["Wochentag"]=="Samstag",]
 tab     <- table(unlist(samstag[,3:8]))
 tab
 sub     <- sprintf("%s bis %s", samstag[nrow(samstag),'Datum'], samstag[1,'Datum'])

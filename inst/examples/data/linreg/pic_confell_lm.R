@@ -12,3 +12,4 @@ lines(c(lm$coefficients[1], lmi$coefficients[1]),
 text((lm$coefficients[1]+lmi$coefficients[1])/2,
 		 (lm$coefficients[2]+lmi$coefficients[2])/2, expression(C[375]), pos=4)
 dev.off()
+if (interactive()) browseURL(paste0(getwd(),"/pic_confell_lm.pdf"))

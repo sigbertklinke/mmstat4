@@ -24,7 +24,8 @@ legend("topleft", legend=sprintf("%.2f", h), col=col, lwd=2, title="Bandwidths")
 
 x <- (-500:500)/100
 for (i in seq(h)) {
-y <- 0.03*dnorm(x, mean=1, sd=h[i])
-lines(x,y, col=col[i])
+  y <- 0.03*dnorm(x, mean=1, sd=h[i])
+  lines(x,y, col=col[i])
 }
 dev.off()
+if (interactive()) browseURL(paste0(getwd(),"/KernelDensity.pdf"))

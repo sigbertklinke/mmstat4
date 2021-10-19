@@ -1,0 +1,49 @@
+---
+title: "mmstat4"
+author: 
+- name: "Sigbert Klinke" 
+  email: sigbert@hu-berlin.de
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 4
+vignette: > 
+  %\VignetteIndexEntry{mmstat4} 
+  %\VignetteEngine{knitr::rmarkdown} 
+  \usepackage[utf8]{inputenc} 
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup, echo=FALSE}
+library(mmstat4)
+```
+
+* Basic statistics
+
+* Skripte Prof. Rönz, HU Berlin
+    * [Computergestützte Statistik I](cs1.pdf) mit SPSS 10 (2001)
+         1. Einführung
+         2. Entdeckung und Identifikation von Ausreißern
+         3. Prüfung der Verteilungsform von Variablen
+         4. Parametervergleiche bei unbhängigen Stichproben
+         5. Anhänge A-D, Literaturverzeichnis, Index
+    * [Computergestützte Statistik II](cs2.pdf) mit SPSS 10 (2000)
+         1. Vorwort
+         2. Überprüfung von Zusammenhängen
+         3. Regressionsanalyse
+         4. Reliabilitäts- und Homogenitätsanalyse von Konstrukten
+         5. Anhänge A-H, Literaturverzeichnis, Stichwortverzeichnis
+    * [Generalisierte lineare Modelle](glm.pdf) mit SPSS 10 (2001)
+         1. Einführung
+         2. Verallgemeinerte lineare Modelle (generalized linear models, GLM)
+         3. Modellierung binärer Daten
+         4. Das mutinomiale Logit Modell 
+         5. Modellierung multinomialer Daten (log-lineare Modelle)
+         6. Literaturverzeichnis, Index 

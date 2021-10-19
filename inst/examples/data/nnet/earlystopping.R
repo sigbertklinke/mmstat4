@@ -1,11 +1,10 @@
-library("rio")
-library("neuralnet")
-
-x     <- import("https://shinyapps.wiwi.hu-berlin.de/d/BOSTONH.SAV")
+library("nnet")
+data("bostonh", package="mmstat4")
+bostonh$RAD[is.na(bostonh$RAD)] <- 24
 set.seed(0)
-train <- runif(nrow(x))<2/3
-xtrain <- x[train,]
-xvalid   <- x[!train,]
+train    <- runif(nrow(bostonh))<2/3
+xtrain   <- bostonh[train,]
+xvalid   <- bostonh[!train,]
 B <- 30
 err.train <- err.valid <- rep(NA, B)
 for (i in 1:B) {
@@ -25,3 +24,4 @@ pos <- which.min(err.valid)
 abline(v=pos, lwd=2, lty="dashed")
 text(pos, max(ylim), "early stopping", pos=2)
 dev.off()
+if (interactive()) browseURL(paste0(getwd(),"/earlystopping.pdf"))

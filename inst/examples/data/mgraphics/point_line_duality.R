@@ -22,3 +22,5 @@ for (i in 1:p) {
   abline(fit, col="red")
 }
 dev.off()
+if (interactive()) browseURL(paste0(getwd(),"/point_line_duality.pdf"))
+

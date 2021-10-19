@@ -1,8 +1,8 @@
 library("foreign")
 library("psych")
-x <- import("https://shinyapps.wiwi.hu-berlin.de/d/BANK2.sav")
-pc  <- principal(x, nfactors = 2, rotate="none")
-pcc <- cor(cbind(pc$scores, x))[-(1:2),1:2]
+data("bank2", package="mmstat4")
+pc  <- principal(bank2, nfactors = 2, rotate="none")
+pcc <- cor(cbind(pc$scores, bank2))[-(1:2),1:2]
 
 pdf("pca_corr.pdf")
 par(mfrow=c(1,1))
@@ -16,3 +16,5 @@ dev.off()
 library("xtable")
 xtab <- xtable(pcc, caption="PCA with standardized data")
 print(xtab,  file="pcc.tex")
+#
+if (interactive()) browseURL(paste0(getwd(),"/pca_corr.pdf"))
