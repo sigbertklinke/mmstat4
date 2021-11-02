@@ -2,9 +2,9 @@
 #' @title extract
 #' @description \code{extract} extract programs from a set of LaTeX files and returns them in a list.
 #' ```{r latex, eval=FALSE}
-#' \begin{comment}{helloworld.R}
+#' \\begin{comment}{helloworld.R}
 #' "Hello world!"
-#' \end{comment}
+#' \\end{comment}
 #' ```
 #' \code{print} and \code{summary} give an overview about the extracted programs.
 #' \code{do.extract} will do the following:
@@ -24,6 +24,7 @@
 #' @param verbose logical: should be \code{do.extract} give full output? (default: \code{FALSE})
 #' @param ... further parameters (unused)
 #'
+#' @md
 #' @return extract object
 #' @export
 #'

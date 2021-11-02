@@ -41,11 +41,13 @@ do.extract(
 extract object
 }
 \description{
-\code{extract} extract programs from a set of LaTeX files and returns them in a list.\if{html}{\out{<div class="r">}}\preformatted{\\begin\{comment\}\{helloworld.R\}
+\code{extract} extract programs from a set of LaTeX files and returns them in a list.\begin{Schunk}
+\begin{Sinput}
+\\begin{comment}{helloworld.R}
 "Hello world!"
-\\end\{comment\}
-}\if{html}{\out{</div>}}
-
+\\end{comment}
+\end{Sinput}
+\end{Schunk}
 \code{print} and \code{summary} give an overview about the extracted programs.
 \code{do.extract} will do the following:
 \itemize{

@@ -6,8 +6,8 @@ library("mmstat4")
 
 {
   library("dbscan")
-  library("rio")
-  x <- scale(import("https://shinyapps.wiwi.hu-berlin.de/d/BANK2.sav"))
+  data("bank2", package="mmstat4")
+  x <- bank2
 }
 
 
@@ -38,36 +38,36 @@ ui <- dashboardPage(
 
 server <- function(input, output, session) {
   seed <- list(inBookmark=FALSE)
-  
+
   onBookmark(function(state) {
     state$seed <- seed
   })
-  
+
   onRestore(function(state) {
     seed <- state$seed
     seed$inBookmark <- TRUE
   })
-  
+
   onRestored(function(state) {
     seed$inBookmark <- FALSE
   })
-  
+
   onStop(function() {
     if (isLocal()) {
       count <- getMMstat('lang', 'stats', 'count')
       cat(sprintf('gettext("%s"); // %.0f\n', names(count), count))
     }
   })
-  
+
   value <- function(val) {
     param <- substitute(val)
     if(param=="input$eps") { v<-toNum(val, min=0, max=1); if(is.na(v)) return(0.5) else return(v) }
     if(param=="input$pts") { v<-toNum(val, min=2, max=10); if(is.na(v)) return(5) else return(v) }
     return(val)
   }
-  
+
   observe({
-    
+
     sel  <- value(isolate(input$eps))
     shiny::updateSliderInput("session"=session,
                              "inputId"="eps",
@@ -78,7 +78,7 @@ server <- function(input, output, session) {
                              "step"=0.01)
   })
   observe({
-    
+
     sel  <- value(isolate(input$pts))
     shiny::updateSliderInput("session"=session,
                              "inputId"="pts",
@@ -88,9 +88,9 @@ server <- function(input, output, session) {
                              "max"=10,
                              "step"=1)
   })
-  
+
   output$plot <- shiny::renderPlot({
-    
+
     #/home/sigbert/syncthing/projekte/R/shinyApp/inst/app/dbscan/dbscan2.R
     # shinyApp/inst/app/dbscan/dbscan2.R
     db  <- dbscan(x[,c(4,6)], value(input$eps), value(input$pts))
