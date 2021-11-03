@@ -33,21 +33,21 @@ prg <- function(file=NULL, n=5) {
            })
   }
   #
-  if (!is.null(file)) file <- normPath(file)
   path  <- system.file("examples", package = "mmstat4")
   inst  <- list.files(path=path, recursive = TRUE)
-  # clean for shiny apps
-  shiny  <- grepl("/(app|ui|server).R$", inst)
-  if (any(shiny)) {
-    exdirs <- unique(dirname(inst[shiny]))
-    keep   <- rep(TRUE, length(inst))
-    for (i in 1:length(exdirs)) keep = keep & !startsWith(inst, exdirs[i])
-    inst   <- c(inst[keep], paste0(exdirs, "/"))
-  }
-  files <- if (is.null(file)) inst else inst[grepl(file, inst)]
-  if (length(files)>0) return(files)
-  index  <- na.omit(order(adist(inst, file))[1:n])
-  errmsg <- c(sprintf("Sorry, file \"%s\" does not exist :( Maybe you meant:\n", file),
-              sprintf("    %s\n", inst[index]))
-  stop(errmsg)
+  if (is.null(file)) return(inst)
+  file <- normPath(file)
+  ret  <- lapply(file, function(f) {
+    # check for shiny app and return path
+    for (app in c("/app.R", "/ui.R", "/server.R")) {
+      if (endsWith(f, app) && (f %in% inst)) return(paste0(dirname(f), "/"))
+      if (paste0(f, app) %in% inst) return(paste0(f, "/"))
+    }
+    if (f %in% inst) return(f)
+    index  <- na.omit(order(adist(inst, f))[1:n])
+    errmsg <- c(sprintf("Sorry, file \"%s\" does not exist :( Maybe you meant:\n", f),
+                sprintf("    %s\n", inst[index]))
+    stop(errmsg)
+  })
+  unlist(ret)
 }
