@@ -1,6 +1,6 @@
 Package: mmstat4
 Title: Material for teaching statistics course: data sets, R programs and course materials
-Version: 21.1103
+Version: 21.1121
 Authors@R: 
     person(given = "Sigbert",
            family = "Klinke",

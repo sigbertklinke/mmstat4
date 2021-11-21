@@ -13,7 +13,9 @@
 nothing
 }
 \description{
-Edits a program from the package \code{mmstat} using \code{file.edit}.
+Edits a program from the package \code{mmstat4} using \code{file.edit}.
+Note that the file is copied to a temporary directory, such that you can not overwrite the original file!
+If you do not save modified code at another location then the next \code{show} will overwrite your modified code.
 }
 \examples{
 if (interactive()) {

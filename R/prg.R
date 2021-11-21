@@ -4,12 +4,13 @@
 #' is interpreted as a regular expression.
 #'
 #' @param file character: a file name (default: \code{NULL})
-#' @param n integer: number of similar files shown if no \code{file} can be found
+#' @param pattern character: regular expression to be matched in the file names (default: \code{NULL})
+#' @param n integer: number of similar files shown if no \code{file} can be found (default: \code{5})
+#' @param ... further parameters given to \code{grepl}
 #'
 #' @return the complete path including the file name(s)
-#' @importFrom stats na.omit
 #' @importFrom utils adist
-#' @importFrom shiny runApp
+#' @importFrom stats na.omit
 #' @export
 #'
 #' @examples
@@ -19,7 +20,7 @@
 #'   edit(prg("mmstat/lottozahlen.R"))       # open text editor
 #'   file.edit(prg("mmstat/lottozahlen.R"))  # open in RStudio
 #' }
-prg <- function(file=NULL, n=5) {
+prg <- function(file=NULL, pattern=NULL, n=5, ...) {
   normPath <- function(file) {
     if (.Platform$file.sep=="/") {
       sep <- strsplit(file, .Platform$file.sep, fixed=TRUE)
@@ -28,23 +29,29 @@ prg <- function(file=NULL, n=5) {
     }
     sapply(sep,
            function(p) {
-             dontkeep <- (p==".") | (p=="")
+             dontkeep <- rep(FALSE, length(p))
+             if (any(p=="sigbertklinke")) {
+               pos <- which(p=="examples")
+               if (length(pos)) dontkeep[1:pos] <- TRUE
+             }
+             dontkeep <- dontkeep | (p==".") | (p=="")
              do.call("file.path", as.list(p[!dontkeep]))
            })
   }
   #
   path  <- system.file("examples", package = "mmstat4")
   inst  <- list.files(path=path, recursive = TRUE)
+  if (!is.null(pattern)) {
+    args <- list(...)
+    args$pattern <- pattern
+    args$x <- inst
+    inst <- inst[do.call("grepl", args)]
+  }
   if (is.null(file)) return(inst)
   file <- normPath(file)
   ret  <- lapply(file, function(f) {
-    # check for shiny app and return path
-    for (app in c("/app.R", "/ui.R", "/server.R")) {
-      if (endsWith(f, app) && (f %in% inst)) return(paste0(dirname(f), "/"))
-      if (paste0(f, app) %in% inst) return(paste0(f, "/"))
-    }
-    if (f %in% inst) return(f)
-    index  <- na.omit(order(adist(inst, f))[1:n])
+    if (f %in% inst) return(paste0(path, "/", f))
+    index  <- na.omit(order(adist(basename(inst), basename(f)))[1:n])
     errmsg <- c(sprintf("Sorry, file \"%s\" does not exist :( Maybe you meant:\n", f),
                 sprintf("    %s\n", inst[index]))
     stop(errmsg)

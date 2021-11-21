@@ -4,12 +4,16 @@
 \alias{prg}
 \title{prg}
 \usage{
-prg(file = NULL, n = 5)
+prg(file = NULL, pattern = NULL, n = 5, ...)
 }
 \arguments{
 \item{file}{character: a file name (default: \code{NULL})}
 
-\item{n}{integer: number of similar files shown if no \code{file} can be found}
+\item{pattern}{character: regular expression to be matched in the file names (default: \code{NULL})}
+
+\item{n}{integer: number of similar files shown if no \code{file} can be found (default: \code{5})}
+
+\item{...}{further parameters given to \code{grepl}}
 }
 \value{
 the complete path including the file name(s)
