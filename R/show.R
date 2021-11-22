@@ -8,6 +8,7 @@
 #'
 #' @importFrom digest digest
 #' @importFrom utils file.edit
+#' @importFrom rstudioapi navigateToFile
 #' @return nothing
 #' @export
 #'
@@ -27,5 +28,9 @@ setMethod("show", "character",
             if (!dir.exists(dirname(file))) dir.create(dirname(file), recursive=TRUE)
             lines <- c(sprintf("# %s", file), readLines(object))
             writeLines(lines, file)
-            file.edit(file)
+            if (Sys.getenv("RSTUDIO") == "1") {
+              navigateToFile(file)
+            } else {
+              file.edit(file)
+            }
           })

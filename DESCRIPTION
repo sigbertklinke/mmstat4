@@ -1,6 +1,6 @@
 Package: mmstat4
 Title: Material for teaching statistics course: data sets, R programs and course materials
-Version: 21.1121
+Version: 21.1122
 Authors@R: 
     person(given = "Sigbert",
            family = "Klinke",
@@ -17,6 +17,7 @@ Imports:
     crayon,
     digest,
     stringr,
+    rstudioapi,
     shiny
 Suggests: 
     knitr,
