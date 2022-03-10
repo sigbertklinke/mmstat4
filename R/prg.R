@@ -50,7 +50,12 @@ prg <- function(file=NULL, pattern=NULL, n=5, ...) {
   if (is.null(file)) return(inst)
   file <- normPath(file)
   ret  <- lapply(file, function(f) {
+    # simple file
     if (f %in% inst) return(paste0(path, "/", f))
+    # check for app.R
+    app <- paste0(f, "/app.R")
+    if (app %in% inst) return(paste0(path, "/", app))
+    # error
     index  <- na.omit(order(adist(basename(inst), basename(f)))[1:n])
     errmsg <- c(sprintf("Sorry, file \"%s\" does not exist :( Maybe you meant:\n", f),
                 sprintf("    %s\n", inst[index]))
