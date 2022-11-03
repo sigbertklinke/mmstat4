@@ -1,0 +1,7 @@
+library("plot3d")
+data(Boston, package="MASS")
+model <- lm(medv~lstat+rm, data=Boston)
+par(mfrow=c(1,1))
+new3d("s") %>% regression3d(model, Boston) %>% plot3d()
+par(mfrow=c(2,2))
+plot(model)

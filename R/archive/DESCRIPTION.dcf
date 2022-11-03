@@ -1,0 +1,28 @@
+Package: mmstat4
+Title: Material for teaching statistics course: data sets, R programs and course materials
+Version: 22.2
+Authors@R: 
+    person(given = "Sigbert",
+           family = "Klinke",
+           role = c("aut", "cre"),
+           email = "sigbert@hu-berlin.de")
+Description: The package collects teaching material for various statistics courses. It contains datasets, programs mainly in R and course material. Most of the material is located at Gitub in the repository 'sigbertklinke/mmstat4'.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.1
+Imports:
+    methods,
+    crayon,
+    digest,
+    stringr,
+    rio,
+    rstudioapi,
+    shiny
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+Depends: 
+    R (>= 2.10)

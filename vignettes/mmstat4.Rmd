@@ -21,29 +21,64 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup, echo=FALSE}
-library(mmstat4)
+```{r , echo=FALSE}
+suppressPackageStartupMessages(library(mmstat4))
 ```
 
-* Basic statistics
+# General
 
-* Skripte Prof. Rönz, HU Berlin
-    * [Computergestützte Statistik I](cs1.pdf) mit SPSS 10 (2001)
-         1. Einführung
-         2. Entdeckung und Identifikation von Ausreißern
-         3. Prüfung der Verteilungsform von Variablen
-         4. Parametervergleiche bei unbhängigen Stichproben
-         5. Anhänge A-D, Literaturverzeichnis, Index
-    * [Computergestützte Statistik II](cs2.pdf) mit SPSS 10 (2000)
-         1. Vorwort
-         2. Überprüfung von Zusammenhängen
-         3. Regressionsanalyse
-         4. Reliabilitäts- und Homogenitätsanalyse von Konstrukten
-         5. Anhänge A-H, Literaturverzeichnis, Stichwortverzeichnis
-    * [Generalisierte lineare Modelle](glm.pdf) mit SPSS 10 (2001)
-         1. Einführung
-         2. Verallgemeinerte lineare Modelle (generalized linear models, GLM)
-         3. Modellierung binärer Daten
-         4. Das mutinomiale Logit Modell 
-         5. Modellierung multinomialer Daten (log-lineare Modelle)
-         6. Literaturverzeichnis, Index 
+The aim of this package is to make teaching materials for different statistics courses available to students. This includes R, R Markdown, data and PDF files as well as Shiny Apps.
+
+The central function `ghopen` can be used to
+
+* Display R and R Markdown files in RStudio,
+* run Shiny Apps,
+* load data files and
+* display PDF files.
+
+
+
+# Skripte Dr. Sigbert Klinke, HU Berlin
+
+## Basic statistics I+II (in german)
+
+## Data analysis I+II
+
+# Skripte Prof. Rönz, HU Berlin (in german)
+
+## Computergestützte Statistik I mit SPSS 10 (2001)
+
+1. Einführung
+2. Entdeckung und Identifikation von Ausreißern
+3. Prüfung der Verteilungsform von Variablen
+4. Parametervergleiche bei unbhängigen Stichproben
+5. Anhänge A-D, Literaturverzeichnis, Index
+
+```{r, eval=FALSE}
+mmstat4::ghopen("cs1.pdf")
+```
+
+## Computergestützte Statistik II mit SPSS 10 (2000)
+
+1. Vorwort
+2. Überprüfung von Zusammenhängen
+3. Regressionsanalyse
+4. Reliabilitäts- und Homogenitätsanalyse von Konstrukten
+5. Anhänge A-H, Literaturverzeichnis, Stichwortverzeichnis
+
+```{r, eval=FALSE}
+mmstat4::ghopen("cs2.pdf")
+```
+
+## Generalisierte lineare Modelle mit SPSS 10 (2001)
+
+1. Einführung
+2. Verallgemeinerte lineare Modelle (generalized linear models, GLM)
+3. Modellierung binärer Daten
+4. Das multinomiale Logit Modell 
+5. Modellierung multinomialer Daten (log-lineare Modelle)
+6. Literaturverzeichnis, Index 
+
+```{r, eval=FALSE}
+mmstat4::ghopen("glm.pdf")
+```

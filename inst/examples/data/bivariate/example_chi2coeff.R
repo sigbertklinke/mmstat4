@@ -1,5 +1,0 @@
-library("vcd")
-dim(HairEyeColor)
-assocstats(HairEyeColor)
-tab <- apply(HairEyeColor, 1:2, sum)
-chisq.test(tab)
