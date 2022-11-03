@@ -4,10 +4,34 @@
 \alias{ghlist}
 \title{ghlist}
 \usage{
-ghlist(...)
+ghlist(
+  pattern = ".",
+  ignore.case = FALSE,
+  perl = FALSE,
+  fixed = FALSE,
+  useBytes = FALSE
+)
 }
 \arguments{
-\item{...}{parameters given to \code{\link[base:grep]{base::grepl()}}}
+\item{pattern}{character string containing a \link[base]{regular expression}
+    (or character string for \code{fixed = TRUE}) to be matched
+    in the given character vector.  Coerced by
+    \code{\link[base]{as.character}} to a character string if possible.  If a
+    character vector of length 2 or more is supplied, the first element
+    is used with a warning.  Missing values are allowed except for
+    \code{regexpr}, \code{gregexpr} and \code{regexec}.}
+
+\item{ignore.case}{if \code{FALSE}, the pattern matching is \emph{case
+      sensitive} and if \code{TRUE}, case is ignored during matching.}
+
+\item{perl}{logical.  Should Perl-compatible regexps be used?}
+
+\item{fixed}{logical.  If \code{TRUE}, \code{pattern} is a string to be
+    matched as is.  Overrides all conflicting arguments.}
+
+\item{useBytes}{logical.  If \code{TRUE} the matching is done
+    byte-by-byte rather than character-by-character.  See
+    \sQuote{Details}.}
 }
 \value{
 character vector of short names

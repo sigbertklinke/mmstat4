@@ -2,7 +2,7 @@
 #'
 #' Returns unique (short) names to access each file in the repository.
 #'
-#' @inheritParams base grepl
+#' @inheritParams base::grepl
 #'
 #' @return character vector of short names
 #' @export

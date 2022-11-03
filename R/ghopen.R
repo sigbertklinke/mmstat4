@@ -38,18 +38,14 @@ ghopen <- function(x, ..., quiet=!interactive()) {
     j <- c(which(endsWith(mmstat$files, paste0(x, '/app.R'))),
            which(endsWith(mmstat$files, paste0(x, '/ui.R'))))
     if (length(j)==0) stop(sprintf("No file for '%s' at GitHub found", x))
-    file <- dirname(mmstat$files[j])
+    file <- mmstat$files[j]
   }
   if (length(j)==1) file <- mmstat$files[j]
   if (length(j)>1) stop(sprintf("Several files for '%s' at GitHub found", x))
   #
   ext <- tolower(file_ext(file))
   ret <- NULL
-  if (ext=='') { # shiny App
-    runApp(file, launch.browser=TRUE)
-    return(invisible(file))
-  }
-  if (ext %in% c('r', 'rmd')) {
+  if (ext %in% c('', 'r', 'rmd')) {
     navigateToFile(file)
     return(invisible(file))
   }
