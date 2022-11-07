@@ -9,7 +9,7 @@ ghopen(x, ...)
 \arguments{
 \item{x}{character(1): name of the file, app or data set}
 
-\item{...}{further parameters}
+\item{...}{further parameters used in \code{\link[rio:import]{rio::import()}} or \link[utils:browseURL]{utils::browseURL}}
 }
 \value{
 a data set, open a file in RStudio or runs a shiny app

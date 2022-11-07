@@ -4,13 +4,14 @@
 #'
 #' @param query character: query string
 #' @param n integer: maximal number of matches to return
+#' @param full.names logical: should full names used instead of short names (default: `FALSE`)
 #'
 #' @return character vector of short names fitting best to the query
 #' @export
 #'
 #' @examples
 #' if (interactive()) ghquery("bank")
-ghquery <- function(query, n=6) {
+ghquery <- function(query, n=6, full.names=FALSE) {
   overlap <- function(x, files) {
     x <- unique(tolower(strsplit(x, "")[[1]]))
     f <- strsplit(files, "")
@@ -21,7 +22,7 @@ ghquery <- function(query, n=6) {
   }
   #
   stopifnot(length(query)==1)
-  lof <- ghlist()
+  lof <- ghlist(getOption("mmstat.repo"), full.names = full.names)
   dxl <- overlap(query, lof)
   o   <- order(dxl, nchar(lof))
   if (length(dxl)<=n) n <- length(dxl)

@@ -4,12 +4,14 @@
 \alias{ghquery}
 \title{gquery}
 \usage{
-ghquery(query, n = 6)
+ghquery(query, n = 6, full.names = FALSE)
 }
 \arguments{
 \item{query}{character: query string}
 
 \item{n}{integer: maximal number of matches to return}
+
+\item{full.names}{logical: should full names used instead of short names (default: \code{FALSE})}
 }
 \value{
 character vector of short names fitting best to the query

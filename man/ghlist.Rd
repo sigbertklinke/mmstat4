@@ -9,7 +9,8 @@ ghlist(
   ignore.case = FALSE,
   perl = FALSE,
   fixed = FALSE,
-  useBytes = FALSE
+  useBytes = FALSE,
+  full.names = FALSE
 )
 }
 \arguments{
@@ -32,6 +33,8 @@ ghlist(
 \item{useBytes}{logical.  If \code{TRUE} the matching is done
     byte-by-byte rather than character-by-character.  See
     \sQuote{Details}.}
+
+\item{full.names}{logical: should full names returned instead of short names (default: \code{FALSE})}
 }
 \value{
 character vector of short names
