@@ -22,7 +22,7 @@ ghquery <- function(query, n=6, full.names=FALSE) {
   }
   #
   stopifnot(length(query)==1)
-  lof <- ghlist(getOption("mmstat.repo"), full.names = full.names)
+  lof <- ghlist(full.names = full.names)
   dxl <- overlap(query, lof)
   o   <- order(dxl, nchar(lof))
   if (length(dxl)<=n) n <- length(dxl)
