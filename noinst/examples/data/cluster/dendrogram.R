@@ -1,6 +1,0 @@
-library("cluster")
-pdf("dendrogram.pdf")
-hc <- hclust(dist(USArrests))
-plot(hc)
-dev.off()
-if (interactive()) browseURL(paste0(getwd(),"/dendrogram.pdf"))

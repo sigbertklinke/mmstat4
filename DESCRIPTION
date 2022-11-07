@@ -2,17 +2,26 @@ Package: mmstat4
 Title: Material for teaching statistics course: data sets, R programs and course materials
 Version: 22.2
 Authors@R: 
-    person(given = "Sigbert",
+  c(person(given = "Sigbert",
            family = "Klinke",
            role = c("aut", "cre"),
-           email = "sigbert@hu-berlin.de")
-Description: The package collects teaching material for various statistics courses. It contains datasets, programs mainly in R and course material. Most of the material is located at Gitub in the repository 'sigbertklinke/mmstat4'.
+           email = "sigbert@hu-berlin.de"),
+    person(given = "Bernd",
+           family = "Rönz",
+           role = c("ctb"),
+           email = "bernd.roenz@web.de")
+           )
+Description: The package provides access to teaching materials for various statistics courses, 
+    which are stored in a GitHub repository. The default repository is 'sigbertklinke/mmstat4.data', 
+    which contains R programmes, Shiny apps and PDF documents. Additionally, some functions are 
+    implemented that are needed for the Shiny apps. 
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
 Imports:
+    rappdirs,
     rio,
     rstudioapi,
     shiny

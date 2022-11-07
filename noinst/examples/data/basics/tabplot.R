@@ -1,8 +1,0 @@
-library("tabplot")
-library("MASS")
-Boston$chas <- factor(Boston$chas)
-Boston$rad <- ordered(Boston$rad)
-pdf("tabplot.pdf", width=10, height=7)
-tableplot(Boston, sortCol=14)
-dev.off()
-if (interactive()) browseURL(paste0(getwd(),"/tabplot.pdf"))

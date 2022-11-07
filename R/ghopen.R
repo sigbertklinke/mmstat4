@@ -5,21 +5,20 @@
 #'
 #' @param x character(1): name of the file, app or data set
 #' @param ... further parameters
-#' @param quiet logical: should the download progess be shown (default: `!interactive()`)
 #'
 #' @return a data set, open a file in RStudio or runs a shiny app
 #' @importFrom shiny runApp
 #' @importFrom rstudioapi navigateToFile
-#' @importFrom utils browseURL
+#' @importFrom utils browseURL adist
 #' @importFrom tools file_ext
 #' @importFrom rio import
 #' @export
 #'
 #' @examples
 #' if (interactive()) x <- ghopen("bank2.SAV")
-ghopen <- function(x, ..., quiet=!interactive()) {
+ghopen <- function(x, ...) {
   stopifnot(length(x)==1)
-  ghget(quiet=quiet)
+  ghget(getOption("mmstat.repo"))
   # build URLs
   x    <- strsplit(x, '/', fixed=TRUE)[[1]]
   keep <- rep(TRUE, length(x))
@@ -37,19 +36,29 @@ ghopen <- function(x, ..., quiet=!interactive()) {
   if (length(j)==0) { # might be an app
     j <- c(which(endsWith(mmstat$files, paste0(x, '/app.R'))),
            which(endsWith(mmstat$files, paste0(x, '/ui.R'))))
-    if (length(j)==0) stop(sprintf("No file for '%s' at GitHub found", x))
+    if (length(j)==0) {
+      bm <- ghquery(x)
+      cat("Best matches:", "\n ")
+      cat(paste0(" ", bm, "\n"))
+      stop(sprintf("No file '%s' found, check matches!", x))
+    }
     file <- mmstat$files[j]
   }
   if (length(j)==1) file <- mmstat$files[j]
-  if (length(j)>1) stop(sprintf("Several files for '%s' at GitHub found", x))
+  if (length(j)>1) {
+    cat("Possible matches:", "\n ")
+    lof <- ghlist()
+    cat (paste0(" ", lof[j], "\n"))
+    stop(sprintf("Several files for '%s' found, check matches!", x))
+  }
   #
   ext <- tolower(file_ext(file))
   ret <- NULL
-  if (ext %in% c('', 'r', 'rmd')) {
+  if (ext %in% getOption("mmstat.ext.prg", c('', 'r', 'rmd', 'ma', 'py'))) {
     navigateToFile(file)
     return(invisible(file))
   }
-  if (ext %in% c('html', 'pdf')) {
+  if (ext %in% getOption("mmstat.ext.doc", c('html', 'pdf'))) {
     browseURL(file, ...)
     return(invisible(file))
   }

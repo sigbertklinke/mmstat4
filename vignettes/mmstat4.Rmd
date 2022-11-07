@@ -31,54 +31,119 @@ The aim of this package is to make teaching materials for different statistics c
 
 The central function `ghopen` can be used to
 
-* Display R and R Markdown files in RStudio,
-* run Shiny Apps,
+* Open Shiny Apps, R and R Markdown files in RStudio,
 * load data files and
-* display PDF files.
+* display HTML and PDF files.
+
+```{r}
+library("mmstat4")
+ghget("dummy")   # downloads a small repository
+ghquery("bank2") # find data file 
+x <- ghopen("data/BANK2.sav")
+str(x)
+```
+
+If you choose to open a non-data set file then invisibly the full path to the file is returned.
+
+## `ghget`, `ghset`
+
+`ghset` set a key to a Zipfile of a GitHub repository. If it runs interactively then
+you are asked if you want to install it locally to reduce the number of downloads. 
+Otherwise it ia installed to a temporary directory, see `tempdir()`.
+`ghget` downloads the GitHub repository if necessary. 
+
+```{r, eval=FALSE}
+library("mmstat4")
+ghset("test", "https://github.com/sigbertklinke/mmstat4.dummy/archive/refs/heads/main.zip")
+ghget("test") # if not yet installed
+```
+
+Note that you should call `ghget` or `ghset` whenever the `library` is called.
+
+## `ghlist`, `ghquery`
+
+With `ghlist` you can get a list of unique (short) names for all files or a subset based on a regular expression `pattern` in the repository
+
+```{r}
+str(ghlist())
+ghlist("\\.pdf$") # get all PDF files
+```
+
+With `ghquery` you can query the list of unique (short) names for all files based on the overlap distance.
+
+```{r}
+ghlist("bnk")  # pattern = "bnk
+ghquery("bnk") # nearest string matching to "bnk"
+```
 
 
+## Options
+
+Several options can bet set with `options`
+
+* `mmstat.dir` directory where the downloaded repository is stored, default `tempdir()`
+* `mmstat.repo` link to GitHub directory, default `https://github.com/sigbertklinke/mmstat4/archive/refs/heads/main.zip`
+* `mmstat.ext.prg` file extensions for a file to open in RStudio, default `c('', 'r', 'rmd', 'ma', 'py')`
+* `mmstat.ext.doc` file extensions for a file to open ivia `browseURL`, default `c('html', 'pdf')`
 
 # Skripte Dr. Sigbert Klinke, HU Berlin
 
 ## Basic statistics I+II (in german)
 
+* Slides, exercises, solution and formulary for Statistics I+II (in german)
+
+Mathematische Grundlagen - Einführung - Grundbegriffe - Univariate Verteilungen - Parameter  univariater Verteilungen - Bivariate Verteilungen - Parameter bivariater Verteilungen - Regressionanalyse - Zeitreihenanalyse - Indexzahlen - Wahrscheinlichkeitsrechnung - Zufallsvariablen - So lügt man mit Statistik - Wichtige Verteilungsmodelle - Stichprobentheorie - Statistische Schätzverfahren - Regressionsmodell - Konfidenzintervalle - Statistische Testverfahren - Parameterische Tests - Nichtparametrische Tests
+
+```{r, eval=FALSE}
+ghget("mmstat4")
+ghopen("Statistik.pdf")
+ghopen("Aufgaben.pdf")
+ghopen("Loesungen.pdf")
+ghopen("Formelsammlung.pdf")
+```
+
+* Slides for Data Analysis I+II
+
+General - R - Basics and data generation - Test and estimation theory - Parameter of
+distributions - Distribution - Transformations - Robust statistics - Missing values -
+Subgroup analysis - Correlation and association - Multivariate graphics - Principal component analysis - Exploratory factor analysis - Reliability - Cluster analysis -
+Regression analysis - Linear regression - Nonparametric regression - Classification and regression trees - Neural networks
+
+```{r, eval=FALSE}
+ghget("mmstat4")
+ghopen("Statistik.pdf")
+ghopen("Aufgaben.pdf")
+ghopen("Loesungen.pdf")
+ghopen("Formelsammlung.pdf")
+```
+
 ## Data analysis I+II
 
-# Skripte Prof. Rönz, HU Berlin (in german)
+# Skripte Prof. Bernd Rönz, HU Berlin (in german)
 
 ## Computergestützte Statistik I mit SPSS 10 (2001)
 
-1. Einführung
-2. Entdeckung und Identifikation von Ausreißern
-3. Prüfung der Verteilungsform von Variablen
-4. Parametervergleiche bei unbhängigen Stichproben
-5. Anhänge A-D, Literaturverzeichnis, Index
+Einführung - Entdeckung und Identifikation von Ausreißern - Prüfung der Verteilungsform von Variablen - Parametervergleiche bei unbhängigen Stichproben - Anhänge A-D, Literaturverzeichnis, Index
 
 ```{r, eval=FALSE}
-mmstat4::ghopen("cs1.pdf")
+ghget("mmstat4")
+ghopen("cs1.pdf")
 ```
 
 ## Computergestützte Statistik II mit SPSS 10 (2000)
 
-1. Vorwort
-2. Überprüfung von Zusammenhängen
-3. Regressionsanalyse
-4. Reliabilitäts- und Homogenitätsanalyse von Konstrukten
-5. Anhänge A-H, Literaturverzeichnis, Stichwortverzeichnis
+Vorwort - Überprüfung von Zusammenhängen - Regressionsanalyse - Reliabilitäts- und Homogenitätsanalyse von Konstrukten - Anhänge A-H, Literaturverzeichnis, Stichwortverzeichnis
 
 ```{r, eval=FALSE}
-mmstat4::ghopen("cs2.pdf")
+ghget("mmstat4")
+ghopen("cs2_roenz.pdf")
 ```
 
 ## Generalisierte lineare Modelle mit SPSS 10 (2001)
 
-1. Einführung
-2. Verallgemeinerte lineare Modelle (generalized linear models, GLM)
-3. Modellierung binärer Daten
-4. Das multinomiale Logit Modell 
-5. Modellierung multinomialer Daten (log-lineare Modelle)
-6. Literaturverzeichnis, Index 
+Einführung - Verallgemeinerte lineare Modelle (generalized linear models, GLM) - Modellierung binärer Daten - Das multinomiale Logit Modell - Modellierung multinomialer Daten (log-lineare Modelle) - Literaturverzeichnis, Index 
 
 ```{r, eval=FALSE}
-mmstat4::ghopen("glm.pdf")
+ghget("mmstat4")
+ghopen("glm.pdf")
 ```

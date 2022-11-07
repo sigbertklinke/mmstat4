@@ -4,14 +4,12 @@
 \alias{ghopen}
 \title{ghopen}
 \usage{
-ghopen(x, ..., quiet = !interactive())
+ghopen(x, ...)
 }
 \arguments{
 \item{x}{character(1): name of the file, app or data set}
 
 \item{...}{further parameters}
-
-\item{quiet}{logical: should the download progess be shown (default: \code{!interactive()})}
 }
 \value{
 a data set, open a file in RStudio or runs a shiny app

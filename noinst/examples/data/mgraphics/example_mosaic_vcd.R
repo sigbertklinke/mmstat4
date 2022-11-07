@@ -1,2 +1,0 @@
-library("vcd")
-mosaic(Titanic)

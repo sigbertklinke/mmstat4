@@ -11,6 +11,7 @@
 #' if (interactive()) ghlist()
 ghlist <- function(pattern='.', ignore.case = FALSE, perl = FALSE,
                    fixed = FALSE, useBytes = FALSE) {
+  ghget(getOption("mmstat.repo"))
   files <- strsplit(mmstat$files, '/', fixed=TRUE)
   cmax  <- max(lengths(files))
   nfiles <- length(files)
@@ -20,6 +21,6 @@ ghlist <- function(pattern='.', ignore.case = FALSE, perl = FALSE,
     dups <- duplicated(m[,1:i])|duplicated(m[,1:i], fromLast=TRUE)
     m[!dups, (i+1):cmax] <- NA_character_
   }
-  x <- sort(apply(m, 1, function(e) { e <- rev(e); paste0(e[!is.na(e)], collapse="/") }))
+  x <- apply(m, 1, function(e) { e <- rev(e); paste0(e[!is.na(e)], collapse="/") })
   x[grepl(pattern, x, ignore.case, perl, fixed, useBytes)]
 }

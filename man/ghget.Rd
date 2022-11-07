@@ -2,31 +2,34 @@
 % Please edit documentation in R/ghget.R
 \name{ghget}
 \alias{ghget}
+\alias{ghset}
 \title{ghget}
 \usage{
-ghget(
-  dir = getOption("mmstat.dir", tempdir()),
-  url = getOption("mmstat.repo",
-    "https://github.com/sigbertklinke/mmstat4/archive/refs/heads/main.zip"),
-  quiet = !interactive()
-)
+ghget(key = "mmstat4", force = FALSE)
+
+ghset(key, url, install = TRUE)
 }
 \arguments{
-\item{dir}{character: directory name (default: \code{tempdir()})}
+\item{key}{character: directory name (default: \code{mmstat4})}
 
-\item{url}{character: zip file name or repository, default is the mmstat4 repository}
+\item{force}{logical: download and unzip in any case? (default: \code{FALSE})}
 
-\item{quiet}{logical: should the download progess be shown (default: \code{!interactive()})}
+\item{url}{character: URL to zip file of repository, default is the mmstat4 repository}
+
+\item{install}{logical: call \code{ghget} in \code{ghset}? (default: \code{TRUE})}
 }
 \value{
 nothing
 }
 \description{
-Downloads a GitHub repository to a temporary directory, if none given
+\itemize{
+\item \code{ghset} set for a key the installation directory and GitHubs Zip URL. If \code{dir} is \code{NULL} then \code{tempdir()} is used.
+\item \code{ghget} downloads the GitHub repository and unzips it if necessary.
+}
 }
 \examples{
 if (interactive()) {
-  ghget()            # download to tempdir()
-  ghget("mytempdir") # download to "mytempdir"
+  ghget("dummy")
+  ghget()        # or ghget("mmstat4")
 }
 }

@@ -1,10 +1,15 @@
-#' ghget
+#' @rdname ghget
+#' @aliases ghset
+#' @title ghget
+#' @description
 #'
-#' Downloads a GitHub repository to a temporary directory, if none given
+#' * `ghset` set for a key the installation directory and GitHubs Zip URL. If `dir` is `NULL` then `tempdir()` is used.
+#' * `ghget` downloads the GitHub repository and unzips it if necessary.
 #'
-#' @param dir character: directory name (default: `tempdir()`)
-#' @param url character: zip file name or repository, default is the mmstat4 repository
-#' @param quiet logical: should the download progess be shown (default: `!interactive()`)
+#' @param key character: directory name (default: `mmstat4`)
+#' @param url character: URL to zip file of repository, default is the mmstat4 repository
+#' @param install logical: call `ghget` in `ghset`? (default: `TRUE`)
+#' @param force logical: download and unzip in any case? (default: `FALSE`)
 #'
 #' @return nothing
 #' @importFrom utils download.file unzip
@@ -12,16 +17,33 @@
 #'
 #' @examples
 #' if (interactive()) {
-#'   ghget()            # download to tempdir()
-#'   ghget("mytempdir") # download to "mytempdir"
+#'   ghget("dummy")
+#'   ghget()        # or ghget("mmstat4")
 #' }
-ghget <- function(dir=getOption("mmstat.dir", tempdir()),
-                  url=getOption("mmstat.repo", "https://github.com/sigbertklinke/mmstat4/archive/refs/heads/main.zip"),
-                  quiet=!interactive()) {
-  if (is.null(mmstat$files)) {
-    destfile <- paste0(dir, '/', basename(url))
-    if (!file.exists(destfile)) download.file(url, destfile, quiet=quiet)
-    mmstat$files <- unzip(destfile, exdir=dir)
-  }
-  if (dir!=tempdir()) options(mmstat.dir=dir)
+ghget <- function(key="mmstat4", force=FALSE) {
+  stopifnot(key %in% names(mmstat$repository))
+  exdir <- mmstat$repository[[key]]$dir
+  if (exdir=='') exdir <- tempdir()
+  destfile <- paste0(exdir, '/', key, ".zip")
+  if (!file.exists(destfile) || force) download.file(mmstat$repository[[key]]$url, destfile)
+  mmstat$files <- unzip(destfile, exdir=exdir)
+  options(mmstat.repo=key)
+}
+
+#' @rdname ghget
+#' @importFrom utils askYesNo
+#' @importFrom rappdirs user_data_dir
+#' @export
+ghset <- function(key, url, install=TRUE) {
+  if (grepl("[\\/]", key)) stop("Slashes or backslashes in a key are not allowed.")
+  dir    <- ''
+  appdir <- user_data_dir('mmstat4')
+  if (interactive() && askYesNo(sprintf("Download and install repository to '%s'?", appdir))) dir <- appdir
+  if (nchar(dir) && !dir.exists(dir)) dir.create(dir, recursive = TRUE)
+  mmstat$repository[[key]] <- list(url=url, dir=dir)
+  if (install) ghget(key)
+  # build list
+  if (nchar(dir)>0) saveRDS(mmstat$repository, file=paste0(appdir, "/repositories"), version=2)
+  invisible(data.frame(url=sapply(mmstat$repository, '[[', 'url'),
+                       dir=sapply(mmstat$repository, '[[', 'dir')))
 }
