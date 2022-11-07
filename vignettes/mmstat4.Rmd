@@ -45,12 +45,13 @@ str(x)
 
 If you choose to open a non-data set file then invisibly the full path to the file is returned.
 
-## `ghget`, `ghset`
+## `ghget`, `ghset`, `ghrepos`
 
-`ghset` set a key to a Zipfile of a GitHub repository. If it runs interactively then
+* `ghset` sets a key to a Zipfile of a GitHub repository. If it runs interactively then
 you are asked if you want to install it locally to reduce the number of downloads. 
-Otherwise it ia installed to a temporary directory, see `tempdir()`.
-`ghget` downloads the GitHub repository if necessary. 
+Otherwise it is installed to a temporary directory, see `tempdir()`.
+* `ghget` downloads the GitHub repository if necessary. 
+* `ghrepos` returns a data frame with the known repositories.
 
 ```{r, eval=FALSE}
 library("mmstat4")
@@ -58,7 +59,10 @@ ghset("test", "https://github.com/sigbertklinke/mmstat4.dummy/archive/refs/heads
 ghget("test") # if not yet installed
 ```
 
-Note that you should call `ghget` or `ghset` whenever the `library` is called.
+Note:
+1. You should call `ghget` or `ghset` whenever the `library` was called.
+2. To reset the permanent storing use `ghset('key', ''). The downloaded files will not be deleted.
+
 
 ## `ghlist`, `ghquery`
 

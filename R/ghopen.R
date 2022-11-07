@@ -55,7 +55,6 @@ ghopen <- function(x, ...) {
     }
     if (length(j)==1) file <- mmstat$files[j]
     if (length(j)>1) {
-
       cat("Possible matches:", "\n ")
       lof <- ghlist()
       cat (paste0(" ", lof[j], "\n"))

@@ -27,6 +27,17 @@ ghget <- function(key="mmstat4", force=FALSE) {
   destfile <- paste0(exdir, '/', key, ".zip")
   if (!file.exists(destfile) || force) download.file(mmstat$repository[[key]]$url, destfile)
   mmstat$files <- unzip(destfile, exdir=exdir)
+  # build short names
+  files <- strsplit(mmstat$files, '/', fixed=TRUE)
+  cmax  <- max(lengths(files))
+  nfiles <- length(files)
+  files <- lapply(files, function(e) { v <- rep(NA_character_, cmax); v[1:length(e)] <- rev(e); v})
+  m     <- matrix(unlist(files), nrow=length(files), ncol=cmax, byrow=TRUE)
+  for (i in 1:(cmax-1)) {
+    dups <- duplicated(m[,1:i])|duplicated(m[,1:i], fromLast=TRUE)
+    m[!dups, (i+1):cmax] <- NA_character_
+  }
+  mmstat$sfiles <- apply(m, 1, function(e) { e <- rev(e); paste0(e[!is.na(e)], collapse="/") })
   options(mmstat.repo=key)
 }
 
@@ -44,6 +55,5 @@ ghset <- function(key, url, install=TRUE) {
   if (install) ghget(key)
   # build list
   if (nchar(dir)>0) saveRDS(mmstat$repository, file=paste0(appdir, "/repositories"), version=2)
-  invisible(data.frame(url=sapply(mmstat$repository, '[[', 'url'),
-                       dir=sapply(mmstat$repository, '[[', 'dir')))
+  invisible(ghrepos())
 }
