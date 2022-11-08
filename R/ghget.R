@@ -25,20 +25,22 @@ ghget <- function(key="mmstat4", force=FALSE) {
   exdir <- mmstat$repository[[key]]$dir
   if (exdir=='') exdir <- tempdir()
   destfile <- paste0(exdir, '/', key, ".zip")
-  if (!file.exists(destfile) || force) download.file(mmstat$repository[[key]]$url, destfile)
-  mmstat$files <- unzip(destfile, exdir=exdir)
-  # build short names
-  files <- strsplit(mmstat$files, '/', fixed=TRUE)
-  cmax  <- max(lengths(files))
-  nfiles <- length(files)
-  files <- lapply(files, function(e) { v <- rep(NA_character_, cmax); v[1:length(e)] <- rev(e); v})
-  m     <- matrix(unlist(files), nrow=length(files), ncol=cmax, byrow=TRUE)
-  for (i in 1:(cmax-1)) {
-    dups <- duplicated(m[,1:i])|duplicated(m[,1:i], fromLast=TRUE)
-    m[!dups, (i+1):cmax] <- NA_character_
+  if (!file.exists(destfile) || force) {
+    download.file(mmstat$repository[[key]]$url, destfile)
+    mmstat$repository[[key]]$files <- unzip(destfile, exdir=exdir)
+    # build short names
+    files  <- strsplit(mmstat$repository[[key]]$files, '[\\/]')
+    cmax   <- max(lengths(files))
+    nfiles <- length(files)
+    files  <- lapply(files, function(e) { v <- rep(NA_character_, cmax); v[1:length(e)] <- rev(e); v})
+    m      <- matrix(unlist(files), nrow=length(files), ncol=cmax, byrow=TRUE)
+    for (i in 1:(cmax-1)) {
+      dups <- duplicated(m[,1:i])|duplicated(m[,1:i], fromLast=TRUE)
+      m[!dups, (i+1):cmax] <- NA_character_
+    }
+    mmstat$repository[[key]]$sfiles <- apply(m, 1, function(e) { e <- rev(e); paste0(e[!is.na(e)], collapse="/") })
   }
-  mmstat$sfiles <- apply(m, 1, function(e) { e <- rev(e); paste0(e[!is.na(e)], collapse="/") })
-  options(mmstat.repo=key)
+  mmstat$repo <- key
 }
 
 #' @rdname ghget
@@ -52,7 +54,8 @@ ghset <- function(key, url, install=TRUE) {
   if (interactive() && askYesNo(sprintf("Download and install repository to '%s'?", appdir))) dir <- appdir
   if (nchar(dir) && !dir.exists(dir)) dir.create(dir, recursive = TRUE)
   mmstat$repository[[key]] <- list(url=url, dir=dir)
-  if (install) ghget(key)
+  # if (install)
+  ghget(key, force=TRUE)
   # build list
   if (nchar(dir)>0) saveRDS(mmstat$repository, file=paste0(appdir, "/repositories"), version=2)
   invisible(ghrepos())

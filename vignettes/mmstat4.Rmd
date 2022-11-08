@@ -80,7 +80,6 @@ ghlist("bnk")  # pattern = "bnk
 ghquery("bnk") # nearest string matching to "bnk"
 ```
 
-
 ## Options
 
 Several options can bet set with `options`

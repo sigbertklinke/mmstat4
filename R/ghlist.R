@@ -12,7 +12,7 @@
 #' if (interactive()) ghlist()
 ghlist <- function(pattern='.', ignore.case = FALSE, perl = FALSE,
                    fixed = FALSE, useBytes = FALSE, full.names=FALSE) {
-  ghget(getOption("mmstat.repo"))
-  x <- if (full.names) mmstat$files else mmstat$sfiles
+  ghget(mmstat$repo)
+  x <- if (full.names) mmstat$repository[[mmstat$repo]]$files else  mmstat$repository[[mmstat$repo]]$sfiles
   x[grepl(pattern, x, ignore.case, perl, fixed, useBytes)]
 }

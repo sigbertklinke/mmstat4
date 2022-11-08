@@ -2,6 +2,7 @@ mmstat            <- new.env(parent=emptyenv())
 mmstat$data       <- list()
 mmstat$lang       <- list()
 mmstat$version    <- '22.2'
+mmstat$repo       <- "mmstat4"
 #
 repolist <- paste0(rappdirs::user_data_dir('mmstat4'), '/repositories')
 if (file.exists(repolist)) {
@@ -12,6 +13,8 @@ if (file.exists(repolist)) {
                             dummy=list(url="https://github.com/sigbertklinke/mmstat4.dummy/archive/refs/heads/main.zip",
                                        dir=''))
 }
+
+
 
 .onLoad <- function(libname, pkgname) {
   # colors
