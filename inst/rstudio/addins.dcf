@@ -1,0 +1,9 @@
+Name: Open file from zip file
+Description: Opens a downloaded file from a ZIP file.
+Binding: ghopenAddin
+Interactive: true
+
+Name: Runs a Shiny app from zip file
+Description: Runs a Shiny app from a ZIP file.
+Binding: ghappAddin
+Interactive: true

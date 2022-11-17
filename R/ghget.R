@@ -26,6 +26,7 @@ ghget <- function(key="mmstat4", force=FALSE) {
   if (exdir=='') exdir <- tempdir()
   destfile <- paste0(exdir, '/', key, ".zip")
   if (!file.exists(destfile) || force) {
+    if (!dir.exists(dirname(destfile))) dir.create(dirname(destfile))
     download.file(mmstat$repository[[key]]$url, destfile)
     mmstat$repository[[key]]$files <- unzip(destfile, exdir=exdir)
     # build short names
@@ -52,7 +53,7 @@ ghset <- function(key, url, install=TRUE) {
   dir    <- ''
   appdir <- user_data_dir('mmstat4')
   if (interactive() && askYesNo(sprintf("Download and install repository to '%s'?", appdir))) dir <- appdir
-  if (nchar(dir) && !dir.exists(dir)) dir.create(dir, recursive = TRUE)
+  if ((nchar(dir)>0) && !dir.exists(dir)) dir.create(dir, recursive = TRUE)
   mmstat$repository[[key]] <- list(url=url, dir=dir)
   # if (install)
   ghget(key, force=TRUE)

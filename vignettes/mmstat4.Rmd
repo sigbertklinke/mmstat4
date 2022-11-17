@@ -27,18 +27,29 @@ suppressPackageStartupMessages(library(mmstat4))
 
 # General
 
-The aim of this package is to make teaching materials for different statistics courses available to students. This includes R, R Markdown, data and PDF files as well as Shiny Apps.
+The aim of this package is to provide teaching material for various statistics courses for students.
 
 The central function `ghopen` can be used to
 
 * Open Shiny Apps, R and R Markdown files in RStudio,
 * load data files and
-* display HTML and PDF files.
+* display HTML and PDF files in a browser
+
+## Getting started
+
+The URL to a zipfile could be `https://github.com/sigbertklinke/mmstat4.dummy/archive/refs/heads/main.zip`. 
+A user-defined key, e.g. `dummy`, can be used via `ghset` to access this URL. 
+`ghset` asks whether the contents of the zip file should be saved permanently or temporarily and downloads it if necessary.
+
+The extracted files are stored locally, e.g. `/tmp/RtmprUedU2/mmstat4.dummy-main/LICENSE`. In addition, unique short names, related to the zip file content, are generated from the path components.
 
 ```{r}
 library("mmstat4")
-ghget("dummy")   # downloads a small repository
-ghquery("bank2") # find data file 
+# downloads a small repository and makes it the current one
+ghget("dummy")  
+ghlist("BANK2", full.names=TRUE) # full names
+ghlist("BANK2")                  # short names
+#
 x <- ghopen("data/BANK2.sav")
 str(x)
 ```
@@ -48,9 +59,9 @@ If you choose to open a non-data set file then invisibly the full path to the fi
 ## `ghget`, `ghset`, `ghrepos`
 
 * `ghset` sets a key to a Zipfile of a GitHub repository. If it runs interactively then
-you are asked if you want to install it locally to reduce the number of downloads. 
+you are asked if you want to install it permanently to reduce the number of downloads. 
 Otherwise it is installed to a temporary directory, see `tempdir()`.
-* `ghget` downloads the GitHub repository if necessary. 
+* `ghget` downloads the GitHub repository if necessary and makes it current one.
 * `ghrepos` returns a data frame with the known repositories.
 
 ```{r, eval=FALSE}
@@ -59,10 +70,7 @@ ghset("test", "https://github.com/sigbertklinke/mmstat4.dummy/archive/refs/heads
 ghget("test") # if not yet installed
 ```
 
-Note:
-1. You should call `ghget` or `ghset` whenever the `library` was called.
-2. To reset the permanent storing use `ghset('key', ''). The downloaded files will not be deleted.
-
+Note: You should call `ghget` or `ghset` whenever the `library` was called.
 
 ## `ghlist`, `ghquery`
 
@@ -85,15 +93,77 @@ ghquery("bnk") # nearest string matching to "bnk"
 Several options can bet set with `options`
 
 * `mmstat.dir` directory where the downloaded repository is stored, default `tempdir()`
-* `mmstat.repo` link to GitHub directory, default `https://github.com/sigbertklinke/mmstat4/archive/refs/heads/main.zip`
 * `mmstat.ext.prg` file extensions for a file to open in RStudio, default `c('', 'r', 'rmd', 'ma', 'py')`
-* `mmstat.ext.doc` file extensions for a file to open ivia `browseURL`, default `c('html', 'pdf')`
+* `mmstat.ext.doc` file extensions for a file to open via `browseURL`, default `c('html', 'pdf')`
 
-# Skripte Dr. Sigbert Klinke, HU Berlin
+## RStudio addins
+
+The package comes with two RStudio addins (see under `Addins -> MMSTAT4`):
+
+* _Open a file from a zip file_ (`ghopenAddin`) which gives access to the unpacked zip file and opens the choosen file into a RStudio editor window.
+
+* _Runs a Shiny app from a zip file_ (`ghappAddin`) which extracts all directories with Shiny apps and opens the choosen app in a web browser (using the default browser).
+
+# Frequently asked questions
+
+## How can I force a reload of a zip file?
+
+```{r, eval=FALSE}
+ghget("dummy", force=TRUE)
+```
+
+## How can I store a zip file permanently?
+
+```{r, eval=FALSE}
+ghset("dummy", "https://github.com/sigbertklinke/mmstat4.dummy/archive/refs/heads/main.zip")
+```
+
+and answer the question after the installation directory with `y`.
+
+## How can I store a zip file temporarly?
+
+```{r, eval=FALSE}
+ghset("dummy", "")
+```
+
+Note: the downloaded files will not be deleted.
+
+## How can I find all directories with Shiny apps?
+
+```{r, eval=FALSE}
+ghget("dummy")
+ghlist(pattern="/(app|server)\\.R$")
+ghopen("dbscan") # open the app
+```
+
+## How can I find all `csv` data files?
+
+```{r}
+ghget("dummy")
+ghlist(pattern="\\.csv$", ignore.case=TRUE, full.names=TRUE)
+# import yourself
+library("rio")
+pechstein <- import(ghlist(pattern="pechstein.csv$", full.names=TRUE))
+str(pechstein)
+# use mmstat4 for importing
+ghlist(pattern="\\.csv$")
+pechstein <- ghopen("pechstein.csv")
+str(pechstein)
+```
+
+## Which data files are in the package `mmstat4` ?
+
+```{r}
+df <- data(package="mmstat4")
+df$results[,'Item']
+data("bank2")
+str(bank2)
+```
+
+
+# Lecture Notes Sigbert Klinke, HU Berlin
 
 ## Basic statistics I+II (in german)
-
-* Slides, exercises, solution and formulary for Statistics I+II (in german)
 
 Mathematische Grundlagen - Einführung - Grundbegriffe - Univariate Verteilungen - Parameter  univariater Verteilungen - Bivariate Verteilungen - Parameter bivariater Verteilungen - Regressionanalyse - Zeitreihenanalyse - Indexzahlen - Wahrscheinlichkeitsrechnung - Zufallsvariablen - So lügt man mit Statistik - Wichtige Verteilungsmodelle - Stichprobentheorie - Statistische Schätzverfahren - Regressionsmodell - Konfidenzintervalle - Statistische Testverfahren - Parameterische Tests - Nichtparametrische Tests
 
@@ -105,7 +175,7 @@ ghopen("Loesungen.pdf")
 ghopen("Formelsammlung.pdf")
 ```
 
-* Slides for Data Analysis I+II
+## Data analysis
 
 General - R - Basics and data generation - Test and estimation theory - Parameter of
 distributions - Distribution - Transformations - Robust statistics - Missing values -
@@ -114,15 +184,10 @@ Regression analysis - Linear regression - Nonparametric regression - Classificat
 
 ```{r, eval=FALSE}
 ghget("mmstat4")
-ghopen("Statistik.pdf")
-ghopen("Aufgaben.pdf")
-ghopen("Loesungen.pdf")
-ghopen("Formelsammlung.pdf")
+ghopen("dataanalysis.pdf")
 ```
 
-## Data analysis I+II
-
-# Skripte Prof. Bernd Rönz, HU Berlin (in german)
+# Lecture Notes Bernd Rönz, HU Berlin (in german)
 
 ## Computergestützte Statistik I mit SPSS 10 (2001)
 
@@ -130,7 +195,7 @@ Einführung - Entdeckung und Identifikation von Ausreißern - Prüfung der Verte
 
 ```{r, eval=FALSE}
 ghget("mmstat4")
-ghopen("cs1.pdf")
+ghopen("cs1_roenz.pdf")
 ```
 
 ## Computergestützte Statistik II mit SPSS 10 (2000)
@@ -148,5 +213,5 @@ Einführung - Verallgemeinerte lineare Modelle (generalized linear models, GLM) 
 
 ```{r, eval=FALSE}
 ghget("mmstat4")
-ghopen("glm.pdf")
+ghopen("glm_roenz.pdf")
 ```
