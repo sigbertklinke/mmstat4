@@ -1,5 +1,5 @@
 Package: mmstat4
-Title: A tool to access teaching materials from the internet locally
+Title: A Tool to Access Teaching Materials from the Internet Locally
 Version: 22.2
 Authors@R: 
   c(person(given = "Sigbert",
@@ -11,9 +11,12 @@ Authors@R:
            role = c("ctb"),
            email = "bernd.roenz@web.de")
            )
-Description: The package provides local access to teaching materials on the internet stored as ZIP files (e.g. from a GitHub repository). 
-    The default repository is the GitHub repository 'sigbertklinke/mmstat4.data', which contains R programs, Shiny apps, data 
-    and PDF documents for several statistics courses. In addition, some functions are implemented that are needed for the Shiny apps.
+Description: Teaching materials, e.g. R programs, Shiny apps, data and PDF documents stored 
+    on the internet in a ZIP file (e.g. as a GitHub repository) can be downloaded and displayed
+    and executed locally. The contents of the ZIP file are stored locally temporarily or permanently. 
+    The standard repository used is the GitHub repository 'sigbertklinke/mmstat4.data', which contains 
+    R programs, Shiny apps, data and PDF documents for various statistics courses. In addition, 
+    some functions are implemented that are needed for the Shiny apps.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true

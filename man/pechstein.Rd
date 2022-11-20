@@ -13,7 +13,7 @@ A data frame with 29 rows and 3 variables:
 }
 }
 \source{
-\href{http://www.bild.de/sport/mehr-sport/claudia-pechstein/was-verraten-ihre-blutwerte-im-doping-skandal-8932510.bild.html}{Bild.de, 17.07.2009}
+Bild.de, 17.07.2009, behind paywall: https://www.bild.de/sport/mehr-sport/claudia-pechstein/was-verraten-ihre-blutwerte-im-doping-skandal-8932510.bild.html
 }
 \usage{
 pechstein

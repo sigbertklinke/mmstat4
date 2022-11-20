@@ -344,7 +344,7 @@
 #' 7. __Sex__ Gender (female/male)
 #' 8. __CivilState__ Marital status (married/not married)
 #'
-#' @source Exercept from [Kreditscoring zur Klassifikation von Kreditnehmern. 2010. Open Data LMU.](https://doi.org/10.5282/ubm/data.23)
+#' @source Exercept from [Kreditscoring zur Klassifikation von Kreditnehmern. 2010. Open Data LMU.](https://data.ub.uni-muenchen.de/23/)
 #' @references
 #' * Fahrmeir, L. / Tutz, G. (1994): Multivariate Statistical Modelling Based on Generalized Linear Models. Springer, New York.
 #' * Fahrmeir, L. / Hamerle, A. / Tutz, G. (1984, 1. Aufl.): Multivariate statistische Verfahren. de Gruyter, Berlin.
@@ -462,8 +462,25 @@
 #' 2. __Tag__ Date of control as days from 1st Jan 2000
 #' 3. __Retikulozyten__ Reticulocytes levels
 #'
-#' @source [Bild.de, 17.07.2009](http://www.bild.de/sport/mehr-sport/claudia-pechstein/was-verraten-ihre-blutwerte-im-doping-skandal-8932510.bild.html)
+#' @source Bild.de, 17.07.2009, behind paywall: https://www.bild.de/sport/mehr-sport/claudia-pechstein/was-verraten-ihre-blutwerte-im-doping-skandal-8932510.bild.html
 "pechstein"
+
+#' pechstein_isu
+#'
+#' Claudia Pechstein is a German speed skater which was banned because of blood doping.
+#' The ban was based on irregular levels of reticulocytes in her blood. The data set
+#' with the full values from the 95 blood controls since 2000. The threshold value
+#' the ISU used was 2.4.
+#'
+#' @format A data frame with 29 rows and 3 variables:
+#'
+#' 1. __no__ Number of control from 1 to 95
+#' 2. __date__ Date of control as `Date`
+#' 3. __place__ Place of control, `(Out of Competition)` means a control during training
+#' 3. __reti__ Reticulocytes levels in percent
+#'
+#' @source [Blog of Jens Weinreich, 08.07.2009](https://www.jensweinreich.de/2009/07/08/die-blutkontrollen-von-claudia-pechstein/)
+"pechstein_isu"
 
 #' titanic3
 #'

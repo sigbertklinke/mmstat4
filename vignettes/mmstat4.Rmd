@@ -32,8 +32,8 @@ The aim of this package is to provide teaching material for various statistics c
 The central function `ghopen` can be used to
 
 * Open Shiny Apps, R and R Markdown files in RStudio,
-* load data files and
-* display HTML and PDF files in a browser
+* load data files, and
+* display HTML and PDF files in a browser.
 
 ## Getting started
 
@@ -56,21 +56,18 @@ str(x)
 
 If you choose to open a non-data set file then invisibly the full path to the file is returned.
 
-## `ghget`, `ghset`, `ghrepos`
+## `ghget`, `ghrepos`
 
-* `ghset` sets a key to a Zipfile of a GitHub repository. If it runs interactively then
-you are asked if you want to install it permanently to reduce the number of downloads. 
-Otherwise it is installed to a temporary directory, see `tempdir()`.
-* `ghget` downloads the GitHub repository if necessary and makes it current one.
+* `ghget` makes the last repository the current one and downloads it if necessary.
 * `ghrepos` returns a data frame with the known repositories.
 
-```{r, eval=FALSE}
+```{r}
 library("mmstat4")
-ghset("test", "https://github.com/sigbertklinke/mmstat4.dummy/archive/refs/heads/main.zip")
-ghget("test") # if not yet installed
+ghget(test="https://github.com/sigbertklinke/mmstat4.dummy/archive/refs/heads/main.zip") # make it the current repo and installs it if necessary
+ghrepos()
 ```
 
-Note: You should call `ghget` or `ghset` whenever the `library` was called.
+Note: You should call `ghget` whenever the `library` was called to set the current repository. 
 
 ## `ghlist`, `ghquery`
 
@@ -109,24 +106,21 @@ The package comes with two RStudio addins (see under `Addins -> MMSTAT4`):
 ## How can I force a reload of a zip file?
 
 ```{r, eval=FALSE}
-ghget("dummy", force=TRUE)
+ghget("dummy", .force=TRUE)
 ```
 
-## How can I store a zip file permanently?
+## How can I store a zip file permanently or temporarily?
 
 ```{r, eval=FALSE}
-ghset("dummy", "https://github.com/sigbertklinke/mmstat4.dummy/archive/refs/heads/main.zip")
+ghget("dummy", .force=TRUE)
 ```
 
-and answer the question after the installation directory with `y`.
+and answer the question  `Download and install repository to 'xxx'? (Yes/no/cancel)` with
 
-## How can I store a zip file temporarly?
+* `y` to install it permamently to `XXX`, or
+* `n` to install it temporarily.
 
-```{r, eval=FALSE}
-ghset("dummy", "")
-```
-
-Note: the downloaded files will not be deleted.
+Note: If a repository was installed permanently and you switch back temporarily then the downloaded files will not be deleted.
 
 ## How can I find all directories with Shiny apps?
 
@@ -160,22 +154,38 @@ data("bank2")
 str(bank2)
 ```
 
+# Default repositories
 
-# Lecture Notes Sigbert Klinke, HU Berlin
+The package has three default repositories: `dummy`, `hu.stat`, and  `hu.data`. 
 
-## Basic statistics I+II (in german)
+```{r, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+tabl <- "
+| Repository       | Size          | ZIP file location |
+| :--------------- | :-------------| :--------|
+| `dummy`          | 3 MB          | `https://github.com/sigbertklinke/mmstat4.dummy/archive/refs/heads/main.zip`  |
+| `hu.stat`        | 40 MB         | `https://github.com/sigbertklinke/mmstat4.data/archive/refs/heads/main.zip`   |
+| `hu.data`        | 20 MB         | `https://github.com/sigbertklinke/mmstat4.stat/archive/refs/heads/main.zip`   |
+"
+cat(tabl) 
+```
+
+`dummy` is small subsample of `hu.stat` and `hu.data` which is intended for examples and test purposes. 
+
+## Lecture Notes Sigbert Klinke, HU Berlin
+
+### Basic statistics I+II (in german)
 
 Mathematische Grundlagen - Einführung - Grundbegriffe - Univariate Verteilungen - Parameter  univariater Verteilungen - Bivariate Verteilungen - Parameter bivariater Verteilungen - Regressionanalyse - Zeitreihenanalyse - Indexzahlen - Wahrscheinlichkeitsrechnung - Zufallsvariablen - So lügt man mit Statistik - Wichtige Verteilungsmodelle - Stichprobentheorie - Statistische Schätzverfahren - Regressionsmodell - Konfidenzintervalle - Statistische Testverfahren - Parameterische Tests - Nichtparametrische Tests
 
 ```{r, eval=FALSE}
-ghget("mmstat4")
+ghget("hu.stat")
 ghopen("Statistik.pdf")
 ghopen("Aufgaben.pdf")
 ghopen("Loesungen.pdf")
 ghopen("Formelsammlung.pdf")
 ```
 
-## Data analysis
+### Data analysis
 
 General - R - Basics and data generation - Test and estimation theory - Parameter of
 distributions - Distribution - Transformations - Robust statistics - Missing values -
@@ -183,35 +193,35 @@ Subgroup analysis - Correlation and association - Multivariate graphics - Princi
 Regression analysis - Linear regression - Nonparametric regression - Classification and regression trees - Neural networks
 
 ```{r, eval=FALSE}
-ghget("mmstat4")
+ghget("hu.data")
 ghopen("dataanalysis.pdf")
 ```
 
-# Lecture Notes Bernd Rönz, HU Berlin (in german)
+## Lecture Notes Bernd Rönz, HU Berlin (in german)
 
-## Computergestützte Statistik I mit SPSS 10 (2001)
+### Computergestützte Statistik I mit SPSS 10 (2001)
 
 Einführung - Entdeckung und Identifikation von Ausreißern - Prüfung der Verteilungsform von Variablen - Parametervergleiche bei unbhängigen Stichproben - Anhänge A-D, Literaturverzeichnis, Index
 
 ```{r, eval=FALSE}
-ghget("mmstat4")
+ghget("hu.data")
 ghopen("cs1_roenz.pdf")
 ```
 
-## Computergestützte Statistik II mit SPSS 10 (2000)
+### Computergestützte Statistik II mit SPSS 10 (2000)
 
 Vorwort - Überprüfung von Zusammenhängen - Regressionsanalyse - Reliabilitäts- und Homogenitätsanalyse von Konstrukten - Anhänge A-H, Literaturverzeichnis, Stichwortverzeichnis
 
 ```{r, eval=FALSE}
-ghget("mmstat4")
+ghget("hu.data")
 ghopen("cs2_roenz.pdf")
 ```
 
-## Generalisierte lineare Modelle mit SPSS 10 (2001)
+### Generalisierte lineare Modelle mit SPSS 10 (2001)
 
 Einführung - Verallgemeinerte lineare Modelle (generalized linear models, GLM) - Modellierung binärer Daten - Das multinomiale Logit Modell - Modellierung multinomialer Daten (log-lineare Modelle) - Literaturverzeichnis, Index 
 
 ```{r, eval=FALSE}
-ghget("mmstat4")
+ghget("hu.data")
 ghopen("glm_roenz.pdf")
 ```

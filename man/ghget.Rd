@@ -2,34 +2,29 @@
 % Please edit documentation in R/ghget.R
 \name{ghget}
 \alias{ghget}
-\alias{ghset}
 \title{ghget}
 \usage{
-ghget(key = "mmstat4", force = FALSE)
-
-ghset(key, url, install = TRUE)
+ghget(..., .force = FALSE)
 }
 \arguments{
-\item{key}{character: directory name (default: \code{mmstat4})}
+\item{...}{parameters to set and activate a repository}
 
-\item{force}{logical: download and unzip in any case? (default: \code{FALSE})}
-
-\item{url}{character: URL to zip file of repository, default is the mmstat4 repository}
-
-\item{install}{logical: call \code{ghget} in \code{ghset}? (default: \code{TRUE})}
+\item{.force}{logical: download and unzip in any case? (default: \code{FALSE})}
 }
 \value{
-nothing
+the name of the activated directory
 }
 \description{
-\itemize{
-\item \code{ghset} set for a key the installation directory and GitHubs Zip URL. If \code{dir} is \code{NULL} then \code{tempdir()} is used.
-\item \code{ghget} downloads the GitHub repository and unzips it if necessary.
+Makes a repository the active repository and downloads it if neceassary.
+If the function is run interactively then you are asked if you want to store the repository in the application directory
+\code{\link[rappdirs:user_data_dir]{rappdirs::user_data_dir()}} for \code{mmstat4} or in the temporary directory \code{\link[=tempdir]{tempdir()}}. Otherwise the stored directory
+path is used (usually \code{\link[=tempdir]{tempdir()}}).
 }
+\details{
+Note, the list of repository names, directories and urls is stored in the installation directory, too.
 }
 \examples{
 if (interactive()) {
-  ghget("dummy")
-  ghget()        # or ghget("mmstat4")
+
 }
 }

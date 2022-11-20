@@ -18,7 +18,7 @@ A data frame with 1000 rows and 8 variables:
 }
 }
 \source{
-Exercept from \href{https://doi.org/10.5282/ubm/data.23}{Kreditscoring zur Klassifikation von Kreditnehmern. 2010. Open Data LMU.}
+Exercept from \href{https://data.ub.uni-muenchen.de/23/}{Kreditscoring zur Klassifikation von Kreditnehmern. 2010. Open Data LMU.}
 }
 \usage{
 credit
