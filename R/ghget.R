@@ -49,7 +49,7 @@ ghget <- function(..., .force=FALSE) {
   destfile <- paste0(exdir, '/', key, ".zip")
   if (.force || !file.exists(destfile)) {
     appdir <- user_data_dir('mmstat4')
-    if (interactive() && askYesNo(sprintf("Download and install repository to '%s'?", appdir))) {
+    if (interactive() && askYesNo(sprintf("Install downloaded repository to '%s'?", appdir))) {
       mmstat$repository[[key]]$dir <- appdir
     } else {
       mmstat$repository[[key]]$dir <- ''

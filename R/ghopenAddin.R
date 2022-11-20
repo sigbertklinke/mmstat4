@@ -32,7 +32,7 @@ ghopenAddin <- function() {
 ghappAddin <- function() {
   dirs  <- ghdecompose(ghlist(full.names=TRUE, pattern="/(server|app)\\.R$"))
   if (nrow(dirs)) {
-    index <- which(tk_select.list(dirs$uniquepath, title="Select Shiny app")==dirs$uniquepath)
+    index <- which(tk_select.list(dirs$minpath, title="Select Shiny app")==dirs$minpath)
     if (length(index)) runApp(appDir=dirname(dirs$source[index]), launch.browser=TRUE)
   }
 }
