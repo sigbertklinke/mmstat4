@@ -1,5 +1,3 @@
-
-
 #' ghopenAddin
 #'
 #' A RStudio addin to open a file from the downloaded zip file.
@@ -11,10 +9,12 @@
 #' @examples
 #' if (interactive()) ghopenAddin()
 ghopenAddin <- function() {
-  pathes <- ghdecompose(ghlist(full.names=TRUE))
-  if (nrow(pathes)) {
-    file <- selectFile(path=paste0(pathes$commonpath[1], collapse="/"))
-    if (length(file)) navigateToFile(file)
+  if(require("mmstat4")) {
+    pathes <- ghdecompose(ghlist(full.names=TRUE))
+    if (nrow(pathes)) {
+      file <- selectFile(path=paste0(pathes$commonpath[1], collapse="/"))
+      if (length(file)) navigateToFile(file)
+    }
   }
 }
 
@@ -30,9 +30,11 @@ ghopenAddin <- function() {
 #' @examples
 #' if (interactive()) ghappAddin()
 ghappAddin <- function() {
-  dirs  <- ghdecompose(ghlist(full.names=TRUE, pattern="/(server|app)\\.R$"))
-  if (nrow(dirs)) {
-    index <- which(tk_select.list(dirs$minpath, title="Select Shiny app")==dirs$minpath)
-    if (length(index)) runApp(appDir=dirname(dirs$source[index]), launch.browser=TRUE)
+  if(require("mmstat4")) {
+    dirs  <- ghdecompose(ghlist(full.names=TRUE, pattern="/(server|app)\\.R$"))
+    if (nrow(dirs)) {
+      index <- which(tk_select.list(dirs$minpath, title="Select Shiny app")==dirs$minpath)
+      if (length(index)) runApp(appDir=dirname(dirs$source[index]), launch.browser=TRUE)
+    }
   }
 }

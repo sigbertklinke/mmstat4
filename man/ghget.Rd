@@ -15,7 +15,7 @@ ghget(..., .force = FALSE)
 the name of the activated directory
 }
 \description{
-Makes a repository the active repository and downloads it if neceassary.
+Makes a repository the active repository and downloads it if necessary.
 If the function is run interactively then you are asked if you want to store the repository in the application directory
 \code{\link[rappdirs:user_data_dir]{rappdirs::user_data_dir()}} for \code{mmstat4} or in the temporary directory \code{\link[=tempdir]{tempdir()}}. Otherwise the stored directory
 path is used (usually \code{\link[=tempdir]{tempdir()}}).

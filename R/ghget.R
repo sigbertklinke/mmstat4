@@ -1,6 +1,6 @@
 #' ghget
 #'
-#' Makes a repository the active repository and downloads it if neceassary.
+#' Makes a repository the active repository and downloads it if necessary.
 #' If the function is run interactively then you are asked if you want to store the repository in the application directory
 #' [rappdirs::user_data_dir()] for `mmstat4` or in the temporary directory [tempdir()]. Otherwise the stored directory
 #' path is used (usually [tempdir()]).
@@ -22,9 +22,9 @@
 ghget <- function(..., .force=FALSE) {
   # analyse function parameter
   call <- match.call()
-  key <- NULL
+  key  <- NULL
   if (length(call)==1) {
-    key <- 'mmstat4'
+    key <- 'hu.data'
   } else {
     ncall <- names(call)
     if (is.null(ncall)) ncall <- rep('', length(call))
