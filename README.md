@@ -10,5 +10,5 @@ Since the package is not available at CRAN it has to be installed from GitHub:
 
 ```R
 library("devtools")
-install_github("sigbertklinke/mmstat4")
+install_github(build_vignettes = TRUE)
 ```

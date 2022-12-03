@@ -27,3 +27,7 @@ mmstat$repo <- if ('hu.data' %in% reponames) 'hu.data' else reponames[1]
           mmstat.ext.prg        = c('', 'r', 'rmd', 'ma', 'py')
   )
 }
+
+.onAttach <- function(libname, pkgname) {
+  packageStartupMessage('See the package vignette with `vignette("mmstat4")`')
+}
