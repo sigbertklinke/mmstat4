@@ -9,62 +9,63 @@
 #'
 #' @param ... parameters to set and activate a repository
 #' @param .force logical: download and unzip in any case? (default: `FALSE`)
-#'
-#' @return the name of the activated directory
-#' @importFrom utils download.file unzip askYesNo
+#' @param .tempdir logical or character: store download temporary or permanently (default: `getOption("mmstat4.tempdir")`)
+#' * if `.tempdir==NA` then you will be asked where to store the downloaded zip file
+#' * if `.tempdir==TRUE` then the downloaded zip file will be stored temporarily in [tempdir()]
+#' * if `.tempdir==FALSE` then the downloaded zip file will be stored temporarily in [rappdirs::user_data_dir()]
+#' * otherwise it is assumed that you give the name of an existing directory to store the downloaded zip file
+#' @return invisibly the name of the current key
+#' @importFrom utils download.file unzip
 #' @importFrom rappdirs user_data_dir
 #' @export
 #'
 #' @examples
 #' if (interactive()) {
-#'
+#'   # get one of the default ZIP file from internet
+#'   ghget("hu.data")
+#'   # get a locally stored zip file
+#'   ghget(dummy2=system.file("zip", "mmstat4.dummy.zip", package="mmstat4"))
+#'   # get from an URL
+#'   ghget(dummy.url="https://github.com/sigbertklinke/mmstat4.dummy/archive/refs/heads/main.zip")
 #' }
-ghget <- function(..., .force=FALSE) {
+ghget <- function(..., .force=FALSE, .tempdir=TRUE) {
   # analyse function parameter
-  call <- match.call()
-  key  <- NULL
-  if (length(call)==1) {
-    key <- 'hu.data'
-  } else {
-    ncall <- names(call)
-    if (is.null(ncall)) ncall <- rep('', length(call))
-    ccall <- sapply(call, class)
-    for (i in 2:length(call)) {
-      if (ncall[i]=='') { # no assignment
-        key <- if (ccall[i]=="call") eval(call[[i]]) else as.character(call[[i]])
+  args <- list(...)
+  stopifnot(length(args)==1)
+  nargs <- names(args)
+  if (is.null(nargs)) { # repo name (must exist)
+    key <- if (is.null(args[[1]])) 'hu.data' else as.character(args[[1]])
+    stopifnot(key %in% names(mmstat$repository))
+  } else { # repo=URL or file
+    key <- nargs
+    # determine target directory after download
+    if (is.logical(.tempdir)) {
+      if (isFALSE(.tempdir)) {
+        mmstat$repository[[key]]$dir <- user_data_dir('mmstat4')
       } else {
-        if (ncall[i]!='.force') {
-          key <- ncall[i]
-          mmstat$repository[[key]] <- list(url=if (ccall[[i]]=='call') eval(call[[i]]) else as.character(call[[i]]), dir='')
-        }
+        mmstat$repository[[key]]$dir <- ''
       }
-      if (is.null(mmstat$repository[[key]])) warning(sprintf("Repository '%s' does not exist", key))
+    } else {
+      mmstat$repository[[key]]$dir <- as.character(.tempdir)
     }
+    mmstat$repository[[key]]$url <- as.character(args[[1]])
   }
-  #
-  stopifnot(key %in% names(mmstat$repository))
-  # download zip file, if neccessary
   exdir <- mmstat$repository[[key]]$dir
   if (exdir=='') exdir <- tempdir()
+  # download zip file, if neccessary
   destfile <- paste0(exdir, '/', key, ".zip")
   if (.force || !file.exists(destfile)) {
-    appdir <- user_data_dir('mmstat4')
-    if (interactive() && askYesNo(sprintf("Install downloaded repository to '%s'?", appdir))) {
-      mmstat$repository[[key]]$dir <- appdir
+    if (file.exists(mmstat$repository[[key]]$url)) {
+      file.copy(mmstat$repository[[key]]$url, destfile)
     } else {
-      mmstat$repository[[key]]$dir <- ''
+      download.file(mmstat$repository[[key]]$url, destfile, quiet = !interactive())
     }
-    exdir <- mmstat$repository[[key]]$dir
-    if (exdir=='') exdir <- tempdir()
-    destfile <- paste0(exdir, '/', key, ".zip")
-    download.file(mmstat$repository[[key]]$url, destfile, quiet = !interactive())
     # build names
     mmstat$repository[[key]]$files  <- unzip(destfile, exdir=exdir)
     mmstat$repository[[key]]$sfiles <- ghpath(ghdecompose(mmstat$repository[[key]]$files))
     # save modified repos, if necessary
-    if (nchar(mmstat$repository[[key]]$dir)>0)
-      saveRDS(mmstat$repository, file=paste0(appdir, "/repositories"), version=2)
+    if (nchar(mmstat$repository[[key]]$dir)>0) saveRDS(mmstat$repository, file=paste0(exdir, "/repositories"), version=2)
   }
   mmstat$repo <- key
-  key
+  invisible(key)
 }

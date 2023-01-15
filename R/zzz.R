@@ -16,8 +16,7 @@ if (file.exists(repolist)) {
                  dir='')
     )
 }
-reponames <- names(mmstat$repository)
-mmstat$repo <- if ('hu.data' %in% reponames) 'hu.data' else reponames[1]
+mmstat$repo <- NULL
 
 .onLoad <- function(libname, pkgname) {
   # colors

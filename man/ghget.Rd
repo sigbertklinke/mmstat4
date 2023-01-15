@@ -4,15 +4,23 @@
 \alias{ghget}
 \title{ghget}
 \usage{
-ghget(..., .force = FALSE)
+ghget(..., .force = FALSE, .tempdir = TRUE)
 }
 \arguments{
 \item{...}{parameters to set and activate a repository}
 
 \item{.force}{logical: download and unzip in any case? (default: \code{FALSE})}
+
+\item{.tempdir}{logical or character: store download temporary or permanently (default: \code{getOption("mmstat4.tempdir")})
+\itemize{
+\item if \code{.tempdir==NA} then you will be asked where to store the downloaded zip file
+\item if \code{.tempdir==TRUE} then the downloaded zip file will be stored temporarily in \code{\link[=tempdir]{tempdir()}}
+\item if \code{.tempdir==FALSE} then the downloaded zip file will be stored temporarily in \code{\link[rappdirs:user_data_dir]{rappdirs::user_data_dir()}}
+\item otherwise it is assumed that you give the name of an existing directory to store the downloaded zip file
+}}
 }
 \value{
-the name of the activated directory
+invisibly the name of the current key
 }
 \description{
 Makes a repository the active repository and downloads it if necessary.
@@ -25,6 +33,11 @@ Note, the list of repository names, directories and urls is stored in the instal
 }
 \examples{
 if (interactive()) {
-
+  # get one of the default ZIP file from internet
+  ghget("hu.data")
+  # get a locally stored zip file
+  ghget(dummy2=system.file("zip", "mmstat4.dummy.zip", package="mmstat4"))
+  # get from an URL
+  ghget(dummy.url="https://github.com/sigbertklinke/mmstat4.dummy/archive/refs/heads/main.zip")
 }
 }

@@ -44,13 +44,13 @@ A user-defined key, e.g. `dummy`, can be used via `ghset` to access this URL.
 The extracted files are stored locally, e.g. `/tmp/RtmprUedU2/mmstat4.dummy-main/LICENSE`. In addition, unique short names, related to the zip file content, are generated from the path components.
 
 ```{r}
-library("mmstat4")
 # downloads a small repository and makes it the current one
-ghget("dummy")  
+ghget("dummy")    
+ghrepos()
 ghlist("BANK2", full.names=TRUE) # full names
 ghlist("BANK2")                  # short names
 #
-x <- ghopen("data/BANK2.sav")
+x <- ghload("data/BANK2.sav")
 str(x)
 ```
 
@@ -63,7 +63,7 @@ If you choose to open a non-data set file then invisibly the full path to the fi
 
 ```{r}
 library("mmstat4")
-ghget(test="https://github.com/sigbertklinke/mmstat4.dummy/archive/refs/heads/main.zip") # make it the current repo and installs it if necessary
+ghget(test="https://github.com/sigbertklinke/mmstat4.dummy/archive/refs/heads/main.zip", .tempdir=TRUE) # make it the current repo and installs it if necessary
 ghrepos()
 ```
 
@@ -85,14 +85,6 @@ ghlist("bnk")  # pattern = "bnk
 ghquery("bnk") # nearest string matching to "bnk"
 ```
 
-## Options
-
-Several options can bet set with `options`
-
-* `mmstat.dir` directory where the downloaded repository is stored, default `tempdir()`
-* `mmstat.ext.prg` file extensions for a file to open in RStudio, default `c('', 'r', 'rmd', 'ma', 'py')`
-* `mmstat.ext.doc` file extensions for a file to open via `browseURL`, default `c('html', 'pdf')`
-
 ## RStudio addins
 
 The package comes with two RStudio addins (see under `Addins -> MMSTAT4`):
@@ -112,20 +104,26 @@ ghget("dummy", .force=TRUE)
 ## How can I store a zip file permanently or temporarily?
 
 ```{r, eval=FALSE}
-ghget("dummy", .force=TRUE)
+ghget("dummy", .force=TRUE) 
 ```
 
-and answer the question  `Download and install repository to 'xxx'? (Yes/no/cancel)` with
+and answer the question  `"Install downloaded repository to a temporary directory instead of 'xxx'?"` with
 
-* `y` to install it permamently to `XXX`, or
-* `n` to install it temporarily.
+* `y` to install it temporarily, or
+* `n` to install it permamently to `xxx`.
 
-Note: If a repository was installed permanently and you switch back temporarily then the downloaded files will not be deleted.
+```{r, eval=FALSE}
+ghget("dummy", .force=TRUE, .tempdir=TRUE)  # store temporarily in tempdir()
+ghget("dummy", .force=TRUE, .tempdir=FALSE) # store permanently 
+ghget("dummy", .force=TRUE, .tempdir="~") # store permanently in my home directory
+```
+
+Note: If a repository was installed permanently and you switch back to temporarily storage then the downloaded files will not be deleted.
 
 ## How can I find all directories with Shiny apps?
 
 ```{r, eval=FALSE}
-ghget("dummy")
+ghget("dummy", .tempdir=TRUE)
 ghlist(pattern="/(app|server)\\.R$")
 ghopen("dbscan") # open the app
 ```
@@ -133,7 +131,7 @@ ghopen("dbscan") # open the app
 ## How can I find all `csv` data files?
 
 ```{r}
-ghget("dummy")
+ghget("dummy", .tempdir=TRUE)
 ghlist(pattern="\\.csv$", ignore.case=TRUE, full.names=TRUE)
 # import yourself
 library("rio")
@@ -141,17 +139,8 @@ pechstein <- import(ghlist(pattern="pechstein.csv$", full.names=TRUE))
 str(pechstein)
 # use mmstat4 for importing
 ghlist(pattern="\\.csv$")
-pechstein <- ghopen("pechstein.csv")
+pechstein <- ghload("pechstein.csv")
 str(pechstein)
-```
-
-## Which data files are in the package `mmstat4` ?
-
-```{r}
-df <- data(package="mmstat4")
-df$results[,'Item']
-data("bank2")
-str(bank2)
 ```
 
 # Default repositories

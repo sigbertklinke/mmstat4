@@ -97,9 +97,9 @@
 #' @references GESIS - Leibniz-Institut für Sozialwissenschaften (2013). Allgemeine Bevölkerungsumfrage der Sozialwissenschaften ALLBUS 2012. GESIS Datenarchiv, Köln. ZA4614 Datenfile Version 1.1.1, https://doi.org/10.4232/1.11753.
 "allbus2012"
 
-#' allbus2018
-#'
-#' An exercept of some variables of the ALLBUS 2018 data set.
+#' @rdname allbus2018
+#' @title allbus2018
+#' @description An exercept of some variables of the ALLBUS 2018 data set.
 #'
 #' @format A data frame with 3477 rows and 20 variables:
 #'
@@ -126,6 +126,9 @@
 #'
 #' @references GESIS - Leibniz-Institut für Sozialwissenschaften (2019). German General Social Survey - ALLBUS 2018. GESIS Datenarchiv, Köln. ZA5272 Datenfile Version 1.0.0, https://doi.org/10.4232/1.13325.
 "allbus2018"
+
+#' @rdname allbus2018
+"allbus"
 
 #' anscombe
 #'
@@ -155,7 +158,7 @@
 #' 5. __LOWER__ lower margin width (mm)
 #' 6. __DIAGONAL__ length of diagonal (mm)
 #'
-#' @source Flury, B. and Riedwyl, H. (1988). Multivariate Statistics: A practical approach. London: Chapman & Hall, Tables 1.1 and 1.2, pp. 5-8.
+#' @source Flury, B. and Riedwyl, H. (1988). Multivariate Statistics: A practical approach. London: Chapman Hall, Tables 1.1 and 1.2, pp. 5-8.
 "bank2"
 
 #' benzinverbrauch
@@ -254,7 +257,7 @@
 #' 1. __Cement__ Cement (in kg/m$^3$ concrete)
 #' 2. __Slag__ Slag (in kg/m$^3$ concrete)
 #' 3. __Flyash__ Fly ash (in kg/m$^3$ concrete)
-#' 4. __Water__ Water (in kg/m$^3$ concrete)\\
+#' 4. __Water__ Water (in kg/m$^3$ concrete)
 #' 5. __SP__ Superplasticizer (in kg/m$^3$ concrete)
 #' 6. __CoarseAggr__ Coarse sand (in kg/m$^3$ concrete)
 #' 7. __FineAggr__ Fine sand (in kg/m$^3$ concrete)
@@ -297,9 +300,15 @@
 #' @source [Norušis, Marija J. IBM SPSS Statistics 19: Guide to Data Analysis. Internat. ed. Upper Saddle River: Prentice Hall, 2011.](http://www.norusis.com/book_DA_v19.php)
 "country"
 
-#' cp75_85
-#'
-#' The Current Population Survey (CPS) is used to supplement census information between census years. These data consist of a random sample of 534 persons from the CPS 1985 and 550 persons from the CPS 1978, with information on wages and other characteristics of the workers, including sex, number of years of education, years of work experience, occupational status, region of residence and union membership. We wish to determine (i) whether wages are related to these characteristics and (ii) whether there is a gender gap in wages.
+
+#' @rdname cps75_85
+#' @title cps75_85
+#' @description The Current Population Survey (CPS) is used to supplement census information between census years.
+#' These data consist of a random sample of 534 persons from the CPS 1985 and 550 persons from the CPS 1978,
+#' with information on wages and other characteristics of the workers, including sex, number of years of education,
+#' years of work experience, occupational status, region of residence and union membership.
+#' We wish to determine (i) whether wages are related to these characteristics and
+#' (ii) whether there is a gender gap in wages.
 #'
 #' @format A data frame with 1084 rows and 11 variables:
 #'
@@ -318,6 +327,9 @@
 #' @source [Statlib: Determinants of Wages from the 1985 Current Population Survey](http://lib.stat.cmu.edu/datasets/CPS_85_Wages), 1978 Current Population Survey (???)
 #' @references Berndt, ER. (1991) The Practice of Econometrics, NY: Addison-Wesley.
 "cps78_85"
+
+#' @rdname cps75_85
+"cps"
 
 #' credit
 #'
@@ -353,9 +365,9 @@
 #' * Feilmeier, M. / Fergel, I. / Segerer, G. (1981): Lineare Diskriminanz- und Clusteranalyseverfahren bei Kreditscoring-Systemen. Zeitschrift für Operations Research, 25/B, 25-28.
 "credit"
 
-#' sas_body
-#'
-#' The data set consists of data about children taken from the SAS online documentation V8:
+#' @rdname sas_body
+#' @title sas_body
+#' @description The data set consists of data about children taken from the SAS online documentation V8:
 #'
 #' @format A data frame with 237 rows and 4 variables:
 #'
@@ -366,6 +378,9 @@
 #'
 #' @source SAS online documentation V8
 "sas_body"
+
+#' @rdname sas_body
+"body"
 
 #' salary
 #'
@@ -383,7 +398,7 @@
 #' 8. __work__  work experience (years)
 #' 9. __jobcat__  employment category (clerical/office trainee/security officer/college trainee/exempt employee/mba trainee/technical)
 #' 10. __minority__ minority classification (white/nonwhite)
-#' 11. __sexrace__ sex & race classification (white males/minority males/white females/minority females)
+#' 11. __sexrace__ sex race classification (white males/minority males/white females/minority females)
 #' @references
 #'   * Roberts, H.V. (1979) _An analysis of employee compensation._ Report 7946, Center for Mathematical Studies in Business and Economics, University of Chicago.
 #'   * Roberts, H.V. (1980) _Statistical bases in the measurement of employment discrimination._ In: Comparable Worth: Issues and Alternatives by E.R. Livernash (ed.) Washington, D.C.: Equal Employment Advisory Council.
@@ -424,9 +439,9 @@
 #' 6. __F_hat__ cumulative relative frequency
 "gluehlampen"
 
-#' olympic
-#'
-#' This data set gives the performances of 33 men's decathlon at the Olympic Games (1988).
+#' @rdname olympic
+#' @title olympic
+#' @description This data set gives the performances of 33 men's decathlon at the Olympic Games (1988).
 #'
 #' @format A data frame with 33 rows and 12 variables:
 #'
@@ -449,6 +464,9 @@
 #' * Example 357 in: Hand, D.J., Daly, F., Lunn, A.D., McConway, K.J. and Ostrowski, E. (1994) A handbook of small data sets, Chapman & Hall, London. 458 p.
 #' * Lunn, A. D. and McNeil, D.R. (1991) Computer-Interactive Data Analysis, Wiley, New York
 "olympic"
+
+#' @rdname olympic
+"olymp"
 
 #' pechstein
 #'
@@ -587,6 +605,33 @@
 "thousand_songs"
 
 
+#' gss
+#'
+#' Excerpt from the General Social Survey data from the Book of Marija J. Norusis (2002), Guide to Data Analysis.
+#'
+#' @format A data frame with 1500 rows and 18 variables:
+#'
+#' 1. __age__      Age of Respondent
+#' 1. __sex__      Respondent's Sex (1=Male, 2=Female)
+#' 1. __educ__     Highest Year of School Completed
+#' 1. __sibs__     Number of brothers and sisters
+#' 1. __life__     Is life dull (=1), routine (=2) or exciting (=3)
+#' 1. __speduc__   Highest Year of School Completed by Spouse
+#' 1. __paeduc__   Highest Year of School Completed by Father
+#' 1. __maeduc__   Highest Year of School Completed by Mother
+#' 1. __tvhours__  Hours of Television Watched
+#' 1. __wrkstat__  Labor Force Status (1=Working fulltime)
+#' 1. __hrs1__     Number of Hours Worked Last Week
+#' 1. __incomdol__ Household Income (in US$)
+#' 1. __rincmdol__ Respondent's Income (in US$)
+#' 1. __wifeduc__  Wife: number of years of education
+#' 1. __husbeduc__ Husband: number of years of education
+#' 1. __wifeft__   Wife employed full time (0=No, 1=Yes)
+#' 1. __happy__    General happiness (1=Very Happy, 2=Pretty happy, 3=Not too happy, NA=missing)
+#' 1. __hapmar__   Happiness of marriage (coding as in happy)
+#'
+#' @source  Marija J. Norusis (2002), IBM SPSS Statistics Guide to Data Analysis, Pearson
+"gss"
 
 # europa - nicht benutzt
 # cardata - nicht benutzt

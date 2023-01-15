@@ -1,6 +1,6 @@
 Package: mmstat4
 Title: A Tool to Access Teaching Materials from the Internet Locally
-Version: 22.2
+Version: 23.1
 Authors@R: 
   c(person(given = "Sigbert",
            family = "Klinke",

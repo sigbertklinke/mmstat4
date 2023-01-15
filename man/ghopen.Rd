@@ -9,14 +9,15 @@ ghopen(x, ...)
 \arguments{
 \item{x}{character(1): name of the file, app or data set}
 
-\item{...}{further parameters used in \code{\link[rio:import]{rio::import()}} or \link[utils:browseURL]{utils::browseURL}}
+\item{...}{further parameters used in \code{\link[rstudioapi:navigateToFile]{rstudioapi::navigateToFile()}} or \link[utils:browseURL]{utils::browseURL}}
 }
 \value{
 a data set, open a file in RStudio or runs a shiny app
 }
 \description{
-Opens a R or Rmarkdown into the editor, starts a Shiny app or opens a data set
-previously downloaded from a GitHub repository.
+Opens a file in the RStudio editor or the local browser from a previously downloaded from a GitHub repository.
+If the extension of the file is \code{html} or \code{pdf} then the file will be opened in the browser otherwise into
+the RStudio editor.
 }
 \examples{
 if (interactive()) x <- ghopen("bank2.SAV")
