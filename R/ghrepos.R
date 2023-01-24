@@ -8,6 +8,7 @@
 #' @examples
 #' ghrepos()
 ghrepos <- function() {
+  ghget(mmstat$repo)
   data.frame(active=(names(mmstat$repository)==mmstat$repo),
              dir=sapply(mmstat$repository, '[[', 'dir'),
              url=sapply(mmstat$repository, '[[', 'url')

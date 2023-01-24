@@ -40,7 +40,8 @@ ghlist(
 character vector of short names
 }
 \description{
-Returns unique (short) names to access each file in the repository.
+Returns unique (short) names for accessing each file in the repository according to a regular expression.
+For details about regular expressions, see \link[base:regex]{base::regex}.
 }
 \examples{
 if (interactive()) ghlist()

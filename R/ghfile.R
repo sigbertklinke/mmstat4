@@ -1,18 +1,16 @@
-#' ghload
+#' ghfile
 #'
-#' Loads a data file via [rio::import()] into R from a previously downloaded from a GitHub repository.
+#' Finds either a unique match in the list of files or throws an error with possible candidate files.
 #'
-#' @param x character(1): name of the file, app or data set
-#' @param ... further parameters used in [rio::import()]
+#' @param x character: file names
 #'
-#' @return a data set, open a file in RStudio or runs a shiny app
-#' @importFrom rio import
+#' @return the full matching file
 #' @export
 #'
 #' @examples
-#' if (interactive()) x <- ghload("bank2.SAV")
-ghload <- function(x, ...) {
-  stopifnot(length(x)==1)
+#' ghfile("data/BANK2.sav")
+#' if (interactive()) ghfile("data/BANK2.SAV")  # throws an error
+ghfile <- function(x) {
   ghget(mmstat$repo)
   # normalize path
   x    <- strsplit(x, '[\\/]',)[[1]]
@@ -57,5 +55,5 @@ ghload <- function(x, ...) {
       stop(sprintf("Several files for '%s' found, check matches!", x))
     }
   }
-  import(file, ...)
+  file
 }

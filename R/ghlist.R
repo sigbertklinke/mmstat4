@@ -1,6 +1,7 @@
 #' ghlist
 #'
-#' Returns unique (short) names to access each file in the repository.
+#' Returns unique (short) names for accessing each file in the repository according to a regular expression.
+#' For details about regular expressions, see [base::regex].
 #'
 #' @inheritParams base::grepl
 #' @param full.names logical: should full names returned instead of short names (default: `FALSE`)

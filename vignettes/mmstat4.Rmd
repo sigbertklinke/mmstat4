@@ -22,52 +22,59 @@ knitr::opts_chunk$set(
 ```
 
 ```{r , echo=FALSE}
-suppressPackageStartupMessages(library(mmstat4))
+suppressPackageStartupMessages(library("mmstat4"))
 ```
 
 # General
 
-The aim of this package is to provide teaching material for various statistics courses for students.
+The aim of this package is to provide teaching materials for various statistics courses for students.
+The materials (R code snippets, Shiny apps, HTML and PDF documents, datasets, ...) are stored in a GitHub repository. GitHub allows the download of the repository as a ZIP file, see in the repository under the `Code` button (`Download ZIP`). `mmstat4` works with this ZIP file, but you can use any ZIP files.
 
-The central function `ghopen` can be used to
+In my courses I assume that all R programs run in a freshly started R, i.e. there are no path dependencies, all necessary libraries are loaded in the R program and so on. My repositories contain not only the sample programs for the students but also the programs I use to generate images and tables and also the Shiny Apps I show.
 
-* Open Shiny Apps, R and R Markdown files in RStudio,
-* load data files, and
-* display HTML and PDF files in a browser.
+# Using a ZIP file or repository
 
-## Getting started
+## `ghget`
 
-The URL to a zipfile could be `https://github.com/sigbertklinke/mmstat4.dummy/archive/refs/heads/main.zip`. 
-A user-defined key, e.g. `dummy`, can be used via `ghset` to access this URL. 
-`ghset` asks whether the contents of the zip file should be saved permanently or temporarily and downloads it if necessary.
+A ZIP file or repository can be stored locally or in the internet.
+A user defined key has to be given for the location of the ZIP file
 
-The extracted files are stored locally, e.g. `/tmp/RtmprUedU2/mmstat4.dummy-main/LICENSE`. In addition, unique short names, related to the zip file content, are generated from the path components.
+```{r, eval=FALSE}
+ghget(dummy="https://github.com/sigbertklinke/mmstat4.dummy/archive/refs/heads/main.zip")
+```
+
+Three repositories are predefined: `hu.data`, `hu.stat` and `dummy`. You can fetch then via
+
+```{r, eval=FALSE}
+ghget('dummy')
+ghget('hu.stat')
+ghget('hu.data')
+ghget()           # uses hu.data
+```
+
+`ghget` downloads the ZIP file, stores in temporary location and unpacks it. For non-temporary location see the FAQ.
+
+## Full and short names for files
+
+In addition, unique short names, related to the zip file content, are generated from the path components.
 
 ```{r}
 # downloads a small repository and makes it the current one
 ghget("dummy")    
-ghrepos()
+ghrepos()                        # information about all repos
 ghlist("BANK2", full.names=TRUE) # full names
 ghlist("BANK2")                  # short names
-#
+```
+
+## `ghopen`, `ghload`, `ghsource`
+
+The short names (or the full names) can be used to work with the files
+
+```{r, eval=FALSE}
 x <- ghload("data/BANK2.sav")
-str(x)
+ghopen("univariate/example_ecdf.R")
+ghsource("univariate/example_ecdf.R")
 ```
-
-If you choose to open a non-data set file then invisibly the full path to the file is returned.
-
-## `ghget`, `ghrepos`
-
-* `ghget` makes the last repository the current one and downloads it if necessary.
-* `ghrepos` returns a data frame with the known repositories.
-
-```{r}
-library("mmstat4")
-ghget(test="https://github.com/sigbertklinke/mmstat4.dummy/archive/refs/heads/main.zip", .tempdir=TRUE) # make it the current repo and installs it if necessary
-ghrepos()
-```
-
-Note: You should call `ghget` whenever the `library` was called to set the current repository. 
 
 ## `ghlist`, `ghquery`
 
@@ -85,6 +92,31 @@ ghlist("bnk")  # pattern = "bnk
 ghquery("bnk") # nearest string matching to "bnk"
 ```
 
+## `ghfile`, `ghpath`, `ghdecompose`
+
+`ghfile` tries to find a unique match for a given and returns the full path. If there is no unqiue match then an error is thrown with some candidate matches.
+
+`ghdecompose` builds a data frame and decompses the full names of the files into 
+
+* `commonpath` the path part which is common to all files,
+* `uniquepath` the path part which is unique to all files,
+* `minpath` the minimal path part such that all files addressable in unique manner,
+* `filename` the basename of the file, and
+* `source` the input to shortpath.
+
+The short names for the files are build by the components `minpath` and `filename`.
+
+`ghpath` builds from a `ghdecompose` object the short name with various path parts included.
+
+```{r}
+ghfile('data/BANK2.sav')
+ghget(local=system.file("zip", "mmstat4.dummy.zip", package="mmstat4"))
+fnf <- ghlist(full.names=TRUE)
+dfn <- ghdecompose(fnf)
+head(dfn)
+head(ghpath(dfn))
+```
+
 ## RStudio addins
 
 The package comes with two RStudio addins (see under `Addins -> MMSTAT4`):
@@ -92,6 +124,26 @@ The package comes with two RStudio addins (see under `Addins -> MMSTAT4`):
 * _Open a file from a zip file_ (`ghopenAddin`) which gives access to the unpacked zip file and opens the choosen file into a RStudio editor window.
 
 * _Runs a Shiny app from a zip file_ (`ghappAddin`) which extracts all directories with Shiny apps and opens the choosen app in a web browser (using the default browser).
+
+# Preparations for a ZIP file
+
+Currently there are the following routines to support R code snippets:
+
+* `Rsolo` which checks if each R code snippet runs smoothly in a freshly started R. If an error occurs, the execution is interrupted and 
+* `Rlibs` which extracts all `library` and `require` calls from the R code snippets and returns a frequency table of called packages.
+
+```{r}
+ghget(local=system.file("zip", "mmstat4.dummy.zip", package="mmstat4"))
+files <- ghlist(pattern="*.R$", full.names = TRUE)
+head(Rlibs(files), 30)
+# just check the last files from the list 
+# Note that the R console will show more output (warnings etc.)
+Rsolo(files, start=435)  
+# a full run would take a bit since we have 437 R files and 
+# it will throw an error quickly :(
+```
+
+
 
 # Frequently asked questions
 
@@ -104,18 +156,9 @@ ghget("dummy", .force=TRUE)
 ## How can I store a zip file permanently or temporarily?
 
 ```{r, eval=FALSE}
-ghget("dummy", .force=TRUE) 
-```
-
-and answer the question  `"Install downloaded repository to a temporary directory instead of 'xxx'?"` with
-
-* `y` to install it temporarily, or
-* `n` to install it permamently to `xxx`.
-
-```{r, eval=FALSE}
-ghget("dummy", .force=TRUE, .tempdir=TRUE)  # store temporarily in tempdir()
-ghget("dummy", .force=TRUE, .tempdir=FALSE) # store permanently 
-ghget("dummy", .force=TRUE, .tempdir="~") # store permanently in my home directory
+ghget("dummy")                        # install temporarily
+ghget("dummy", .tempdir=FALSE)        # install non-temporarily
+ghget("dummy", .tempdir="~/mmstat4")  # install non-temporarily to ~/mmstat4
 ```
 
 Note: If a repository was installed permanently and you switch back to temporarily storage then the downloaded files will not be deleted.
@@ -133,10 +176,6 @@ ghopen("dbscan") # open the app
 ```{r}
 ghget("dummy", .tempdir=TRUE)
 ghlist(pattern="\\.csv$", ignore.case=TRUE, full.names=TRUE)
-# import yourself
-library("rio")
-pechstein <- import(ghlist(pattern="pechstein.csv$", full.names=TRUE))
-str(pechstein)
 # use mmstat4 for importing
 ghlist(pattern="\\.csv$")
 pechstein <- ghload("pechstein.csv")
@@ -153,7 +192,7 @@ tabl <- "
 | :--------------- | :-------------| :--------|
 | `dummy`          | 3 MB          | `https://github.com/sigbertklinke/mmstat4.dummy/archive/refs/heads/main.zip`  |
 | `hu.stat`        | 29 MB         | `https://github.com/sigbertklinke/mmstat4.data/archive/refs/heads/main.zip`   |
-| `hu.data`        | 33 MB         | `https://github.com/sigbertklinke/mmstat4.stat/archive/refs/heads/main.zip`   |
+| `hu.data`        | 31 MB         | `https://github.com/sigbertklinke/mmstat4.stat/archive/refs/heads/main.zip`   |
 "
 cat(tabl) 
 ```
