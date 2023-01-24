@@ -40,9 +40,10 @@ gh <- function (x, what=c("open", "load", "source"), ...) {
                   if (ext %in% getOption("mmstat.ext.doc", c('html', 'pdf'))) utils::browseURL else rstudioapi::navigateToFile)
   }
   stopifnot(is.function(fun))
-  stopifnot('file' %in% names(formals(fun)))
+  ffun <- formals(fun)
   args <- list(...)
-  args$file <- file
+  if ('file' %in% names(ffun)) args$file <- file
+  if ('url' %in% names(ffun)) args$url <- file
   do.call(fun, args)
 }
 

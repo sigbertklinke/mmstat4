@@ -58,7 +58,7 @@ ghget <- function(..., .force=FALSE, .tempdir=TRUE) {
     if (file.exists(mmstat$repository[[key]]$url)) {
       file.copy(mmstat$repository[[key]]$url, destfile)
     } else {
-      res <- try(download.file(mmstat$repository[[key]]$url, destfile, quiet = !interactive()), silent = TRUE)
+      res <- try(download.file(mmstat$repository[[key]]$url, destfile, quiet = !interactive()), silent = !interactive())
       if ("try-error" %in% class(res)) stop(sprintf("URL invalid or file not found: %s", args[[1]]))
     }
     # build names
