@@ -10,7 +10,6 @@
 #' @param ... parameters to set and activate a repository
 #' @param .force logical: download and unzip in any case? (default: `FALSE`)
 #' @param .tempdir logical or character: store download temporary or permanently (default: `getOption("mmstat4.tempdir")`)
-#' * if `.tempdir==NA` then you will be asked where to store the downloaded zip file
 #' * if `.tempdir==TRUE` then the downloaded zip file will be stored temporarily in [tempdir()]
 #' * if `.tempdir==FALSE` then the downloaded zip file will be stored temporarily in [rappdirs::user_data_dir()]
 #' * otherwise it is assumed that you give the name of an existing directory to store the downloaded zip file
@@ -62,7 +61,7 @@ ghget <- function(..., .force=FALSE, .tempdir=TRUE) {
       if ("try-error" %in% class(res)) stop(sprintf("URL invalid or file not found: %s", args[[1]]))
     }
     # build names
-    mmstat$repository[[key]]$files  <- unzip(destfile, exdir=exdir)
+    mmstat$repository[[key]]$files  <- normalizePath(unzip(destfile, exdir=exdir))
     mmstat$repository[[key]]$sfiles <- ghpath(ghdecompose(mmstat$repository[[key]]$files))
     # save modified repos, if necessary
     if (nchar(mmstat$repository[[key]]$dir)>0) saveRDS(mmstat$repository, file=paste0(exdir, "/repositories"), version=2)

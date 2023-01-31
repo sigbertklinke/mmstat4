@@ -1,27 +1,20 @@
 Package: mmstat4
-Title: A Tool to Access Teaching Materials from the Internet or Locally
+Title: Access to Teaching Materials from a ZIP File or GitHub
 Version: 0.1
 Authors@R: 
   c(person(given = "Sigbert",
            family = "Klinke",
            role = c("aut", "cre"),
-           email = "sigbert@hu-berlin.de"),
-    person(given = "Bernd",
-           family = "Rönz",
-           role = c("ctb"),
-           email = "bernd.roenz@web.de")
-           )
-Description: Teaching materials, e.g. R programmes, Shiny apps, data and PDF documents, 
-    which are stored on the internet in a ZIP file (e.g. as a GitHub repository) can be downloaded 
-    and displayed and executed locally. The content of the ZIP file is stored locally temporarily 
-    (or permanently). 
+           email = "sigbert@hu-berlin.de"))
+Description: Teaching materials, e.g. R programs, Shiny apps, data and PDF/HTML documents, 
+    which are stored on the Internet in a ZIP file (e.g. as a GitHub repository) can be downloaded. 
+    They can be displayed or run locally. The content of the ZIP file is temporarily
+    (or permanently) stored. 
     The GitHub repository "sigbertklinke/mmstat4.data" is used as the default repository. 
     In addition, some auxiliary functions are implemented.
 License: GPL-3
 Encoding: UTF-8
-LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.2
 Imports:
     tcltk,
     rappdirs,
@@ -32,5 +25,3 @@ Suggests:
     knitr,
     rmarkdown
 VignetteBuilder: knitr
-Depends: 
-    R (>= 2.10)

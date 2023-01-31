@@ -7,7 +7,7 @@ date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: 
   html_document:
     toc: true
-    toc_depth: 4
+    toc_depth: 2
 vignette: > 
   %\VignetteIndexEntry{mmstat4} 
   %\VignetteEngine{knitr::rmarkdown} 
@@ -28,9 +28,9 @@ suppressPackageStartupMessages(library("mmstat4"))
 # General
 
 The aim of this package is to provide teaching materials for various statistics courses for students.
-The materials (R code snippets, Shiny apps, HTML and PDF documents, datasets, ...) are stored in a GitHub repository. GitHub allows the download of the repository as a ZIP file, see in the repository under the `Code` button (`Download ZIP`). `mmstat4` works with this ZIP file, but you can use any ZIP files.
+The materials (R code snippets, Shiny apps, HTML and PDF documents, datasets, ...) are stored in a GitHub repository. GitHub allows downloading the repository as a ZIP file, see in the repository under the `Code` button (`Download ZIP`). `mmstat4` works with this ZIP file, but you can also use any of your own ZIP files.
 
-In my courses I assume that all R programs run in a freshly started R, i.e. there are no path dependencies, all necessary libraries are loaded in the R program and so on. My repositories contain not only the sample programs for the students but also the programs I use to generate images and tables and also the Shiny Apps I show.
+In my courses I assume that all R programs run in a freshly started R, i.e. there are no path dependencies, all necessary libraries are loaded in the R program and so on. My repositories contain not only the example programs for the students, but also the programs I use to generate images and tables, and also the Shiny Apps I show.
 
 # Using a ZIP file or repository
 
@@ -43,7 +43,7 @@ A user defined key has to be given for the location of the ZIP file
 ghget(dummy="https://github.com/sigbertklinke/mmstat4.dummy/archive/refs/heads/main.zip")
 ```
 
-Three repositories are predefined: `hu.data`, `hu.stat` and `dummy`. You can fetch then via
+Three repositories are predefined: `hu.data`, `hu.stat` and `dummy`. You can retrieve them via
 
 ```{r, eval=FALSE}
 ghget('dummy')
@@ -52,16 +52,26 @@ ghget('hu.data')
 ghget()           # uses hu.data
 ```
 
-`ghget` downloads the ZIP file, stores in temporary location and unpacks it. For non-temporary location see the FAQ.
+`ghget` downloads the ZIP file, saves it to a temporary location and unpacks it. For non-temporary locations, see the FAQ.
 
 ## Full and short names for files
 
 In addition, unique short names, related to the zip file content, are generated from the path components.
 
+After unpacking the ZIP file, unique short names are generated for these files.
+
 ```{r}
-# downloads a small repository and makes it the current one
-ghget("dummy")    
-ghrepos()                        # information about all repos
+ghget('dummy')
+gd <- ghdecompose(ghlist(full.names=TRUE))
+head(gd)
+```
+
+The file name is split into four parts. The last two parts, `minpath` and `filename`, are used to create short names:
+
+1. the short name for `/tmp/RtmpXXXXXX/mmstat4.dummy-main/LICENSE` is `LICENSE`. There was no other file named `LICENSE` in the ZIP file. Therefore, it is sufficient to address this file in the ZIP file. 
+2. the short name for `/tmp/RtmpXXXXXX/mmstat4.dummy-main/data/BANK2.sav` is `data/BANK2.sav`. There is another file called `BANK2.sav` in the ZIP file, but to address it uniquely, `data/BANK2.sav` is sufficient for this file in the ZIP file (the other is `dbscan/BANK2.sav`).
+
+```{r}
 ghlist("BANK2", full.names=TRUE) # full names
 ghlist("BANK2")                  # short names
 ```
@@ -70,10 +80,11 @@ ghlist("BANK2")                  # short names
 
 The short names (or the full names) can be used to work with the files
 
-```{r, eval=FALSE}
-x <- ghload("data/BANK2.sav")
-ghopen("univariate/example_ecdf.R")
-ghsource("univariate/example_ecdf.R")
+```{r, eval=4}
+x <- ghload("data/BANK2.sav")          # load data via rio::import
+ghopen("univariate/example_ecdf.R")    # open file in RStudio editor
+ghsource("univariate/example_ecdf.R")  # execute file via source
+ghlist("example_ecdf")                 # "univariate/" was unnecessary
 ```
 
 ## `ghlist`, `ghquery`
@@ -81,8 +92,8 @@ ghsource("univariate/example_ecdf.R")
 With `ghlist` you can get a list of unique (short) names for all files or a subset based on a regular expression `pattern` in the repository
 
 ```{r}
-str(ghlist())
-ghlist("\\.pdf$") # get all PDF files
+str(ghlist())     # get all short names
+ghlist("\\.pdf$") # get all short names of PDF files
 ```
 
 With `ghquery` you can query the list of unique (short) names for all files based on the overlap distance.
@@ -94,19 +105,19 @@ ghquery("bnk") # nearest string matching to "bnk"
 
 ## `ghfile`, `ghpath`, `ghdecompose`
 
-`ghfile` tries to find a unique match for a given and returns the full path. If there is no unqiue match then an error is thrown with some candidate matches.
+`ghfile` tries to find a unique match for a given file and returns the full path. If there is no unique match, an error is returned with some possible matches.
 
-`ghdecompose` builds a data frame and decompses the full names of the files into 
+`ghdecompose` builds a data frame and decomposes the full names of the files into 
 
-* `commonpath` the path part which is common to all files,
-* `uniquepath` the path part which is unique to all files,
-* `minpath` the minimal path part such that all files addressable in unique manner,
-* `filename` the basename of the file, and
-* `source` the input to shortpath.
+* `commonpath` the path part which is the same for all files,
+* `uniquepath` the path part that is unique for all files,
+* `minpath` the minimum path part, so that all files are uniquely addressable,
+* `filename` the base name of the file, and
+* `source` the input for shortpath.
 
-The short names for the files are build by the components `minpath` and `filename`.
+The short names for the files are built from the components `minpath` and `filename`.
 
-`ghpath` builds from a `ghdecompose` object the short name with various path parts included.
+`ghpath` builds up the short name with various path components from a `ghdecompose` object.
 
 ```{r}
 ghfile('data/BANK2.sav')
@@ -121,16 +132,16 @@ head(ghpath(dfn))
 
 The package comes with two RStudio addins (see under `Addins -> MMSTAT4`):
 
-* _Open a file from a zip file_ (`ghopenAddin`) which gives access to the unpacked zip file and opens the choosen file into a RStudio editor window.
+* _Open a file from a zip file_ (`ghopenAddin`), which gives access to the unzipped zip file and opens the selected file in an RStudio editor window.
 
-* _Runs a Shiny app from a zip file_ (`ghappAddin`) which extracts all directories with Shiny apps and opens the choosen app in a web browser (using the default browser).
+* _Execute a Shiny app from a zip file_ (`ghappAddin`), which extracts all directories containing Shiny apps and opens the selected app in a web browser (using the default browser).
 
 # Preparations for a ZIP file
 
 Currently there are the following routines to support R code snippets:
 
-* `Rsolo` which checks if each R code snippet runs smoothly in a freshly started R. If an error occurs, the execution is interrupted and 
-* `Rlibs` which extracts all `library` and `require` calls from the R code snippets and returns a frequency table of called packages.
+* `Rsolo`, which checks that each R code snippet runs smoothly in a freshly started R. 
+* `Rlibs`, which extracts all `library` and `require` calls from the R code snippets and returns a frequency table of the packages called.
 
 ```{r}
 ghget(local=system.file("zip", "mmstat4.dummy.zip", package="mmstat4"))
