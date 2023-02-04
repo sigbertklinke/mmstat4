@@ -4,7 +4,7 @@
 \alias{Rsolo}
 \title{Rsolo}
 \usage{
-Rsolo(files, start = 1, path = NULL)
+Rsolo(files, start = 1, path = NULL, open = rstudioapi::navigateToFile, ...)
 }
 \arguments{
 \item{files}{character: file name(s)}
@@ -12,17 +12,29 @@ Rsolo(files, start = 1, path = NULL)
 \item{start}{integer: numeric index from which file to start (default: \code{1})}
 
 \item{path}{character: path to start from (default: \code{getwd()})}
+
+\item{open}{function: function or function name to call after an error occurs (default: \code{rstudioapi::navigateToFile})}
+
+\item{...}{further parameters given to the function in \code{open}}
 }
 \value{
 nothing
 }
 \description{
-Assume that all files given are valid R files which should run indepedently
-of each other. If an error appears the execution is stopped.
+Checks whether all specified files are valid R files that can be executed independently of
+each other. If an error occurs then:
+}
+\details{
+\enumerate{
+\item If \code{open} is a function name or a function with a \code{file} parameter, then \code{Rsolo} will try to open the faulty R source file, otherwise not.
+\item The execution of \code{Rsolo} is stopped.
+}
+
+If you do not want the faulty R-file to be opened immediately, use \code{open=0}
 }
 \examples{
 if (interactive()) {
-  files <- list.files(patter="*.R$", full.names=TRUE, recursive=TRUE)
+  files <- list.files(pattern="*.R$", full.names=TRUE, recursive=TRUE)
   Rsolo(files)
 }
 }

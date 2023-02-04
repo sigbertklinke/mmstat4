@@ -69,7 +69,7 @@ head(gd)
 The file name is split into four parts. The last two parts, `minpath` and `filename`, are used to create short names:
 
 1. the short name for `/tmp/RtmpXXXXXX/mmstat4.dummy-main/LICENSE` is `LICENSE`. There was no other file named `LICENSE` in the ZIP file. Therefore, it is sufficient to address this file in the ZIP file. 
-2. the short name for `/tmp/RtmpXXXXXX/mmstat4.dummy-main/data/BANK2.sav` is `data/BANK2.sav`. There is another file called `BANK2.sav` in the ZIP file, but to address it uniquely, `data/BANK2.sav` is sufficient for this file in the ZIP file (the other is `dbscan/BANK2.sav`).
+2. the short name for `/tmp/RtmpXXXXXX/mmstat4.dummy-main/data/BANK2.sav` is `data/BANK2.sav`. There is another file called `BANK2.sav` in the ZIP file, but to address it uniquely, `data/BANK2.sav` is sufficient for this file in the ZIP file (the other is `dbscan/BANK2.sav`). Currently, no check is made whether two files with identical basenames are also identical in content.
 
 ```{r}
 ghlist("BANK2", full.names=TRUE) # full names
@@ -140,21 +140,23 @@ The package comes with two RStudio addins (see under `Addins -> MMSTAT4`):
 
 Currently there are the following routines to support R code snippets:
 
-* `Rsolo`, which checks that each R code snippet runs smoothly in a freshly started R. 
 * `Rlibs`, which extracts all `library` and `require` calls from the R code snippets and returns a frequency table of the packages called.
 
 ```{r}
 ghget(local=system.file("zip", "mmstat4.dummy.zip", package="mmstat4"))
 files <- ghlist(pattern="*.R$", full.names = TRUE)
 head(Rlibs(files), 30)
+```
+
+* `Rsolo`, which checks that each R code snippet runs smoothly in a freshly started R. 
+
+```{r, eval=FALSE}
 # just check the last files from the list 
 # Note that the R console will show more output (warnings etc.)
 Rsolo(files, start=435)  
-# a full run would take a bit since we have 437 R files and 
-# it will throw an error quickly :(
 ```
 
-
+Note: there is also an error message if the necessary libraries are not installed!
 
 # Frequently asked questions
 
@@ -164,12 +166,13 @@ Rsolo(files, start=435)
 ghget("dummy", .force=TRUE)
 ```
 
-## How can I store a zip file permanently or temporarily?
+## How can I store a zip file permanently?
 
 ```{r, eval=FALSE}
-ghget("dummy")                        # install temporarily
 ghget("dummy", .tempdir=FALSE)        # install non-temporarily
 ghget("dummy", .tempdir="~/mmstat4")  # install non-temporarily to ~/mmstat4
+ghget("dummy", .tempdir=TRUE)         # install again temporarily
+
 ```
 
 Note: If a repository was installed permanently and you switch back to temporarily storage then the downloaded files will not be deleted.
@@ -187,7 +190,7 @@ ghopen("dbscan") # open the app
 ```{r}
 ghget("dummy", .tempdir=TRUE)
 ghlist(pattern="\\.csv$", ignore.case=TRUE, full.names=TRUE)
-# use mmstat4 for importing
+# use mmstat4::ghload for importing
 ghlist(pattern="\\.csv$")
 pechstein <- ghload("pechstein.csv")
 str(pechstein)

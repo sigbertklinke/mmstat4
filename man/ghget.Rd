@@ -13,7 +13,6 @@ ghget(..., .force = FALSE, .tempdir = TRUE)
 
 \item{.tempdir}{logical or character: store download temporary or permanently (default: \code{getOption("mmstat4.tempdir")})
 \itemize{
-\item if \code{.tempdir==NA} then you will be asked where to store the downloaded zip file
 \item if \code{.tempdir==TRUE} then the downloaded zip file will be stored temporarily in \code{\link[=tempdir]{tempdir()}}
 \item if \code{.tempdir==FALSE} then the downloaded zip file will be stored temporarily in \code{\link[rappdirs:user_data_dir]{rappdirs::user_data_dir()}}
 \item otherwise it is assumed that you give the name of an existing directory to store the downloaded zip file
