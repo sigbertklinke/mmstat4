@@ -1,6 +1,6 @@
 Package: mmstat4
 Title: Access to Teaching Materials from a ZIP File or GitHub
-Version: 0.1.2
+Version: 0.1.3
 Authors@R: 
   c(person(given = "Sigbert",
            family = "Klinke",
@@ -17,6 +17,7 @@ License: GPL-3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 Imports:
+    digest,
     tcltk,
     rappdirs,
     rio,

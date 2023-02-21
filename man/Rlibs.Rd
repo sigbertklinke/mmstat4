@@ -17,7 +17,7 @@ Counts the number of \code{library} and \code{require} commands in the files.
 }
 \examples{
 if (interactive()) {
-  files <- list.files(patter="*.R$", full.names=TRUE, recursive=TRUE)
+  files <- list.files(pattern="*.R$", full.names=TRUE, recursive=TRUE)
   Rlibs(files)
 }
 }

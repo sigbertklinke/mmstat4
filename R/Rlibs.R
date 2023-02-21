@@ -9,7 +9,7 @@
 #'
 #' @examples
 #' if (interactive()) {
-#'   files <- list.files(patter="*.R$", full.names=TRUE, recursive=TRUE)
+#'   files <- list.files(pattern="*.R$", full.names=TRUE, recursive=TRUE)
 #'   Rlibs(files)
 #' }
 Rlibs <- function(files) {

@@ -136,7 +136,9 @@ The package comes with two RStudio addins (see under `Addins -> MMSTAT4`):
 
 * _Execute a Shiny app from a zip file_ (`ghappAddin`), which extracts all directories containing Shiny apps and opens the selected app in a web browser (using the default browser).
 
-# Preparations for a ZIP file
+# Creating an own ZIP file
+
+## Preparation: Libraries used and R programs run standalone
 
 Currently there are the following routines to support R code snippets:
 
@@ -156,7 +158,47 @@ head(Rlibs(files), 30)
 Rsolo(files, start=435)  
 ```
 
+* `Rdups`, which checks if the duplicate files can be found based on checksums
+
+```{r}
+files <- ghlist(full.names = TRUE)
+head(Rdups(files))
+```
+
+
 Note: there is also an error message if the necessary libraries are not installed!
+
+## ZIP file and access names
+
+Once you created your ZIP file you need to know under which names a specific file can be
+accessed. In the example we use a ZIP file which comes with the package `mmstat4`:
+
+```{r}
+ghget(local=system.file("zip", "mmstat4.dummy.zip", package="mmstat4"))
+ghnames <- ghdecompose(ghlist(full.names=TRUE))
+ghnames[58,]
+```
+
+The shortest possible name is determined by `minpath` and `filename`.
+But all other paths determined by `uniquepath`, `minpath` and `filename` should also work.
+
+For file number 58, the following access names are possible:
+
+* `BANK2.sav` will not work since more than one file named `BANK2.sav` in the ZIP file.
+* `dbscan/BANK2.sav` will work since this the shortest possible name.
+* `cluster/dbscan/BANK2.sav`, `data/cluster/dbscan/BANK2.sav`, and `examples/data/cluster/dbscan/BANK2.sav` will work.
+
+```{r, error=TRUE}
+x1 <- ghload("BANK2.sav")
+x2 <- ghload("dbscan/BANK2.sav")
+x3 <- ghload("cluster/dbscan/BANK2.sav")
+x4 <- ghload("data/cluster/dbscan/BANK2.sav")
+x5 <- ghload("examples/data/cluster/dbscan/BANK2.sav")
+```
+
+
+
+
 
 # Frequently asked questions
 

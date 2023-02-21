@@ -50,7 +50,8 @@ ghdecompose <- function (files, dirs=FALSE) {
     minpath  <- dirname(minpath)
   }
   df <- data.frame(commonpath=rep(paste0(path, collapse="/"), length(files)),
-                   uniquepath=sapply(sfiles, i=i, function(v, i) { if (i<length(v)) paste0(v[i:(length(v)-1)], collapse="/") else '' }),
+#                   uniquepath=sapply(sfiles, i=i, function(v, i) { if (i<length(v)) paste0(v[(length(v)-1):i], collapse="/") else '' }),
+                   uniquepath=uniquepath,
                    minpath=gsub('.', '', minpath, fixed=TRUE),
                    filename=filename,
                    source=files)
