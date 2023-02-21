@@ -11,6 +11,7 @@
 #' ghfile("data/BANK2.sav")
 #' if (interactive()) ghfile("data/BANK2.SAV")  # throws an error
 ghfile <- function(x) {
+  browser()
   ghget(mmstat$repo)
   # normalize path
   x    <- strsplit(x, '[\\/]',)[[1]]
