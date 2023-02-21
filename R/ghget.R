@@ -61,7 +61,7 @@ ghget <- function(..., .force=FALSE, .tempdir=TRUE) {
       if ("try-error" %in% class(res)) stop(sprintf("URL invalid or file not found: %s", args[[1]]))
     }
     # build names
-    mmstat$repository[[key]]$files  <- normalizePath(unzip(destfile, exdir=exdir))
+    mmstat$repository[[key]]$files  <- normalizePath(unzip(destfile, exdir=exdir), winslash="/")
     mmstat$repository[[key]]$sfiles <- ghpath(ghdecompose(mmstat$repository[[key]]$files))
     # save modified repos, if necessary
     if (nchar(mmstat$repository[[key]]$dir)>0) saveRDS(mmstat$repository, file=paste0(exdir, "/repositories"), version=2)

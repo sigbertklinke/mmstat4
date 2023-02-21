@@ -29,7 +29,7 @@ Rsolo <- function(files, start=1, path=NULL, open=rstudioapi::navigateToFile, ..
   if (!all(start %in% index)) stop(sprintf("Invalid index in '%s'", paste0(start, collapse=",")))
   index <- if (length(start)==1) start:length(files) else start
   if (is.null(path)) path <- getwd()
-  path  <- normalizePath(path)
+  path  <- normalizePath(path, winslash="/")
   opath <- setwd(path)
   on.exit(setwd(opath))
   fun <- NULL
