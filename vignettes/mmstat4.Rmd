@@ -196,11 +196,17 @@ x4 <- ghload("data/cluster/dbscan/BANK2.sav")
 x5 <- ghload("examples/data/cluster/dbscan/BANK2.sav")
 ```
 
-
-
-
-
 # Frequently asked questions
+
+## Something is not working correctly. Where can I get help?
+
+Please e-mail me `sigbert@hu-berlin.de`. You may also try the current development version from GitHub:
+
+```{r, eval=FALSE}
+# install.packages("devtools")
+devtools::install_github("sigbertklinke/mmstat4")
+```
+
 
 ## How can I force a reload of a zip file?
 
