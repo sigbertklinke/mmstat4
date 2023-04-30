@@ -2,9 +2,17 @@
 % Please edit documentation in R/ghquery.R
 \name{ghquery}
 \alias{ghquery}
-\title{gquery}
+\title{ghquery}
 \usage{
-ghquery(query, n = 6, full.names = FALSE)
+ghquery(
+  query,
+  n = 6,
+  full.names = FALSE,
+  method = c("overlap", "fpdist", "tfidf"),
+  costs = NULL,
+  counts = FALSE,
+  useBytes = FALSE
+)
 }
 \arguments{
 \item{query}{character: query string}
@@ -12,12 +20,35 @@ ghquery(query, n = 6, full.names = FALSE)
 \item{n}{integer: maximal number of matches to return}
 
 \item{full.names}{logical: should full names used instead of short names (default: \code{FALSE})}
+
+\item{method}{character: method to be used (default: \code{overlap})}
+
+\item{costs}{a numeric vector or list with names partially matching
+    \samp{insertions}, \samp{deletions} and \samp{substitutions} giving
+    the respective costs for computing the Levenshtein distance, or
+    \code{NULL} (default) indicating using unit cost for all three
+    possible transformations.}
+
+\item{counts}{a logical indicating whether to optionally return the
+    transformation counts (numbers of insertions, deletions and
+    substitutions) as the \code{"counts"} attribute of the return
+    value.}
+
+\item{useBytes}{a logical.  If \code{TRUE} distance computations are
+    done byte-by-byte rather than character-by-character.}
 }
 \value{
 character vector of short names fitting best to the query
 }
 \description{
-Queries the unique (short) names for each file in the repository.
+Queries the unique (short) names for each file in the repository. Several methods are available
+}
+\details{
+\itemize{
+\item \code{overlap} uses the \href{https://en.wikipedia.org/wiki/Overlap_coefficient}{overlap distance} for \code{query} and file names
+\item \code{fpdist} uses a partial backward matching distance based on \code{\link[utils:adist]{utils::adist()}}
+\item \code{tfidf} uses a \href{https://en.wikipedia.org/wiki/Tf\%E2\%80\%93idf}{TF-IDF} approach interpreting the filenames and teh query as documents
+}
 }
 \examples{
 if (interactive()) ghquery("bank")

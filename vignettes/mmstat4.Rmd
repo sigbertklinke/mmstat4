@@ -27,8 +27,17 @@ suppressPackageStartupMessages(library("mmstat4"))
 
 # General
 
-The aim of this package is to provide teaching materials for various statistics courses for students.
-The materials (R code snippets, Shiny apps, HTML and PDF documents, datasets, ...) are stored in a GitHub repository. GitHub allows downloading the repository as a ZIP file, see in the repository under the `Code` button (`Download ZIP`). `mmstat4` works with this ZIP file, but you can also use any of your own ZIP files.
+This package has been designed to provide teaching materials for various statistics courses that are aimed at students.
+
+The main function of this package is called `gh`, which can be used to perform several tasks such as:
+
+* Opening Shiny Apps, R and R Markdown files in RStudio,
+* Loading data files, and
+* Displaying HTML and PDF files in a browser.
+
+Using this function, students can access various teaching materials such as interactive apps, R code, data files, and other resources, which can be helpful in learning statistics concepts. By providing easy access to these materials, the package aims to facilitate the learning process for students and make it more interactive and engaging.
+
+GitHub allows downloading the repository as a ZIP file, see in the repository under the `Code` button (`Download ZIP`). `mmstat4` works with this ZIP file, but you can also use any of your own ZIP files.
 
 In my courses I assume that all R programs run in a freshly started R, i.e. there are no path dependencies, all necessary libraries are loaded in the R program and so on. My repositories contain not only the example programs for the students, but also the programs I use to generate images and tables, and also the Shiny Apps I show.
 
@@ -165,7 +174,6 @@ files <- ghlist(full.names = TRUE)
 head(Rdups(files))
 ```
 
-
 Note: there is also an error message if the necessary libraries are not installed!
 
 ## ZIP file and access names
@@ -198,9 +206,10 @@ x5 <- ghload("examples/data/cluster/dbscan/BANK2.sav")
 
 # Frequently asked questions
 
-## Something is not working correctly. Where can I get help?
+## Something is not working properly. Where can I get help?
 
-Please e-mail me `sigbert@hu-berlin.de`. You may also try the current development version from GitHub:
+Please email me at `sigbert@hu-berlin.de`. You can also try the current development version of the package from GitHub:
+
 
 ```{r, eval=FALSE}
 # install.packages("devtools")
@@ -253,8 +262,8 @@ tabl <- "
 | Repository       | Size          | ZIP file location |
 | :--------------- | :-------------| :--------|
 | `dummy`          | 3 MB          | `https://github.com/sigbertklinke/mmstat4.dummy/archive/refs/heads/main.zip`  |
-| `hu.stat`        | 29 MB         | `https://github.com/sigbertklinke/mmstat4.data/archive/refs/heads/main.zip`   |
-| `hu.data`        | 31 MB         | `https://github.com/sigbertklinke/mmstat4.stat/archive/refs/heads/main.zip`   |
+| `hu.data`        | 29 MB         | `https://github.com/sigbertklinke/mmstat4.data/archive/refs/heads/main.zip`   |
+| `hu.stat`        | 31 MB         | `https://github.com/sigbertklinke/mmstat4.stat/archive/refs/heads/main.zip`   |
 "
 cat(tabl) 
 ```
