@@ -1,11 +1,10 @@
-#' ghquery
-#'
-#' Queries the unique (short) names for each file in the repository. Several methods are available
-#'
+#' @title ghquery
+#' @description Queries the unique (short) names for each file in the repository.
+#' Several query methods are available, see Details.
+#' @details The following query methods are available:
 #' * `overlap` uses the \href{https://en.wikipedia.org/wiki/Overlap_coefficient}{overlap distance} for `query` and file names
 #' * `fpdist` uses a partial backward matching distance based on [utils::adist()]
-#' * `tfidf` uses a \href{https://en.wikipedia.org/wiki/Tf%E2%80%93idf}{TF-IDF} approach interpreting the filenames and teh query as documents
-#'
+## * `tfidf` uses a \href{https://en.wikipedia.org/wiki/Tf%E2%80%93idf}{TF-IDF} approach interpreting the filenames and teh query as documents
 #' @param query character: query string
 #' @param n integer: maximal number of matches to return
 #' @param full.names logical: should full names used instead of short names (default: `FALSE`)
@@ -13,7 +12,7 @@
 #' @inheritParams utils::adist
 #'
 #' @return character vector of short names fitting best to the query
-#' @importFrom text2vec itoken vocab_vectorizer create_vocabulary create_vocabulary TfIdf fit_transform create_dtm sim2
+# @importFrom text2vec itoken vocab_vectorizer create_vocabulary create_vocabulary TfIdf fit_transform create_dtm sim2
 #' @export
 #'
 #' @examples
@@ -85,38 +84,38 @@ ghquery <- function(query, n=6, full.names=FALSE, method=c("overlap", "fpdist", 
     index
   }
   #
-  tfidf <- function(files, query, n, costs = NULL, counts = FALSE, useBytes = FALSE) {
-    q     <- match.query(files, query, costs = costs, counts = counts, useBytes = useBytes)
-    # text2vec
-    train      <- itoken(files, preprocessor=tolower, tokenizer = normpathes, progressbar = FALSE)
-    vectorizer <- vocab_vectorizer(create_vocabulary(train))
-    dtm_train  <- create_dtm(train, vectorizer)
-    tfidf      <- TfIdf$new()
-    doctfidf   <- fit_transform(dtm_train, tfidf)
-    #
-    test     <- itoken(q, tokenizer = normpathes, progressbar = FALSE)
-    dtm_test <- create_dtm(test, vectorizer)
-    qrytfidf <- transform(dtm_test, tfidf)
-    dist <- sim2(dtm_train, dtm_test, method = "cosine", norm = "l2")
-    colN <- diff(dist@p) #get the number of non-zero elements in each column
-    indx <- cbind(dist@i+1,rep(seq_along(colN),colN)) #create the indices of all non-zero elements
-    ival <- dist[indx]
-    idist <- sort(unique(ival), decreasing = TRUE)
-    index <- c()
-    for (i in 1:length(idist)) {
-      pos   <- which(ival==idist[i])
-      index <- unique(c(index, indx[pos,1]))
-      if (length(index)>=n) break
-    }
-    index
-  }
+  #tfidf <- function(files, query, n, costs = NULL, counts = FALSE, useBytes = FALSE) {
+  #  q     <- match.query(files, query, costs = costs, counts = counts, useBytes = useBytes)
+  #  # text2vec
+  #  train      <- itoken(files, preprocessor=tolower, tokenizer = normpathes, progressbar = FALSE)
+  #  vectorizer <- vocab_vectorizer(create_vocabulary(train))
+  #  dtm_train  <- create_dtm(train, vectorizer)
+  #  tfidf      <- TfIdf$new()
+  #  doctfidf   <- fit_transform(dtm_train, tfidf)
+  #  #
+  #  test     <- itoken(q, tokenizer = normpathes, progressbar = FALSE)
+  #  dtm_test <- create_dtm(test, vectorizer)
+  #  qrytfidf <- transform(dtm_test, tfidf)
+  #  dist <- sim2(dtm_train, dtm_test, method = "cosine", norm = "l2")
+  #  colN <- diff(dist@p) #get the number of non-zero elements in each column
+  #  indx <- cbind(dist@i+1,rep(seq_along(colN),colN)) #create the indices of all non-zero elements
+  #  ival <- dist[indx]
+  #  idist <- sort(unique(ival), decreasing = TRUE)
+  #  index <- c()
+  #  for (i in 1:length(idist)) {
+  #    pos   <- which(ival==idist[i])
+  #    index <- unique(c(index, indx[pos,1]))
+  #    if (length(index)>=n) break
+  #  }
+  #  index
+  #}
   #
   stopifnot(length(query)==1)
   method  <- match.arg(method)
   lof     <- ghlist(full.names = full.names)
   if (method=="overlap") index <- overlap(lof, query, n)
   if (method=="fpdist")  index <- fpdist(lof, query, n, costs = costs, counts = counts, useBytes = useBytes)
-  if (method=="tfidf")   index <- tfidf(lof, query, n, costs = costs, counts = counts, useBytes = useBytes)
+#  if (method=="tfidf")   index <- tfidf(lof, query, n, costs = costs, counts = counts, useBytes = useBytes)
   n   <- min(n, length(index))
   lof[index[1:n]]
 }

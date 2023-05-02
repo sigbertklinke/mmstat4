@@ -352,144 +352,165 @@ display: none;
 <h4 class="author">Sigbert Klinke</h4>
 <a class="author_email" href="mailto:#"><a href="mailto:sigbert@hu-berlin.de" class="email">sigbert@hu-berlin.de</a></a>
 </address>
-<h4 class="date">03 Dezember, 2022</h4>
+<h4 class="date">01 Mai, 2023</h4>
 
 </div>
 
 <div id="TOC">
 <ul>
-<li><a href="#general" id="toc-general">General</a>
+<li><a href="#general" id="toc-general">General</a></li>
+<li><a href="#using-a-zip-file-or-repository" id="toc-using-a-zip-file-or-repository">Using a ZIP file or
+repository</a>
 <ul>
-<li><a href="#getting-started" id="toc-getting-started">Getting
-started</a></li>
-<li><a href="#ghget-ghrepos" id="toc-ghget-ghrepos"><code>ghget</code>,
-<code>ghrepos</code></a></li>
+<li><a href="#ghget" id="toc-ghget"><code>ghget</code></a></li>
+<li><a href="#full-and-short-names-for-files" id="toc-full-and-short-names-for-files">Full and short names for
+files</a></li>
+<li><a href="#ghopen-ghload-ghsource" id="toc-ghopen-ghload-ghsource"><code>ghopen</code>,
+<code>ghload</code>, <code>ghsource</code></a></li>
 <li><a href="#ghlist-ghquery" id="toc-ghlist-ghquery"><code>ghlist</code>,
 <code>ghquery</code></a></li>
-<li><a href="#options" id="toc-options">Options</a></li>
+<li><a href="#ghfile-ghpath-ghdecompose" id="toc-ghfile-ghpath-ghdecompose"><code>ghfile</code>,
+<code>ghpath</code>, <code>ghdecompose</code></a></li>
 <li><a href="#rstudio-addins" id="toc-rstudio-addins">RStudio
 addins</a></li>
 </ul></li>
+<li><a href="#creating-an-own-zip-file" id="toc-creating-an-own-zip-file">Creating an own ZIP file</a>
+<ul>
+<li><a href="#preparation-libraries-used-and-r-programs-run-standalone" id="toc-preparation-libraries-used-and-r-programs-run-standalone">Preparation:
+Libraries used and R programs run standalone</a></li>
+<li><a href="#zip-file-and-access-names" id="toc-zip-file-and-access-names">ZIP file and access names</a></li>
+</ul></li>
 <li><a href="#frequently-asked-questions" id="toc-frequently-asked-questions">Frequently asked questions</a>
 <ul>
+<li><a href="#something-is-not-working-properly.-where-can-i-get-help" id="toc-something-is-not-working-properly.-where-can-i-get-help">Something
+is not working properly. Where can I get help?</a></li>
 <li><a href="#how-can-i-force-a-reload-of-a-zip-file" id="toc-how-can-i-force-a-reload-of-a-zip-file">How can I force a reload
 of a zip file?</a></li>
-<li><a href="#how-can-i-store-a-zip-file-permanently-or-temporarily" id="toc-how-can-i-store-a-zip-file-permanently-or-temporarily">How can I
-store a zip file permanently or temporarily?</a></li>
+<li><a href="#how-can-i-store-a-zip-file-permanently" id="toc-how-can-i-store-a-zip-file-permanently">How can I store a zip
+file permanently?</a></li>
 <li><a href="#how-can-i-find-all-directories-with-shiny-apps" id="toc-how-can-i-find-all-directories-with-shiny-apps">How can I find
 all directories with Shiny apps?</a></li>
 <li><a href="#how-can-i-find-all-csv-data-files" id="toc-how-can-i-find-all-csv-data-files">How can I find all
 <code>csv</code> data files?</a></li>
-<li><a href="#which-data-files-are-in-the-package-mmstat4" id="toc-which-data-files-are-in-the-package-mmstat4">Which data files
-are in the package <code>mmstat4</code> ?</a></li>
 </ul></li>
 <li><a href="#default-repositories" id="toc-default-repositories">Default repositories</a>
 <ul>
 <li><a href="#lecture-notes-sigbert-klinke-hu-berlin" id="toc-lecture-notes-sigbert-klinke-hu-berlin">Lecture Notes Sigbert
-Klinke, HU Berlin</a>
-<ul>
-<li><a href="#basic-statistics-iii-in-german" id="toc-basic-statistics-iii-in-german">Basic statistics I+II (in
-german)</a></li>
-<li><a href="#data-analysis" id="toc-data-analysis">Data
-analysis</a></li>
-</ul></li>
+Klinke, HU Berlin</a></li>
 <li><a href="#lecture-notes-bernd-rönz-hu-berlin-in-german" id="toc-lecture-notes-bernd-rönz-hu-berlin-in-german">Lecture Notes
-Bernd Rönz, HU Berlin (in german)</a>
-<ul>
-<li><a href="#computergestützte-statistik-i-mit-spss-10-2001" id="toc-computergestützte-statistik-i-mit-spss-10-2001">Computergestützte
-Statistik I mit SPSS 10 (2001)</a></li>
-<li><a href="#computergestützte-statistik-ii-mit-spss-10-2000" id="toc-computergestützte-statistik-ii-mit-spss-10-2000">Computergestützte
-Statistik II mit SPSS 10 (2000)</a></li>
-<li><a href="#generalisierte-lineare-modelle-mit-spss-10-2001" id="toc-generalisierte-lineare-modelle-mit-spss-10-2001">Generalisierte
-lineare Modelle mit SPSS 10 (2001)</a></li>
-</ul></li>
+Bernd Rönz, HU Berlin (in german)</a></li>
 </ul></li>
 </ul>
 </div>
 
 <div id="general" class="section level1">
 <h1>General</h1>
-<p>The aim of this package is to provide teaching material for various
-statistics courses for students.</p>
-<p>The central function <code>ghopen</code> can be used to</p>
+<p>This package has been designed to provide teaching materials for
+various statistics courses that are aimed at students.</p>
+<p>The main function of this package is called <code>gh</code>, which
+can be used to perform several tasks such as:</p>
 <ul>
-<li>Open Shiny Apps, R and R Markdown files in RStudio,</li>
-<li>load data files, and</li>
-<li>display HTML and PDF files in a browser.</li>
+<li>Opening Shiny Apps, R and R Markdown files in RStudio,</li>
+<li>Loading data files, and</li>
+<li>Displaying HTML and PDF files in a browser.</li>
 </ul>
-<div id="getting-started" class="section level2">
-<h2>Getting started</h2>
-<p>The URL to a zipfile could be
-<code>https://github.com/sigbertklinke/mmstat4.dummy/archive/refs/heads/main.zip</code>.
-A user-defined key, e.g. <code>dummy</code>, can be used via
-<code>ghset</code> to access this URL. <code>ghset</code> asks whether
-the contents of the zip file should be saved permanently or temporarily
-and downloads it if necessary.</p>
-<p>The extracted files are stored locally,
-e.g. <code>/tmp/RtmprUedU2/mmstat4.dummy-main/LICENSE</code>. In
-addition, unique short names, related to the zip file content, are
-generated from the path components.</p>
-<pre class="r"><code>library(&quot;mmstat4&quot;)
-# downloads a small repository and makes it the current one
-ghget(&quot;dummy&quot;)  
-#&gt; [1] &quot;dummy&quot;
-ghlist(&quot;BANK2&quot;, full.names=TRUE) # full names
-#&gt; [1] &quot;/tmp/Rtmp9HNvtx/mmstat4.dummy-main/data/BANK2.sav&quot;                        
-#&gt; [2] &quot;/tmp/Rtmp9HNvtx/mmstat4.dummy-main/examples/data/cluster/dbscan/BANK2.sav&quot;
-ghlist(&quot;BANK2&quot;)                  # short names
-#&gt; [1] &quot;data/BANK2.sav&quot;   &quot;dbscan/BANK2.sav&quot;
-#
-x &lt;- ghopen(&quot;data/BANK2.sav&quot;)
-str(x)
-#&gt; &#39;data.frame&#39;:    200 obs. of  6 variables:
-#&gt;  $ WIDTH   : num  215 215 215 215 215 ...
-#&gt;   ..- attr(*, &quot;format.spss&quot;)= chr &quot;COMMA9.2&quot;
-#&gt;  $ LEFT    : num  131 130 130 130 130 ...
-#&gt;   ..- attr(*, &quot;format.spss&quot;)= chr &quot;COMMA9.2&quot;
-#&gt;  $ RIGHT   : num  131 130 130 130 130 ...
-#&gt;   ..- attr(*, &quot;format.spss&quot;)= chr &quot;COMMA9.2&quot;
-#&gt;  $ UPPER   : num  9 8.1 8.7 7.5 10.4 9 7.9 7.2 8.2 9.2 ...
-#&gt;   ..- attr(*, &quot;format.spss&quot;)= chr &quot;COMMA8.2&quot;
-#&gt;  $ LOWER   : num  9.7 9.5 9.6 10.4 7.7 10.1 9.6 10.7 11 10 ...
-#&gt;   ..- attr(*, &quot;format.spss&quot;)= chr &quot;COMMA8.2&quot;
-#&gt;  $ DIAGONAL: num  141 142 142 142 142 ...
-#&gt;   ..- attr(*, &quot;format.spss&quot;)= chr &quot;COMMA9.2&quot;</code></pre>
-<p>If you choose to open a non-data set file then invisibly the full
-path to the file is returned.</p>
+<p>Using this function, students can access various teaching materials
+such as interactive apps, R code, data files, and other resources, which
+can be helpful in learning statistics concepts. By providing easy access
+to these materials, the package aims to facilitate the learning process
+for students and make it more interactive and engaging.</p>
+<p>GitHub allows downloading the repository as a ZIP file, see in the
+repository under the <code>Code</code> button
+(<code>Download ZIP</code>). <code>mmstat4</code> works with this ZIP
+file, but you can also use any of your own ZIP files.</p>
+<p>In my courses I assume that all R programs run in a freshly started
+R, i.e. there are no path dependencies, all necessary libraries are
+loaded in the R program and so on. My repositories contain not only the
+example programs for the students, but also the programs I use to
+generate images and tables, and also the Shiny Apps I show.</p>
 </div>
-<div id="ghget-ghrepos" class="section level2">
-<h2><code>ghget</code>, <code>ghrepos</code></h2>
-<ul>
-<li><code>ghget</code> makes the last repository the current one and
-downloads it if necessary.</li>
-<li><code>ghrepos</code> returns a data frame with the known
-repositories.</li>
-</ul>
-<pre class="r"><code>library(&quot;mmstat4&quot;)
-ghget(test=&quot;https://github.com/sigbertklinke/mmstat4.dummy/archive/refs/heads/main.zip&quot;) # make it the current repo and installs it if necessary
-#&gt; [1] &quot;test&quot;
-ghrepos()
-#&gt;         active dir
-#&gt; dummy    FALSE    
-#&gt; hu.data  FALSE    
-#&gt; hu.stat  FALSE    
-#&gt; test      TRUE    
-#&gt;                                                                                url
-#&gt; dummy   https://github.com/sigbertklinke/mmstat4.dummy/archive/refs/heads/main.zip
-#&gt; hu.data  https://github.com/sigbertklinke/mmstat4.data/archive/refs/heads/main.zip
-#&gt; hu.stat  https://github.com/sigbertklinke/mmstat4.stat/archive/refs/heads/main.zip
-#&gt; test    https://github.com/sigbertklinke/mmstat4.dummy/archive/refs/heads/main.zip</code></pre>
-<p>Note: You should call <code>ghget</code> whenever the
-<code>library</code> was called to set the current repository.</p>
+<div id="using-a-zip-file-or-repository" class="section level1">
+<h1>Using a ZIP file or repository</h1>
+<div id="ghget" class="section level2">
+<h2><code>ghget</code></h2>
+<p>A ZIP file or repository can be stored locally or in the internet. A
+user defined key has to be given for the location of the ZIP file</p>
+<pre class="r"><code>ghget(dummy=&quot;https://github.com/sigbertklinke/mmstat4.dummy/archive/refs/heads/main.zip&quot;)</code></pre>
+<p>Three repositories are predefined: <code>hu.data</code>,
+<code>hu.stat</code> and <code>dummy</code>. You can retrieve them
+via</p>
+<pre class="r"><code>ghget(&#39;dummy&#39;)
+ghget(&#39;hu.stat&#39;)
+ghget(&#39;hu.data&#39;)
+ghget()           # uses hu.data</code></pre>
+<p><code>ghget</code> downloads the ZIP file, saves it to a temporary
+location and unpacks it. For non-temporary locations, see the FAQ.</p>
+</div>
+<div id="full-and-short-names-for-files" class="section level2">
+<h2>Full and short names for files</h2>
+<p>In addition, unique short names, related to the zip file content, are
+generated from the path components.</p>
+<p>After unpacking the ZIP file, unique short names are generated for
+these files.</p>
+<pre class="r"><code>ghget(&#39;dummy&#39;)
+gd &lt;- ghdecompose(ghlist(full.names=TRUE))
+head(gd)
+#&gt;                           commonpath uniquepath minpath              filename
+#&gt; 1 /tmp/RtmpvBf1Jh/mmstat4.dummy-main                                  LICENSE
+#&gt; 2 /tmp/RtmpvBf1Jh/mmstat4.dummy-main                                README.md
+#&gt; 3 /tmp/RtmpvBf1Jh/mmstat4.dummy-main       data                12411-0006.csv
+#&gt; 4 /tmp/RtmpvBf1Jh/mmstat4.dummy-main       data         ArbeitsloseBerlin.csv
+#&gt; 5 /tmp/RtmpvBf1Jh/mmstat4.dummy-main               data             BANK2.sav
+#&gt; 6 /tmp/RtmpvBf1Jh/mmstat4.dummy-main       data                Preisindex.csv
+#&gt;                                                          source
+#&gt; 1                    /tmp/RtmpvBf1Jh/mmstat4.dummy-main/LICENSE
+#&gt; 2                  /tmp/RtmpvBf1Jh/mmstat4.dummy-main/README.md
+#&gt; 3        /tmp/RtmpvBf1Jh/mmstat4.dummy-main/data/12411-0006.csv
+#&gt; 4 /tmp/RtmpvBf1Jh/mmstat4.dummy-main/data/ArbeitsloseBerlin.csv
+#&gt; 5             /tmp/RtmpvBf1Jh/mmstat4.dummy-main/data/BANK2.sav
+#&gt; 6        /tmp/RtmpvBf1Jh/mmstat4.dummy-main/data/Preisindex.csv</code></pre>
+<p>The file name is split into four parts. The last two parts,
+<code>minpath</code> and <code>filename</code>, are used to create short
+names:</p>
+<ol style="list-style-type: decimal">
+<li>the short name for
+<code>/tmp/RtmpXXXXXX/mmstat4.dummy-main/LICENSE</code> is
+<code>LICENSE</code>. There was no other file named <code>LICENSE</code>
+in the ZIP file. Therefore, it is sufficient to address this file in the
+ZIP file.</li>
+<li>the short name for
+<code>/tmp/RtmpXXXXXX/mmstat4.dummy-main/data/BANK2.sav</code> is
+<code>data/BANK2.sav</code>. There is another file called
+<code>BANK2.sav</code> in the ZIP file, but to address it uniquely,
+<code>data/BANK2.sav</code> is sufficient for this file in the ZIP file
+(the other is <code>dbscan/BANK2.sav</code>). Currently, no check is
+made whether two files with identical basenames are also identical in
+content.</li>
+</ol>
+<pre class="r"><code>ghlist(&quot;BANK2&quot;, full.names=TRUE) # full names
+#&gt; [1] &quot;/tmp/RtmpvBf1Jh/mmstat4.dummy-main/data/BANK2.sav&quot;                        
+#&gt; [2] &quot;/tmp/RtmpvBf1Jh/mmstat4.dummy-main/examples/data/cluster/dbscan/BANK2.sav&quot;
+ghlist(&quot;BANK2&quot;)                  # short names
+#&gt; [1] &quot;data/BANK2.sav&quot;   &quot;dbscan/BANK2.sav&quot;</code></pre>
+</div>
+<div id="ghopen-ghload-ghsource" class="section level2">
+<h2><code>ghopen</code>, <code>ghload</code>, <code>ghsource</code></h2>
+<p>The short names (or the full names) can be used to work with the
+files</p>
+<pre class="r"><code>## x &lt;- ghload(&quot;data/BANK2.sav&quot;)          # load data via rio::import
+## ghopen(&quot;univariate/example_ecdf.R&quot;)    # open file in RStudio editor
+## ghsource(&quot;univariate/example_ecdf.R&quot;)  # execute file via source
+ghlist(&quot;example_ecdf&quot;)                 # &quot;univariate/&quot; was unnecessary
+#&gt; [1] &quot;example_ecdf.R&quot;</code></pre>
 </div>
 <div id="ghlist-ghquery" class="section level2">
 <h2><code>ghlist</code>, <code>ghquery</code></h2>
 <p>With <code>ghlist</code> you can get a list of unique (short) names
 for all files or a subset based on a regular expression
 <code>pattern</code> in the repository</p>
-<pre class="r"><code>str(ghlist())
+<pre class="r"><code>str(ghlist())     # get all short names
 #&gt;  chr [1:473] &quot;LICENSE&quot; &quot;README.md&quot; &quot;12411-0006.csv&quot; &quot;ArbeitsloseBerlin.csv&quot; ...
-ghlist(&quot;\\.pdf$&quot;) # get all PDF files
+ghlist(&quot;\\.pdf$&quot;) # get all short names of PDF files
 #&gt; [1] &quot;Aufgaben.pdf&quot;       &quot;Formelsammlung.pdf&quot; &quot;Loesungen.pdf&quot;</code></pre>
 <p>With <code>ghquery</code> you can query the list of unique (short)
 names for all files based on the overlap distance.</p>
@@ -499,124 +520,227 @@ ghquery(&quot;bnk&quot;) # nearest string matching to &quot;bnk&quot;
 #&gt; [1] &quot;data/BANK2.sav&quot;   &quot;dbscan/BANK2.sav&quot; &quot;dbscan.R&quot;         &quot;kernel.R&quot;        
 #&gt; [5] &quot;dbscan2.R&quot;        &quot;linkage.R&quot;</code></pre>
 </div>
-<div id="options" class="section level2">
-<h2>Options</h2>
-<p>Several options can bet set with <code>options</code></p>
+<div id="ghfile-ghpath-ghdecompose" class="section level2">
+<h2><code>ghfile</code>, <code>ghpath</code>,
+<code>ghdecompose</code></h2>
+<p><code>ghfile</code> tries to find a unique match for a given file and
+returns the full path. If there is no unique match, an error is returned
+with some possible matches.</p>
+<p><code>ghdecompose</code> builds a data frame and decomposes the full
+names of the files into</p>
 <ul>
-<li><code>mmstat.dir</code> directory where the downloaded repository is
-stored, default <code>tempdir()</code></li>
-<li><code>mmstat.ext.prg</code> file extensions for a file to open in
-RStudio, default <code>c(&#39;&#39;, &#39;r&#39;, &#39;rmd&#39;, &#39;ma&#39;, &#39;py&#39;)</code></li>
-<li><code>mmstat.ext.doc</code> file extensions for a file to open via
-<code>browseURL</code>, default <code>c(&#39;html&#39;, &#39;pdf&#39;)</code></li>
+<li><code>commonpath</code> the path part which is the same for all
+files,</li>
+<li><code>uniquepath</code> the path part that is unique for all
+files,</li>
+<li><code>minpath</code> the minimum path part, so that all files are
+uniquely addressable,</li>
+<li><code>filename</code> the base name of the file, and</li>
+<li><code>source</code> the input for shortpath.</li>
 </ul>
+<p>The short names for the files are built from the components
+<code>minpath</code> and <code>filename</code>.</p>
+<p><code>ghpath</code> builds up the short name with various path
+components from a <code>ghdecompose</code> object.</p>
+<pre class="r"><code>ghfile(&#39;data/BANK2.sav&#39;)
+#&gt; [1] &quot;/tmp/RtmpvBf1Jh/mmstat4.dummy-main/data/BANK2.sav&quot;
+ghget(local=system.file(&quot;zip&quot;, &quot;mmstat4.dummy.zip&quot;, package=&quot;mmstat4&quot;))
+fnf &lt;- ghlist(full.names=TRUE)
+dfn &lt;- ghdecompose(fnf)
+head(dfn)
+#&gt;                      commonpath uniquepath minpath       filename
+#&gt; 1 /tmp/RtmpvBf1Jh/mmstat4.dummy       data           hhberlin.csv
+#&gt; 2 /tmp/RtmpvBf1Jh/mmstat4.dummy       data         Preisindex.csv
+#&gt; 3 /tmp/RtmpvBf1Jh/mmstat4.dummy               data      BANK2.sav
+#&gt; 4 /tmp/RtmpvBf1Jh/mmstat4.dummy       data         12411-0006.csv
+#&gt; 5 /tmp/RtmpvBf1Jh/mmstat4.dummy       data         child_data.sav
+#&gt; 6 /tmp/RtmpvBf1Jh/mmstat4.dummy       data                hhD.rda
+#&gt;                                              source
+#&gt; 1   /tmp/RtmpvBf1Jh/mmstat4.dummy/data/hhberlin.csv
+#&gt; 2 /tmp/RtmpvBf1Jh/mmstat4.dummy/data/Preisindex.csv
+#&gt; 3      /tmp/RtmpvBf1Jh/mmstat4.dummy/data/BANK2.sav
+#&gt; 4 /tmp/RtmpvBf1Jh/mmstat4.dummy/data/12411-0006.csv
+#&gt; 5 /tmp/RtmpvBf1Jh/mmstat4.dummy/data/child_data.sav
+#&gt; 6        /tmp/RtmpvBf1Jh/mmstat4.dummy/data/hhD.rda
+head(ghpath(dfn))
+#&gt;                1                2                3                4 
+#&gt;   &quot;hhberlin.csv&quot; &quot;Preisindex.csv&quot; &quot;data/BANK2.sav&quot; &quot;12411-0006.csv&quot; 
+#&gt;                5                6 
+#&gt; &quot;child_data.sav&quot;        &quot;hhD.rda&quot;</code></pre>
 </div>
 <div id="rstudio-addins" class="section level2">
 <h2>RStudio addins</h2>
 <p>The package comes with two RStudio addins (see under
 <code>Addins -&gt; MMSTAT4</code>):</p>
 <ul>
-<li><p><em>Open a file from a zip file</em> (<code>ghopenAddin</code>)
-which gives access to the unpacked zip file and opens the choosen file
-into a RStudio editor window.</p></li>
-<li><p><em>Runs a Shiny app from a zip file</em>
-(<code>ghappAddin</code>) which extracts all directories with Shiny apps
-and opens the choosen app in a web browser (using the default
-browser).</p></li>
+<li><p><em>Open a file from a zip file</em> (<code>ghopenAddin</code>),
+which gives access to the unzipped zip file and opens the selected file
+in an RStudio editor window.</p></li>
+<li><p><em>Execute a Shiny app from a zip file</em>
+(<code>ghappAddin</code>), which extracts all directories containing
+Shiny apps and opens the selected app in a web browser (using the
+default browser).</p></li>
 </ul>
+</div>
+</div>
+<div id="creating-an-own-zip-file" class="section level1">
+<h1>Creating an own ZIP file</h1>
+<div id="preparation-libraries-used-and-r-programs-run-standalone" class="section level2">
+<h2>Preparation: Libraries used and R programs run standalone</h2>
+<p>Currently there are the following routines to support R code
+snippets:</p>
+<ul>
+<li><code>Rlibs</code>, which extracts all <code>library</code> and
+<code>require</code> calls from the R code snippets and returns a
+frequency table of the packages called.</li>
+</ul>
+<pre class="r"><code>ghget(local=system.file(&quot;zip&quot;, &quot;mmstat4.dummy.zip&quot;, package=&quot;mmstat4&quot;))
+files &lt;- ghlist(pattern=&quot;*.R$&quot;, full.names = TRUE)
+head(Rlibs(files), 30)
+#&gt; 
+#&gt; additivityTests       agricolae       alphahull          Amelia         andrews 
+#&gt;               1               5               1               1               4 
+#&gt;             ape         aplpack             ash            boot             car 
+#&gt;               1               3               2               4              13 
+#&gt;           CHAID         cluster            coin          dbscan          deldir 
+#&gt;               1              17               1               3               1 
+#&gt;       DescTools        devtools           e1071         effsize         entropy 
+#&gt;               6               3               5               1               3 
+#&gt;       flexclust         foreign             fpc             gam          GGally 
+#&gt;               2               4               1               4               4 
+#&gt;           ggmap         ggplot2          glmnet          gplots          hexbin 
+#&gt;               1              20               2               3               1</code></pre>
+<ul>
+<li><code>Rsolo</code>, which checks that each R code snippet runs
+smoothly in a freshly started R.</li>
+</ul>
+<pre class="r"><code># just check the last files from the list 
+# Note that the R console will show more output (warnings etc.)
+Rsolo(files, start=435)  </code></pre>
+<ul>
+<li><code>Rdups</code>, which checks if the duplicate files can be found
+based on checksums</li>
+</ul>
+<pre class="r"><code>files &lt;- ghlist(full.names = TRUE)
+head(Rdups(files))
+#&gt; $c300e8fe6f0bc562256e81670c23d8c0
+#&gt; [1] &quot;/tmp/RtmpvBf1Jh/mmstat4.dummy/data/BANK2.sav&quot;                        
+#&gt; [2] &quot;/tmp/RtmpvBf1Jh/mmstat4.dummy/examples/data/cluster/dbscan/BANK2.sav&quot;
+#&gt; 
+#&gt; $`4efddb6dc6c7ed743221295d55133817`
+#&gt; [1] &quot;/tmp/RtmpvBf1Jh/mmstat4.dummy/examples/data/nnet/mincer_nnet3.R&quot;
+#&gt; [2] &quot;/tmp/RtmpvBf1Jh/mmstat4.dummy/examples/data/nnet/mincer_nnet5.R&quot;
+#&gt; 
+#&gt; $`9f9fe7603aa82f33bbc85a9d32e39d03`
+#&gt; [1] &quot;/tmp/RtmpvBf1Jh/mmstat4.dummy/examples/data/cluster/dbscan/app.tmpl&quot;       
+#&gt; [2] &quot;/tmp/RtmpvBf1Jh/mmstat4.dummy/examples/data/mgraphics/scagnostics/app.tmpl&quot;
+#&gt; 
+#&gt; $`0b74b824367df429803599708daf2e2e`
+#&gt; [1] &quot;/tmp/RtmpvBf1Jh/mmstat4.dummy/examples/data/subgroup/example_mosaic.R&quot; 
+#&gt; [2] &quot;/tmp/RtmpvBf1Jh/mmstat4.dummy/examples/data/mgraphics/example_mosaic.R&quot;
+#&gt; 
+#&gt; $`8eaa4f89e233ba69fcda053d238699aa`
+#&gt; [1] &quot;/tmp/RtmpvBf1Jh/mmstat4.dummy/examples/data/subgroup/example_mosaic_cotabplot.R&quot; 
+#&gt; [2] &quot;/tmp/RtmpvBf1Jh/mmstat4.dummy/examples/data/mgraphics/example_mosaic_cotabplot.R&quot;
+#&gt; 
+#&gt; $`8ed6128aab796148df5e71cbeab547da`
+#&gt; [1] &quot;/tmp/RtmpvBf1Jh/mmstat4.dummy/examples/data/subgroup/example_mosaic_graphics.R&quot; 
+#&gt; [2] &quot;/tmp/RtmpvBf1Jh/mmstat4.dummy/examples/data/mgraphics/example_mosaic_graphics.R&quot;</code></pre>
+<p>Note: there is also an error message if the necessary libraries are
+not installed!</p>
+</div>
+<div id="zip-file-and-access-names" class="section level2">
+<h2>ZIP file and access names</h2>
+<p>Once you created your ZIP file you need to know under which names a
+specific file can be accessed. In the example we use a ZIP file which
+comes with the package <code>mmstat4</code>:</p>
+<pre class="r"><code>ghget(local=system.file(&quot;zip&quot;, &quot;mmstat4.dummy.zip&quot;, package=&quot;mmstat4&quot;))
+ghnames &lt;- ghdecompose(ghlist(full.names=TRUE))
+ghnames[58,]
+#&gt;                       commonpath            uniquepath minpath  filename
+#&gt; 58 /tmp/RtmpvBf1Jh/mmstat4.dummy examples/data/cluster  dbscan BANK2.sav
+#&gt;                                                                  source
+#&gt; 58 /tmp/RtmpvBf1Jh/mmstat4.dummy/examples/data/cluster/dbscan/BANK2.sav</code></pre>
+<p>The shortest possible name is determined by <code>minpath</code> and
+<code>filename</code>. But all other paths determined by
+<code>uniquepath</code>, <code>minpath</code> and <code>filename</code>
+should also work.</p>
+<p>For file number 58, the following access names are possible:</p>
+<ul>
+<li><code>BANK2.sav</code> will not work since more than one file named
+<code>BANK2.sav</code> in the ZIP file.</li>
+<li><code>dbscan/BANK2.sav</code> will work since this the shortest
+possible name.</li>
+<li><code>cluster/dbscan/BANK2.sav</code>,
+<code>data/cluster/dbscan/BANK2.sav</code>, and
+<code>examples/data/cluster/dbscan/BANK2.sav</code> will work.</li>
+</ul>
+<pre class="r"><code>x1 &lt;- ghload(&quot;BANK2.sav&quot;)
+#&gt; Possible matches: 
+#&gt;   data/BANK2.sav
+#&gt;   dbscan/BANK2.sav
+#&gt; Error in ghfile(x): Several files for &#39;BANK2.sav&#39; found, check matches!
+x2 &lt;- ghload(&quot;dbscan/BANK2.sav&quot;)
+x3 &lt;- ghload(&quot;cluster/dbscan/BANK2.sav&quot;)
+x4 &lt;- ghload(&quot;data/cluster/dbscan/BANK2.sav&quot;)
+x5 &lt;- ghload(&quot;examples/data/cluster/dbscan/BANK2.sav&quot;)</code></pre>
 </div>
 </div>
 <div id="frequently-asked-questions" class="section level1">
 <h1>Frequently asked questions</h1>
+<div id="something-is-not-working-properly.-where-can-i-get-help" class="section level2">
+<h2>Something is not working properly. Where can I get help?</h2>
+<p>Please email me at <code>sigbert@hu-berlin.de</code>. You can also
+try the current development version of the package from GitHub:</p>
+<pre class="r"><code># install.packages(&quot;devtools&quot;)
+devtools::install_github(&quot;sigbertklinke/mmstat4&quot;)</code></pre>
+</div>
 <div id="how-can-i-force-a-reload-of-a-zip-file" class="section level2">
 <h2>How can I force a reload of a zip file?</h2>
 <pre class="r"><code>ghget(&quot;dummy&quot;, .force=TRUE)</code></pre>
 </div>
-<div id="how-can-i-store-a-zip-file-permanently-or-temporarily" class="section level2">
-<h2>How can I store a zip file permanently or temporarily?</h2>
-<pre class="r"><code>ghget(&quot;dummy&quot;, .force=TRUE)</code></pre>
-<p>and answer the question
-<code>Download and install repository to &#39;xxx&#39;? (Yes/no/cancel)</code>
-with</p>
-<ul>
-<li><code>y</code> to install it permamently to <code>XXX</code>,
-or</li>
-<li><code>n</code> to install it temporarily.</li>
-</ul>
+<div id="how-can-i-store-a-zip-file-permanently" class="section level2">
+<h2>How can I store a zip file permanently?</h2>
+<pre class="r"><code>ghget(&quot;dummy&quot;, .tempdir=FALSE)        # install non-temporarily
+ghget(&quot;dummy&quot;, .tempdir=&quot;~/mmstat4&quot;)  # install non-temporarily to ~/mmstat4
+ghget(&quot;dummy&quot;, .tempdir=TRUE)         # install again temporarily
+</code></pre>
 <p>Note: If a repository was installed permanently and you switch back
-temporarily then the downloaded files will not be deleted.</p>
+to temporarily storage then the downloaded files will not be
+deleted.</p>
 </div>
 <div id="how-can-i-find-all-directories-with-shiny-apps" class="section level2">
 <h2>How can I find all directories with Shiny apps?</h2>
-<pre class="r"><code>ghget(&quot;dummy&quot;)
+<pre class="r"><code>ghget(&quot;dummy&quot;, .tempdir=TRUE)
 ghlist(pattern=&quot;/(app|server)\\.R$&quot;)
 ghopen(&quot;dbscan&quot;) # open the app</code></pre>
 </div>
 <div id="how-can-i-find-all-csv-data-files" class="section level2">
 <h2>How can I find all <code>csv</code> data files?</h2>
-<pre class="r"><code>ghget(&quot;dummy&quot;)
-#&gt; [1] &quot;dummy&quot;
+<pre class="r"><code>ghget(&quot;dummy&quot;, .tempdir=TRUE)
 ghlist(pattern=&quot;\\.csv$&quot;, ignore.case=TRUE, full.names=TRUE)
-#&gt;  [1] &quot;/tmp/Rtmp9HNvtx/mmstat4.dummy-main/data/12411-0006.csv&quot;       
-#&gt;  [2] &quot;/tmp/Rtmp9HNvtx/mmstat4.dummy-main/data/ArbeitsloseBerlin.csv&quot;
-#&gt;  [3] &quot;/tmp/Rtmp9HNvtx/mmstat4.dummy-main/data/Preisindex.csv&quot;       
-#&gt;  [4] &quot;/tmp/Rtmp9HNvtx/mmstat4.dummy-main/data/TelefonDaten.csv&quot;     
-#&gt;  [5] &quot;/tmp/Rtmp9HNvtx/mmstat4.dummy-main/data/haushalte.csv&quot;        
-#&gt;  [6] &quot;/tmp/Rtmp9HNvtx/mmstat4.dummy-main/data/haushalte_berlin.csv&quot; 
-#&gt;  [7] &quot;/tmp/Rtmp9HNvtx/mmstat4.dummy-main/data/hhberlin.csv&quot;         
-#&gt;  [8] &quot;/tmp/Rtmp9HNvtx/mmstat4.dummy-main/data/hhberlin_2017.csv&quot;    
-#&gt;  [9] &quot;/tmp/Rtmp9HNvtx/mmstat4.dummy-main/data/pechstein.csv&quot;        
-#&gt; [10] &quot;/tmp/Rtmp9HNvtx/mmstat4.dummy-main/data/rentcap.csv&quot;
-# import yourself
-library(&quot;rio&quot;)
-pechstein &lt;- import(ghlist(pattern=&quot;pechstein.csv$&quot;, full.names=TRUE))
-str(pechstein)
-#&gt; &#39;data.frame&#39;:    29 obs. of  3 variables:
-#&gt;  $ Datum        : chr  &quot;04.02.00&quot; &quot;01.02.01&quot; &quot;10.11.01&quot; &quot;06.02.02&quot; ...
-#&gt;  $ Tag          : int  34 397 679 767 771 783 1043 1160 1166 1421 ...
-#&gt;  $ Retikulozyten: chr  &quot;2,3&quot; &quot;2,5&quot; &quot;2,45&quot; &quot;2,1&quot; ...
-# use mmstat4 for importing
+#&gt;  [1] &quot;/tmp/RtmpvBf1Jh/mmstat4.dummy-main/data/12411-0006.csv&quot;       
+#&gt;  [2] &quot;/tmp/RtmpvBf1Jh/mmstat4.dummy-main/data/ArbeitsloseBerlin.csv&quot;
+#&gt;  [3] &quot;/tmp/RtmpvBf1Jh/mmstat4.dummy-main/data/Preisindex.csv&quot;       
+#&gt;  [4] &quot;/tmp/RtmpvBf1Jh/mmstat4.dummy-main/data/TelefonDaten.csv&quot;     
+#&gt;  [5] &quot;/tmp/RtmpvBf1Jh/mmstat4.dummy-main/data/haushalte.csv&quot;        
+#&gt;  [6] &quot;/tmp/RtmpvBf1Jh/mmstat4.dummy-main/data/haushalte_berlin.csv&quot; 
+#&gt;  [7] &quot;/tmp/RtmpvBf1Jh/mmstat4.dummy-main/data/hhberlin.csv&quot;         
+#&gt;  [8] &quot;/tmp/RtmpvBf1Jh/mmstat4.dummy-main/data/hhberlin_2017.csv&quot;    
+#&gt;  [9] &quot;/tmp/RtmpvBf1Jh/mmstat4.dummy-main/data/pechstein.csv&quot;        
+#&gt; [10] &quot;/tmp/RtmpvBf1Jh/mmstat4.dummy-main/data/rentcap.csv&quot;
+# use mmstat4::ghload for importing
 ghlist(pattern=&quot;\\.csv$&quot;)
 #&gt;  [1] &quot;12411-0006.csv&quot;        &quot;ArbeitsloseBerlin.csv&quot; &quot;Preisindex.csv&quot;       
 #&gt;  [4] &quot;TelefonDaten.csv&quot;      &quot;haushalte.csv&quot;         &quot;haushalte_berlin.csv&quot; 
 #&gt;  [7] &quot;hhberlin.csv&quot;          &quot;hhberlin_2017.csv&quot;     &quot;pechstein.csv&quot;        
 #&gt; [10] &quot;rentcap.csv&quot;
-pechstein &lt;- ghopen(&quot;pechstein.csv&quot;)
+pechstein &lt;- ghload(&quot;pechstein.csv&quot;)
 str(pechstein)
 #&gt; &#39;data.frame&#39;:    29 obs. of  3 variables:
 #&gt;  $ Datum        : chr  &quot;04.02.00&quot; &quot;01.02.01&quot; &quot;10.11.01&quot; &quot;06.02.02&quot; ...
 #&gt;  $ Tag          : int  34 397 679 767 771 783 1043 1160 1166 1421 ...
 #&gt;  $ Retikulozyten: chr  &quot;2,3&quot; &quot;2,5&quot; &quot;2,45&quot; &quot;2,1&quot; ...</code></pre>
-</div>
-<div id="which-data-files-are-in-the-package-mmstat4" class="section level2">
-<h2>Which data files are in the package <code>mmstat4</code> ?</h2>
-<pre class="r"><code>df &lt;- data(package=&quot;mmstat4&quot;)
-df$results[,&#39;Item&#39;]
-#&gt;  [1] &quot;allbus2012&quot;            &quot;allbus2018&quot;            &quot;anscombe&quot;             
-#&gt;  [4] &quot;bank2&quot;                 &quot;benzinverbrauch&quot;       &quot;bostonc&quot;              
-#&gt;  [7] &quot;bostonh&quot;               &quot;concrete&quot;              &quot;country&quot;              
-#&gt; [10] &quot;cps78_85&quot;              &quot;credit&quot;                &quot;destatis12411_0006&quot;   
-#&gt; [13] &quot;destatis13211_0002&quot;    &quot;fatalities_statlib&quot;    &quot;gluehlampen&quot;          
-#&gt; [16] &quot;haushalte_berlin&quot;      &quot;haushalte_deutschland&quot; &quot;kriegsschiffe&quot;        
-#&gt; [19] &quot;lottozahlen&quot;           &quot;marathon&quot;              &quot;olympic&quot;              
-#&gt; [22] &quot;pechstein&quot;             &quot;pechstein_isu&quot;         &quot;salary&quot;               
-#&gt; [25] &quot;sas_body&quot;              &quot;staedtemietenr&quot;        &quot;thousand_songs&quot;       
-#&gt; [28] &quot;titanic3&quot;              &quot;titanic_full&quot;
-data(&quot;bank2&quot;)
-str(bank2)
-#&gt; &#39;data.frame&#39;:    200 obs. of  6 variables:
-#&gt;  $ WIDTH   : num  215 215 215 215 215 ...
-#&gt;   ..- attr(*, &quot;format.spss&quot;)= chr &quot;COMMA9.2&quot;
-#&gt;  $ LEFT    : num  131 130 130 130 130 ...
-#&gt;   ..- attr(*, &quot;format.spss&quot;)= chr &quot;COMMA9.2&quot;
-#&gt;  $ RIGHT   : num  131 130 130 130 130 ...
-#&gt;   ..- attr(*, &quot;format.spss&quot;)= chr &quot;COMMA9.2&quot;
-#&gt;  $ UPPER   : num  9 8.1 8.7 7.5 10.4 9 7.9 7.2 8.2 9.2 ...
-#&gt;   ..- attr(*, &quot;format.spss&quot;)= chr &quot;COMMA8.2&quot;
-#&gt;  $ LOWER   : num  9.7 9.5 9.6 10.4 7.7 10.1 9.6 10.7 11 10 ...
-#&gt;   ..- attr(*, &quot;format.spss&quot;)= chr &quot;COMMA8.2&quot;
-#&gt;  $ DIAGONAL: num  141 142 142 142 142 ...
-#&gt;   ..- attr(*, &quot;format.spss&quot;)= chr &quot;COMMA9.2&quot;</code></pre>
 </div>
 </div>
 <div id="default-repositories" class="section level1">
@@ -643,13 +767,13 @@ str(bank2)
 <td align="left"><code>https://github.com/sigbertklinke/mmstat4.dummy/archive/refs/heads/main.zip</code></td>
 </tr>
 <tr class="even">
-<td align="left"><code>hu.stat</code></td>
+<td align="left"><code>hu.data</code></td>
 <td align="left">29 MB</td>
 <td align="left"><code>https://github.com/sigbertklinke/mmstat4.data/archive/refs/heads/main.zip</code></td>
 </tr>
 <tr class="odd">
-<td align="left"><code>hu.data</code></td>
-<td align="left">33 MB</td>
+<td align="left"><code>hu.stat</code></td>
+<td align="left">31 MB</td>
 <td align="left"><code>https://github.com/sigbertklinke/mmstat4.stat/archive/refs/heads/main.zip</code></td>
 </tr>
 </tbody>

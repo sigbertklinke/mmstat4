@@ -12,3 +12,7 @@ Since the package is not available at CRAN it has to be installed from GitHub:
 library("devtools")
 install_github(build_vignettes = TRUE)
 ```
+
+If under MacOS the error `X11 library is missing: install XQuartz from xquartz.macosforge.org` appears then install XQuartz. It is writen in the R documentation:
+
+*Various parts of the build require XQuartz to be installed: see [https://www.xquartz.org/releases/](https://www.xquartz.org/releases/). These include the tcltk package and the X11 graphics device: attempting to use these without XQuartz will remind you. This is also needed for some builds of the cairographics-based devices (which are not often used on macOS) such as png(type = "cairo") and svg() and some third-party packages (e.g. rgl).*

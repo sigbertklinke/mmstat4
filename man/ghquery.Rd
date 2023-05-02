@@ -41,13 +41,14 @@ ghquery(
 character vector of short names fitting best to the query
 }
 \description{
-Queries the unique (short) names for each file in the repository. Several methods are available
+Queries the unique (short) names for each file in the repository.
+Several query methods are available, see Details.
 }
 \details{
+The following query methods are available:
 \itemize{
 \item \code{overlap} uses the \href{https://en.wikipedia.org/wiki/Overlap_coefficient}{overlap distance} for \code{query} and file names
 \item \code{fpdist} uses a partial backward matching distance based on \code{\link[utils:adist]{utils::adist()}}
-\item \code{tfidf} uses a \href{https://en.wikipedia.org/wiki/Tf\%E2\%80\%93idf}{TF-IDF} approach interpreting the filenames and teh query as documents
 }
 }
 \examples{
