@@ -6,11 +6,17 @@ The R package now collects data and R programmes that we use in various courses 
 
 # Installation  
 
-Since the package is not available at CRAN it has to be installed from GitHub:
+Since the package is available at CRAN it can be installed by 
+
+```R
+install.packages("mmstat4")
+```
+
+and the development version by
 
 ```R
 library("devtools")
-install_github(build_vignettes = TRUE)
+install_github("sigbertklinke/mmstat4")
 ```
 
 If under MacOS the error `X11 library is missing: install XQuartz from xquartz.macosforge.org` appears then install XQuartz. It is writen in the R documentation:
