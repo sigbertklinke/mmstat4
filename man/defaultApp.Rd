@@ -4,21 +4,28 @@
 \alias{defaultApp}
 \title{defaultApp}
 \usage{
-defaultApp(file)
+defaultApp(file, wait = FALSE, ...)
 }
 \arguments{
 \item{file}{character: file name}
+
+\item{wait}{logical: indicaties whether the R interpreter should wait for the command to finish, or run it asynchronously (default: \code{TRUE})}
+
+\item{...}{further arguments passed to \code{system2}}
 }
 \value{
-nothing
+Result of \code{try(system2, ...)}, invisibly
 }
 \description{
-Tries to open the given \code{file} with the default application of the operating system.
-Only Windows (\code{windows}), macOS (\code{darwin}) and Linux (\code{linux}) is supported.
+Tries to open the given \code{file} with the default application of the operating system using \code{\link[base:system2]{base::system2()}}.
+Only Windows (\code{windows}), macOS (\code{darwin}), Linux (\code{linux}) and FreeBSD (\code{freebsd}) is supported.
 }
 \examples{
 if (interactive()) {
   ghget()
   defaultApp(ghlist("dataanalysis.pdf", full.names = TRUE))
 }
+}
+\seealso{
+\href{https://CRAN.R-project.org/package=berryFunctions}{\code{berryFunctions::openFile()}}
 }

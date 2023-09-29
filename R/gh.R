@@ -51,12 +51,16 @@ gh <- function (x, what=c("open", "load", "source", "app"), ...) {
 
 #' defaultApp
 #'
-#' Tries to open the given `file` with the default application of the operating system.
-#' Only Windows (`windows`), macOS (`darwin`) and Linux (`linux`) is supported.
+#' Tries to open the given `file` with the default application of the operating system using [base::system2()].
+#' Only Windows (`windows`), macOS (`darwin`), Linux (`linux`) and FreeBSD (`freebsd`) is supported.
 #'
 #' @param file character: file name
+#' @param wait logical: indicates whether the R interpreter should wait for the command to finish, or run it asynchronously (default: `TRUE`)
+#' @param ... further arguments passed to `system2`
 #'
-#' @return nothing
+#' @seealso \href{https://CRAN.R-project.org/package=berryFunctions}{`berryFunctions::openFile()`}
+#'
+#' @return Result of `try(system2, ...)`, invisibly
 #' @export
 #'
 #' @examples
@@ -64,17 +68,22 @@ gh <- function (x, what=c("open", "load", "source", "app"), ...) {
 #'   ghget()
 #'   defaultApp(ghlist("dataanalysis.pdf", full.names = TRUE))
 #' }
-defaultApp <- function(file) {
-  sys <- tolower(Sys.info()["sysname"])
-  prg <- NULL
-  if (sys=="windows") prg <- "start"
-  if (sys=="darwin")  prg <- "open"
+defaultApp <- function(file, wait=FALSE, ...) {
+  file <- normalizePath(file, winslash="/", mustWork=FALSE)
+  if (!file.exists(file)) stop(sprintf("File not found: %2", file))
+  file <- shQuote(file) # to handle space in "C:/Program Files/R/..."
+  sys  <- tolower(Sys.info()["sysname"])
   if (sys=="linux") {
-    prg <- Sys.which(c("xdg-open", "gnome-open"))
-    prg <- prg[which.min(nchar(prg)==0)]
+    linux <- Sys.which(c("xdg-open", "gnome-open"))
+    linux <- linux[which.min(nchar(linux)==0)]
   }
-  if (nchar(prg)==0) stop (sprintf("Unknown operating system: %s", sys))
-  system2(prg, shQuote(file), wait = FALSE)
+  out <- try(switch(sys,
+                    "linux"   = system2(linux, file, wait=wait, ... ),
+                    "freebsd" = system2("handlr", paste("open", file),  wait=wait, ...),
+                    system2("open", file,  wait=wait, ...)  # Windows or Mac
+  ), silent=TRUE)
+  # out: 127 if failed, 124 for timeout, 0 for success
+  return(invisible(out))
 }
 
 #' @rdname gh
