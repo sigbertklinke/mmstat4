@@ -46,20 +46,31 @@ In my courses I assume that all R programs run in a freshly started R, i.e. ther
 ## `ghget`
 
 A ZIP file or repository can be stored locally or in the internet.
-A user defined key has to be given for the location of the ZIP file
+A key-value approach can be used to determine the location of the source ZIP file. If no key is defined then `ghget` uses the base name of the source ZIP file as the key.
 
 ```{r, eval=FALSE}
 ghget(dummy="https://github.com/sigbertklinke/mmstat4.dummy/archive/refs/heads/main.zip")
 ```
 
-Three repositories are predefined: `hu.data`, `hu.stat` and `dummy`. You can retrieve them via
+Three repository keys are predefined: `hu.data`, `hu.stat` and `dummy`. You can retrieve them via
 
 ```{r, eval=FALSE}
 ghget('dummy')
 ghget('hu.stat')
 ghget('hu.data')
-ghget()           # uses hu.data
 ```
+
+If you do not use a key, the programme will use the base name of the ZIP file without extension.
+
+```{r, error=TRUE}
+ghget(system.file("zip/mmstat4.dummy.zip", package = "mmstat4"))
+ghget("https://github.com/sigbertklinke/mmstat4.dummy/archive/refs/heads/main.zip")
+# tries https://github.com/my/github_repo/archive/refs/heads/[main|master].zip 
+ghget("my/github_repo", .quiet=FALSE) 
+#
+ghget()                  # uses 'hu.data'
+```
+
 
 `ghget` downloads the ZIP file, saves it to a temporary location and unpacks it. For non-temporary locations, see the FAQ.
 
@@ -118,8 +129,8 @@ ghquery("bnk") # nearest string matching to "bnk"
 
 `ghdecompose` builds a data frame and decomposes the full names of the files into 
 
-* `commonpath` the path part which is the same for all files,
-* `uniquepath` the path part that is unique for all files,
+* `outpath` the path part which is the same for all files (basically the place where the ZIP file is extraced to),
+* `inpath` the path part that is not used in `minpath`, but in the ZIP file,
 * `minpath` the minimum path part, so that all files are uniquely addressable,
 * `filename` the base name of the file, and
 * `source` the input for shortpath.
@@ -216,6 +227,9 @@ Please email me at `sigbert@hu-berlin.de`. You can also try the current developm
 devtools::install_github("sigbertklinke/mmstat4")
 ```
 
+## Can I use a password protected ZIP file? 
+
+No, this is not supported.
 
 ## How can I force a reload of a zip file?
 

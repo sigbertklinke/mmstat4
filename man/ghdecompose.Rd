@@ -19,8 +19,8 @@ Decomposes a path of a set of files (or dirs) in several parts:
 }
 \details{
 \itemize{
-\item \code{commonpath} the path part which is common to all files,
-\item \code{uniquepath} the path part which is unique to all files
+\item \code{outpath} the path part which is common to all files (basically the place where the ZIP file was extracted)
+\item \code{inpath} the path part which is not necessary for a unique address in teh ZIP file
 \item \code{minpath} the minimal path part such that all files addressable in unique manner,
 \item \code{filename} the basename of the file, and
 \item \code{source} the input to \code{shortpath}.

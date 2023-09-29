@@ -2,13 +2,13 @@
 #' @description Queries the unique (short) names for each file in the repository.
 #' Several query methods are available, see Details.
 #' @details The following query methods are available:
-#' * `overlap` uses the \href{https://en.wikipedia.org/wiki/Overlap_coefficient}{overlap distance} for `query` and file names
 #' * `fpdist` uses a partial backward matching distance based on [utils::adist()]
-## * `tfidf` uses a \href{https://en.wikipedia.org/wiki/Tf%E2%80%93idf}{TF-IDF} approach interpreting the filenames and teh query as documents
+#' * `overlap` uses the \href{https://en.wikipedia.org/wiki/Overlap_coefficient}{overlap distance} for `query` and file names
+## * `tfidf` uses a \href{https://en.wikipedia.org/wiki/Tf%E2%80%93idf}{TF-IDF} approach interpreting the filenames and the query as documents
 #' @param query character: query string
 #' @param n integer: maximal number of matches to return
 #' @param full.names logical: should full names used instead of short names (default: `FALSE`)
-#' @param method character: method to be used (default: `overlap`)
+#' @param method character: method to be used (default: `fpdist`)
 #' @inheritParams utils::adist
 #'
 #' @return character vector of short names fitting best to the query
@@ -17,7 +17,7 @@
 #'
 #' @examples
 #' if (interactive()) ghquery("bank")
-ghquery <- function(query, n=6, full.names=FALSE, method=c("overlap", "fpdist", "tfidf"),
+ghquery <- function(query, n=6, full.names=FALSE, method=c("fpdist", "overlap", "tfidf"),
                     costs = NULL, counts = FALSE, useBytes = FALSE) {
   overlap <- function(files, x, n) {
     x   <- unique(tolower(strsplit(x, "")[[1]]))

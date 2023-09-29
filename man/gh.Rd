@@ -5,15 +5,18 @@
 \alias{ghopen}
 \alias{ghload}
 \alias{ghsource}
+\alias{ghapp}
 \title{gh functions}
 \usage{
-gh(x, what = c("open", "load", "source"), ...)
+gh(x, what = c("open", "load", "source", "app"), ...)
 
 ghopen(x, ...)
 
 ghload(x, ...)
 
 ghsource(x, ...)
+
+ghapp(x, ...)
 }
 \arguments{
 \item{x}{character(1): name of the file, app or data set}
@@ -23,7 +26,7 @@ ghsource(x, ...)
 \item{...}{further parameters used in \code{\link[utils:browseURL]{utils::browseURL()}}, \code{\link[rstudioapi:navigateToFile]{rstudioapi::navigateToFile()}}, \code{\link[rio:import]{rio::import()}}, or \code{\link[base:source]{base::source()}}.}
 }
 \value{
-the result of \link[utils:browseURL]{utils::browseURL}, \code{\link[rstudioapi:navigateToFile]{rstudioapi::navigateToFile()}}, \code{\link[rio:import]{rio::import()}}, or \code{\link[base:source]{base::source()}}.
+invisibly the result of \link[utils:browseURL]{utils::browseURL}, \code{\link[rstudioapi:navigateToFile]{rstudioapi::navigateToFile()}}, \code{\link[rio:import]{rio::import()}}, or \code{\link[base:source]{base::source()}}.
 }
 \description{
 \code{gh} performs the operation described below on a file \code{x}.
@@ -34,6 +37,7 @@ Otherwise, the following actions are performed:
 \item \code{gh(x, 'open')} or \code{ghopen(x)}: Opens a file in the local browser if the file extension is \code{html} or \code{pdf}, otherwise in the RStudio editor.
 \item \code{gh(x, 'load')} or \code{ghload(x)}: Loads the contents of a file with \code{import}.
 \item \code{gh(x, 'source')} or \code{ghsource(x)}: Executes the contents of a file with \code{source}.
+\item \code{gh(x, 'app')} or \code{ghapp(x)}: Tries to open the file with the default application of the OS, see \code{\link[=defaultApp]{defaultApp()}}.
 }
 }
 \examples{

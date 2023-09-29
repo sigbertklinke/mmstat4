@@ -2,8 +2,8 @@
 #'
 #' Decomposes a path of a set of files (or dirs) in several parts:
 #'
-#' * `commonpath` the path part which is common to all files,
-#' * `uniquepath` the path part which is unique to all files
+#' * `outpath` the path part which is common to all files (basically the place where the ZIP file was extracted)
+#' * `inpath` the path part which is not necessary for a unique address in teh ZIP file
 #' * `minpath` the minimal path part such that all files addressable in unique manner,
 #' * `filename` the basename of the file, and
 #' * `source` the input to `shortpath`.
@@ -42,16 +42,16 @@ ghdecompose <- function (files, dirs=FALSE) {
     nonunique  <- (upos<0)
     i <- i+1
   }
-  uniquepath <- sapply(1:length(files), function(i) { paste0(rev(sfiles[[i]][-(1:upos[i])]), collapse="/")} )
-  minpath    <- sapply(1:length(files), function(i) { paste0(rev(sfiles[[i]][1:upos[i]]), collapse="/")} )
-  filename   <- rep('', length(files))
+  inpath   <- sapply(1:length(files), function(i) { paste0(rev(sfiles[[i]][-(1:upos[i])]), collapse="/")} )
+  minpath  <- sapply(1:length(files), function(i) { paste0(rev(sfiles[[i]][1:upos[i]]), collapse="/")} )
+  filename <- rep('', length(files))
   if (!dirs) {
     filename <- basename(minpath)
     minpath  <- dirname(minpath)
   }
-  df <- data.frame(commonpath=rep(paste0(path, collapse="/"), length(files)),
+  df <- data.frame(outpath=rep(paste0(path, collapse="/"), length(files)),
 #                   uniquepath=sapply(sfiles, i=i, function(v, i) { if (i<length(v)) paste0(v[(length(v)-1):i], collapse="/") else '' }),
-                   uniquepath=uniquepath,
+                   inpath=inpath,
                    minpath=gsub('.', '', minpath, fixed=TRUE),
                    filename=filename,
                    source=files)

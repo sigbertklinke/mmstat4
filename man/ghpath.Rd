@@ -4,12 +4,12 @@
 \alias{ghpath}
 \title{ghpath}
 \usage{
-ghpath(df, from = c("minpath", "commonpath", "uniquepath", "filename"))
+ghpath(df, from = c("outpath", "inpath", "minpath", "filename"))
 }
 \arguments{
 \item{df}{data frame: returned from \code{ghdecompose}}
 
-\item{from}{character: either \code{minpath} (defaulkt), \code{commonpath}, \code{uniquepath}, or \code{filename}}
+\item{from}{character: either \code{inpath} (default), \code{outpath}, \code{minpath}, or \code{filename}}
 }
 \value{
 a character vector with file pathes
@@ -21,8 +21,8 @@ Returns a path for files based on \code{ghdecompose}.
 ghget("dummy")
 pdf <- ghdecompose(ghlist(full.names=TRUE))
 ghpath(pdf)
-ghpath(pdf, 'c') # equals the input to ghdecompose
-ghpath(pdf, 'u')
+ghpath(pdf, 'o') # equals the input to ghdecompose
+ghpath(pdf, 'i')
 ghpath(pdf, 'm')
 ghpath(pdf, 'f')
 }

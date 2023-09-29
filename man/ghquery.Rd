@@ -8,7 +8,7 @@ ghquery(
   query,
   n = 6,
   full.names = FALSE,
-  method = c("overlap", "fpdist", "tfidf"),
+  method = c("fpdist", "overlap", "tfidf"),
   costs = NULL,
   counts = FALSE,
   useBytes = FALSE
@@ -21,7 +21,7 @@ ghquery(
 
 \item{full.names}{logical: should full names used instead of short names (default: \code{FALSE})}
 
-\item{method}{character: method to be used (default: \code{overlap})}
+\item{method}{character: method to be used (default: \code{fpdist})}
 
 \item{costs}{a numeric vector or list with names partially matching
     \samp{insertions}, \samp{deletions} and \samp{substitutions} giving
@@ -47,8 +47,8 @@ Several query methods are available, see Details.
 \details{
 The following query methods are available:
 \itemize{
-\item \code{overlap} uses the \href{https://en.wikipedia.org/wiki/Overlap_coefficient}{overlap distance} for \code{query} and file names
 \item \code{fpdist} uses a partial backward matching distance based on \code{\link[utils:adist]{utils::adist()}}
+\item \code{overlap} uses the \href{https://en.wikipedia.org/wiki/Overlap_coefficient}{overlap distance} for \code{query} and file names
 }
 }
 \examples{

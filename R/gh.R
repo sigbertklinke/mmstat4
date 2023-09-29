@@ -10,12 +10,13 @@
 #' * `gh(x, 'open')` or `ghopen(x)`: Opens a file in the local browser if the file extension is `html` or `pdf`, otherwise in the RStudio editor.
 #' * `gh(x, 'load')` or `ghload(x)`: Loads the contents of a file with `import`.
 #' * `gh(x, 'source')` or `ghsource(x)`: Executes the contents of a file with `source`.
-#'
+#' * `gh(x, 'app')` or `ghapp(x)`: Tries to open the file with the default application of the OS, see [defaultApp()].
+##'
 #' @param x character(1): name of the file, app or data set
 #' @param what character or function: a name of a predefined function or another function. The function must have a formal parameter `file`.
 #' @param ... further parameters used in [utils::browseURL()], [rstudioapi::navigateToFile()], [rio::import()], or [base::source()].
 #'
-#' @return the result of [utils::browseURL], [rstudioapi::navigateToFile()], [rio::import()], or [base::source()].
+#' @return invisibly the result of [utils::browseURL], [rstudioapi::navigateToFile()], [rio::import()], or [base::source()].
 #' @importFrom rstudioapi navigateToFile
 #' @importFrom utils browseURL adist
 #' @importFrom tools file_ext
@@ -29,7 +30,7 @@
 #'   str(x)
 #'   x <- ghsource("univariate/example_ecdf.R")
 #' }
-gh <- function (x, what=c("open", "load", "source"), ...) {
+gh <- function (x, what=c("open", "load", "source", "app"), ...) {
   stopifnot(length(x)==1)
   file <- ghfile(x)
   ext  <- tolower(file_ext(file))
@@ -37,6 +38,7 @@ gh <- function (x, what=c("open", "load", "source"), ...) {
     fun <- switch(match.arg(what),
                   load=rio::import,
                   source=base::source,
+                  app=mmstat4::defaultApp,
                   if (ext %in% getOption("mmstat.ext.doc", c('html', 'pdf'))) utils::browseURL else rstudioapi::navigateToFile)
   }
   stopifnot(is.function(fun))
@@ -44,7 +46,35 @@ gh <- function (x, what=c("open", "load", "source"), ...) {
   args <- list(...)
   if ('file' %in% names(ffun)) args$file <- file
   if ('url' %in% names(ffun)) args$url <- file
-  do.call(fun, args)
+  invisible(do.call(fun, args))
+}
+
+#' defaultApp
+#'
+#' Tries to open the given `file` with the default application of the operating system.
+#' Only Windows (`windows`), macOS (`darwin`) and Linux (`linux`) is supported.
+#'
+#' @param file character: file name
+#'
+#' @return nothing
+#' @export
+#'
+#' @examples
+#' if (interactive()) {
+#'   ghget()
+#'   defaultApp(ghlist("dataanalysis.pdf", full.names = TRUE))
+#' }
+defaultApp <- function(file) {
+  sys <- tolower(Sys.info()["sysname"])
+  prg <- NULL
+  if (sys=="windows") prg <- "start"
+  if (sys=="darwin")  prg <- "open"
+  if (sys=="linux") {
+    prg <- Sys.which(c("xdg-open", "gnome-open"))
+    prg <- prg[which.min(nchar(prg)==0)]
+  }
+  if (nchar(prg)==0) stop (sprintf("Unknown operating system: %s", sys))
+  system2(prg, shQuote(file), wait = FALSE)
 }
 
 #' @rdname gh
@@ -58,3 +88,7 @@ ghload <- function(x, ...) { gh(x, what='load', ...) }
 #' @rdname gh
 #' @export
 ghsource <- function(x, ...) { gh(x, what='source', ...) }
+
+#' @rdname gh
+#' @export
+ghapp <- function(x, ...) { gh(x, what='app', ...) }

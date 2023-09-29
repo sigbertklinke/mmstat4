@@ -23,9 +23,21 @@
 # See the 'vcd' CRAN package for some examples and code
 # on calculations and p values
 
-
-
-#' @rdname association
+#' @name association
+#' @aliases concordant
+#' @aliases discordant
+#' @aliases ties.row
+#' @aliases ties.col
+#' @aliases nom.phi
+#' @aliases nom.cc
+#' @aliases nom.TT
+#' @aliases nom.CV
+#' @aliases nom.lamba
+#' @aliases nom.uncertainty
+#' @aliases ord.gamma
+#' @aliases ord.tau
+#' @aliases ord.somers.d
+#'
 #' @title Association measures
 #' @description Various association coefficients for nominal and ordinal data; the input formats follows [stats::chisq.test()].
 #' * `concordant` concordant pairs
@@ -69,8 +81,8 @@
 #' @source From the [archived `ryouready` package](https://cran.r-project.org/package=ryouready) by Mark Heckmann.
 #' The code for the calculation of `nom.lambda`, `nom.uncertainty`, `ord.gamma`, `ord.tau`, `ord.somers.d`
 #' was supplied by Marc Schwartz (under GPL 2) and checked against SPSS results.
-#' @importFrom stats chisq.test complete.cases pchisq
 #' @return the association coefficient(s)
+#' @importFrom stats chisq.test complete.cases pchisq
 #' @export
 #'
 #' @examples
@@ -96,6 +108,10 @@
 #' ord.somers.d(ordx, ordy)
 #' ## Interval/nominal data
 #' eta(iris$Species, iris$Sepal.Length)
+#'
+
+#' @rdname association
+#' @export
 concordant <- function(x, y=NULL)
 {
   x <- get.table(x, y)

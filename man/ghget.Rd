@@ -4,14 +4,16 @@
 \alias{ghget}
 \title{ghget}
 \usage{
-ghget(..., .force = FALSE, .tempdir = TRUE)
+ghget(..., .force = FALSE, .tempdir = TRUE, .quiet = !interactive())
 }
 \arguments{
 \item{...}{parameters to set and activate a repository}
 
 \item{.force}{logical: download and unzip in any case? (default: \code{FALSE})}
 
-\item{.tempdir}{logical or character: store download temporary or permanently (default: \code{getOption("mmstat4.tempdir")})
+\item{.tempdir}{logical or character: store download temporary or permanently (default: \code{getOption("mmstat4.tempdir")})}
+
+\item{.quiet}{logical: show repository read attempts (default: \code{!interactive()})
 \itemize{
 \item if \code{.tempdir==TRUE} then the downloaded zip file will be stored temporarily in \code{\link[=tempdir]{tempdir()}}
 \item if \code{.tempdir==FALSE} then the downloaded zip file will be stored temporarily in \code{\link[rappdirs:user_data_dir]{rappdirs::user_data_dir()}}

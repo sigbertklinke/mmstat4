@@ -10,11 +10,14 @@
 #' @param ... parameters to set and activate a repository
 #' @param .force logical: download and unzip in any case? (default: `FALSE`)
 #' @param .tempdir logical or character: store download temporary or permanently (default: `getOption("mmstat4.tempdir")`)
+#' @param .quiet logical: show repository read attempts (default: `!interactive()`)
 #' * if `.tempdir==TRUE` then the downloaded zip file will be stored temporarily in [tempdir()]
 #' * if `.tempdir==FALSE` then the downloaded zip file will be stored temporarily in [rappdirs::user_data_dir()]
 #' * otherwise it is assumed that you give the name of an existing directory to store the downloaded zip file
 #' @return invisibly the name of the current key
-#' @importFrom utils download.file unzip
+#' @importFrom utils download.file unzip URLencode tail
+#' @importFrom tools file_path_sans_ext file_ext
+#' @importFrom httr HEAD status_code
 #' @importFrom rappdirs user_data_dir
 #' @export
 #'
@@ -27,45 +30,77 @@
 #'   # get from an URL
 #'   ghget(dummy.url="https://github.com/sigbertklinke/mmstat4.dummy/archive/refs/heads/main.zip")
 #' }
-ghget <- function(..., .force=FALSE, .tempdir=TRUE) {
-  # analyse function parameter
+ghget <-  function(..., .force=FALSE, .tempdir=TRUE, .quiet=!interactive()) {
   args <- list(...)
+  if (length(args)==0) args <- list(mmstat$repo)
   stopifnot(length(args)==1)
+  # determine key
+  #browser()
   nargs <- names(args)
-  if (is.null(nargs)) { # repo name (must exist)
-    key <- if (is.null(args[[1]])) 'hu.data' else as.character(args[[1]])
-    stopifnot(key %in% names(mmstat$repository))
-  } else { # repo=URL or file
-    key <- nargs
-    # determine target directory after download
-    if (is.logical(.tempdir)) {
-      if (isFALSE(.tempdir)) {
-        mmstat$repository[[key]]$dir <- user_data_dir('mmstat4')
-      } else {
-        mmstat$repository[[key]]$dir <- ''
+  if (is.null(nargs)) {
+    key  <- normpathes(args[[1]])[[1]]
+    file <- tail(key, 1)
+    key  <- if (tools::file_ext(file) %in% c('zip')) tools::file_path_sans_ext(file) else file
+  } else {
+    key  <- nargs
+  }
+  # determine repos
+  repos <- args[[1]]
+  if (is.null(nargs)) { # key or file
+    if (key %in% names(mmstat$repository)) {
+      repos <- mmstat$repository[[key]]$url
+    } else {
+      repos <- c(repos, paste0(sprintf("https://github.com/%s/archive/refs/heads/", args[[1]]), c("main.zip", "master.zip")))
+    }
+  }
+  # get download dir
+  if (is.logical(.tempdir)) {
+    ddir <- if (isFALSE(.tempdir)) user_data_dir('mmstat4') else tempdir()
+  } else {
+    ddir <- as.character(.tempdir)
+  }
+  #
+  #  browser()
+  repop  <- normpathes(repos)
+  rfile  <- 0
+  reposi <- NULL
+  for (i in 1:length(repop)) {
+    reposi <- repos[i]
+#    if (!.quiet) cat (reposi, "\n")
+    if (file.exists(reposi)) rfile <- i # local file exists
+    try({ if (status_code(HEAD(reposi))==200) rfile <- -i }, silent = TRUE)
+    if (rfile) {
+      destfile <- paste0(gsub("[^[:alnum:]._]", "_", repop[[i]]), collapse="_")
+      destfile <- paste(ddir, destfile, sep="/")
+      if (.force || !file.exists(destfile)) {
+        if (rfile>0) {
+          file.copy(repos[i], destfile, overwrite=TRUE)
+        }
+        if (rfile<0) {
+          res <- try(download.file(repos[i], destfile, quiet = TRUE), silent = TRUE)
+          if (!inherits(res, 'try-error')) { fail <- FALSE; break }
+        }
       }
-    } else {
-      mmstat$repository[[key]]$dir <- as.character(.tempdir)
+      break
     }
-    mmstat$repository[[key]]$url <- as.character(args[[1]])
   }
-  exdir <- mmstat$repository[[key]]$dir
-  if (exdir=='') exdir <- tempdir()
-  # download zip file, if neccessary
-  destfile <- paste0(exdir, '/', key, ".zip")
-  if (.force || !file.exists(destfile)) {
-    if (file.exists(mmstat$repository[[key]]$url)) {
-      file.copy(mmstat$repository[[key]]$url, destfile)
-    } else {
-      res <- try(download.file(mmstat$repository[[key]]$url, destfile, quiet = !interactive()), silent = !interactive())
-      if ("try-error" %in% class(res)) stop(sprintf("URL invalid or file not found: %s", args[[1]]))
+  if (rfile==0) {
+    cat(paste0(repos, collapse="\n"))
+    stop("None of the previously displayed possible ZIP files were found!")
+  }
+  if (!.quiet) {
+    reposk <- mmstat$repository[[key]]$url
+    if (is.null(reposk) || (reposk!=reposi)) {
+      cat(paste0(repos, collapse="\n"), "\n")
+      cat(sprintf('\nAdded: "%s"="%s"\n', key, reposi))
     }
-    # build names
-    mmstat$repository[[key]]$files  <- normalizePath(unzip(destfile, exdir=exdir), winslash="/")
-    mmstat$repository[[key]]$sfiles <- ghpath(ghdecompose(mmstat$repository[[key]]$files))
-    # save modified repos, if necessary
-    if (nchar(mmstat$repository[[key]]$dir)>0) saveRDS(mmstat$repository, file=paste0(exdir, "/repositories"), version=2)
   }
+  # unzip, save key, repos, and build names
+  mmstat$repository[[key]]$dir    <- ddir
+  mmstat$repository[[key]]$url    <- reposi
+  mmstat$repository[[key]]$files  <- normalizePath(unzip(destfile, exdir=ddir), winslash="/")
+  mmstat$repository[[key]]$sfiles <- ghpath(ghdecompose(mmstat$repository[[key]]$files), "minpath")
+  saveRDS(mmstat$repository, file=paste0(ddir, "/repositories.rds"), version=2)
   mmstat$repo <- key
   invisible(key)
 }

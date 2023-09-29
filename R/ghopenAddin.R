@@ -12,7 +12,7 @@ ghopenAddin <- function() {
   if(require("mmstat4")) {
     pathes <- ghdecompose(ghlist(full.names=TRUE))
     if (nrow(pathes)) {
-      file <- selectFile(path=paste0(pathes$commonpath[1], collapse="/"))
+      file <- selectFile(path=paste0(pathes$inpath[1], collapse="/"))
       if (length(file)) navigateToFile(file)
     }
   }
