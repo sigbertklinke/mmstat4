@@ -352,7 +352,7 @@ display: none;
 <h4 class="author">Sigbert Klinke</h4>
 <a class="author_email" href="mailto:#"><a href="mailto:sigbert@hu-berlin.de" class="email">sigbert@hu-berlin.de</a></a>
 </address>
-<h4 class="date">28 September, 2023</h4>
+<h4 class="date">29 September, 2023</h4>
 
 </div>
 
@@ -439,28 +439,28 @@ generate images and tables, and also the Shiny Apps I show.</p>
 key-value approach can be used to determine the location of the source
 ZIP file. If no key is defined then <code>ghget</code> uses the base
 name of the source ZIP file as the key.</p>
-<pre class="r"><code>ghget(dummy=&quot;https://github.com/sigbertklinke/mmstat4.dummy/archive/refs/heads/main.zip&quot;, .quiet=FALSE)
-#&gt; https://github.com/sigbertklinke/mmstat4.dummy/archive/refs/heads/main.zip 
-#&gt; 
-#&gt; Added: &quot;dummy&quot;=&quot;https://github.com/sigbertklinke/mmstat4.dummy/archive/refs/heads/main.zip&quot;</code></pre>
+<pre class="r"><code>ghget(dummy=&quot;https://github.com/sigbertklinke/mmstat4.dummy/archive/refs/heads/main.zip&quot;)</code></pre>
 <p>Three repository keys are predefined: <code>hu.data</code>,
 <code>hu.stat</code> and <code>dummy</code>. You can retrieve them
 via</p>
 <pre class="r"><code>ghget(&#39;dummy&#39;)
 ghget(&#39;hu.stat&#39;)
 ghget(&#39;hu.data&#39;)</code></pre>
-<p>Without defining a key the program will define based on the base ZIP
-file name without extension.</p>
+<p>If you do not use a key, the programme will use the base name of the
+ZIP file without extension.</p>
 <pre class="r"><code>ghget(system.file(&quot;zip/mmstat4.dummy.zip&quot;, package = &quot;mmstat4&quot;))
+#&gt; [1] &quot;mmstat4.dummy&quot;
 ghget(&quot;https://github.com/sigbertklinke/mmstat4.dummy/archive/refs/heads/main.zip&quot;)
+#&gt; [1] &quot;main&quot;
 # tries https://github.com/my/github_repo/archive/refs/heads/[main|master].zip 
-ghget(&quot;my/github_repo&quot;, .quiet=FALSE) 
-#&gt; my/github_repo 
-#&gt; https://github.com/my/github_repo/archive/refs/heads/main.zip 
+ghget(&quot;my/github_repo&quot;)  # will fail
+#&gt; my/github_repo
+#&gt; https://github.com/my/github_repo/archive/refs/heads/main.zip
 #&gt; https://github.com/my/github_repo/archive/refs/heads/master.zip
-#&gt; Error in ghget(&quot;my/github_repo&quot;, .quiet = FALSE): None of the previously displayed possible ZIP files were found!
+#&gt; Error in ghget(&quot;my/github_repo&quot;): None of the previously displayed possible ZIP files were found!
 #
-ghget()                  # uses &#39;hu.data&#39;</code></pre>
+ghget()                  # uses &#39;hu.data&#39;
+#&gt; [1] &quot;hu.data&quot;</code></pre>
 <p><code>ghget</code> downloads the ZIP file, saves it to a temporary
 location and unpacks it. For non-temporary locations, see the FAQ.</p>
 </div>
@@ -471,22 +471,23 @@ generated from the path components.</p>
 <p>After unpacking the ZIP file, unique short names are generated for
 these files.</p>
 <pre class="r"><code>ghget(&#39;dummy&#39;)
+#&gt; [1] &quot;dummy&quot;
 gd &lt;- ghdecompose(ghlist(full.names=TRUE))
 head(gd)
 #&gt;                              outpath inpath minpath              filename
-#&gt; 1 /tmp/RtmpmbRVUs/mmstat4.dummy-main                              LICENSE
-#&gt; 2 /tmp/RtmpmbRVUs/mmstat4.dummy-main                            README.md
-#&gt; 3 /tmp/RtmpmbRVUs/mmstat4.dummy-main   data                12411-0006.csv
-#&gt; 4 /tmp/RtmpmbRVUs/mmstat4.dummy-main   data         ArbeitsloseBerlin.csv
-#&gt; 5 /tmp/RtmpmbRVUs/mmstat4.dummy-main           data             BANK2.sav
-#&gt; 6 /tmp/RtmpmbRVUs/mmstat4.dummy-main   data                Preisindex.csv
+#&gt; 1 /tmp/Rtmpb6a0mH/mmstat4.dummy-main                              LICENSE
+#&gt; 2 /tmp/Rtmpb6a0mH/mmstat4.dummy-main                            README.md
+#&gt; 3 /tmp/Rtmpb6a0mH/mmstat4.dummy-main   data                12411-0006.csv
+#&gt; 4 /tmp/Rtmpb6a0mH/mmstat4.dummy-main   data         ArbeitsloseBerlin.csv
+#&gt; 5 /tmp/Rtmpb6a0mH/mmstat4.dummy-main           data             BANK2.sav
+#&gt; 6 /tmp/Rtmpb6a0mH/mmstat4.dummy-main   data                Preisindex.csv
 #&gt;                                                          source
-#&gt; 1                    /tmp/RtmpmbRVUs/mmstat4.dummy-main/LICENSE
-#&gt; 2                  /tmp/RtmpmbRVUs/mmstat4.dummy-main/README.md
-#&gt; 3        /tmp/RtmpmbRVUs/mmstat4.dummy-main/data/12411-0006.csv
-#&gt; 4 /tmp/RtmpmbRVUs/mmstat4.dummy-main/data/ArbeitsloseBerlin.csv
-#&gt; 5             /tmp/RtmpmbRVUs/mmstat4.dummy-main/data/BANK2.sav
-#&gt; 6        /tmp/RtmpmbRVUs/mmstat4.dummy-main/data/Preisindex.csv</code></pre>
+#&gt; 1                    /tmp/Rtmpb6a0mH/mmstat4.dummy-main/LICENSE
+#&gt; 2                  /tmp/Rtmpb6a0mH/mmstat4.dummy-main/README.md
+#&gt; 3        /tmp/Rtmpb6a0mH/mmstat4.dummy-main/data/12411-0006.csv
+#&gt; 4 /tmp/Rtmpb6a0mH/mmstat4.dummy-main/data/ArbeitsloseBerlin.csv
+#&gt; 5             /tmp/Rtmpb6a0mH/mmstat4.dummy-main/data/BANK2.sav
+#&gt; 6        /tmp/Rtmpb6a0mH/mmstat4.dummy-main/data/Preisindex.csv</code></pre>
 <p>The file name is split into four parts. The last two parts,
 <code>minpath</code> and <code>filename</code>, are used to create short
 names:</p>
@@ -506,8 +507,8 @@ made whether two files with identical basenames are also identical in
 content.</li>
 </ol>
 <pre class="r"><code>ghlist(&quot;BANK2&quot;, full.names=TRUE) # full names
-#&gt; [1] &quot;/tmp/RtmpmbRVUs/mmstat4.dummy-main/data/BANK2.sav&quot;                        
-#&gt; [2] &quot;/tmp/RtmpmbRVUs/mmstat4.dummy-main/examples/data/cluster/dbscan/BANK2.sav&quot;
+#&gt; [1] &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy-main/data/BANK2.sav&quot;                        
+#&gt; [2] &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy-main/examples/data/cluster/dbscan/BANK2.sav&quot;
 ghlist(&quot;BANK2&quot;)                  # short names
 #&gt; [1] &quot;data/BANK2.sav&quot;   &quot;dbscan/BANK2.sav&quot;</code></pre>
 </div>
@@ -561,38 +562,39 @@ uniquely addressable,</li>
 <p><code>ghpath</code> builds up the short name with various path
 components from a <code>ghdecompose</code> object.</p>
 <pre class="r"><code>ghfile(&#39;data/BANK2.sav&#39;)
-#&gt; [1] &quot;/tmp/RtmpmbRVUs/mmstat4.dummy-main/data/BANK2.sav&quot;
+#&gt; [1] &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy-main/data/BANK2.sav&quot;
 ghget(local=system.file(&quot;zip&quot;, &quot;mmstat4.dummy.zip&quot;, package=&quot;mmstat4&quot;))
+#&gt; [1] &quot;local&quot;
 fnf &lt;- ghlist(full.names=TRUE)
 dfn &lt;- ghdecompose(fnf)
 head(dfn)
 #&gt;                         outpath inpath minpath       filename
-#&gt; 1 /tmp/RtmpmbRVUs/mmstat4.dummy   data           hhberlin.csv
-#&gt; 2 /tmp/RtmpmbRVUs/mmstat4.dummy   data         Preisindex.csv
-#&gt; 3 /tmp/RtmpmbRVUs/mmstat4.dummy           data      BANK2.sav
-#&gt; 4 /tmp/RtmpmbRVUs/mmstat4.dummy   data         12411-0006.csv
-#&gt; 5 /tmp/RtmpmbRVUs/mmstat4.dummy   data         child_data.sav
-#&gt; 6 /tmp/RtmpmbRVUs/mmstat4.dummy   data                hhD.rda
+#&gt; 1 /tmp/Rtmpb6a0mH/mmstat4.dummy   data           hhberlin.csv
+#&gt; 2 /tmp/Rtmpb6a0mH/mmstat4.dummy   data         Preisindex.csv
+#&gt; 3 /tmp/Rtmpb6a0mH/mmstat4.dummy           data      BANK2.sav
+#&gt; 4 /tmp/Rtmpb6a0mH/mmstat4.dummy   data         12411-0006.csv
+#&gt; 5 /tmp/Rtmpb6a0mH/mmstat4.dummy   data         child_data.sav
+#&gt; 6 /tmp/Rtmpb6a0mH/mmstat4.dummy   data                hhD.rda
 #&gt;                                              source
-#&gt; 1   /tmp/RtmpmbRVUs/mmstat4.dummy/data/hhberlin.csv
-#&gt; 2 /tmp/RtmpmbRVUs/mmstat4.dummy/data/Preisindex.csv
-#&gt; 3      /tmp/RtmpmbRVUs/mmstat4.dummy/data/BANK2.sav
-#&gt; 4 /tmp/RtmpmbRVUs/mmstat4.dummy/data/12411-0006.csv
-#&gt; 5 /tmp/RtmpmbRVUs/mmstat4.dummy/data/child_data.sav
-#&gt; 6        /tmp/RtmpmbRVUs/mmstat4.dummy/data/hhD.rda
+#&gt; 1   /tmp/Rtmpb6a0mH/mmstat4.dummy/data/hhberlin.csv
+#&gt; 2 /tmp/Rtmpb6a0mH/mmstat4.dummy/data/Preisindex.csv
+#&gt; 3      /tmp/Rtmpb6a0mH/mmstat4.dummy/data/BANK2.sav
+#&gt; 4 /tmp/Rtmpb6a0mH/mmstat4.dummy/data/12411-0006.csv
+#&gt; 5 /tmp/Rtmpb6a0mH/mmstat4.dummy/data/child_data.sav
+#&gt; 6        /tmp/Rtmpb6a0mH/mmstat4.dummy/data/hhD.rda
 head(ghpath(dfn))
 #&gt;                                                   1 
-#&gt;   &quot;/tmp/RtmpmbRVUs/mmstat4.dummy/data/hhberlin.csv&quot; 
+#&gt;   &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy/data/hhberlin.csv&quot; 
 #&gt;                                                   2 
-#&gt; &quot;/tmp/RtmpmbRVUs/mmstat4.dummy/data/Preisindex.csv&quot; 
+#&gt; &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy/data/Preisindex.csv&quot; 
 #&gt;                                                   3 
-#&gt;      &quot;/tmp/RtmpmbRVUs/mmstat4.dummy/data/BANK2.sav&quot; 
+#&gt;      &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy/data/BANK2.sav&quot; 
 #&gt;                                                   4 
-#&gt; &quot;/tmp/RtmpmbRVUs/mmstat4.dummy/data/12411-0006.csv&quot; 
+#&gt; &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy/data/12411-0006.csv&quot; 
 #&gt;                                                   5 
-#&gt; &quot;/tmp/RtmpmbRVUs/mmstat4.dummy/data/child_data.sav&quot; 
+#&gt; &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy/data/child_data.sav&quot; 
 #&gt;                                                   6 
-#&gt;        &quot;/tmp/RtmpmbRVUs/mmstat4.dummy/data/hhD.rda&quot;</code></pre>
+#&gt;        &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy/data/hhD.rda&quot;</code></pre>
 </div>
 <div id="rstudio-addins" class="section level2">
 <h2>RStudio addins</h2>
@@ -621,6 +623,7 @@ snippets:</p>
 frequency table of the packages called.</li>
 </ul>
 <pre class="r"><code>ghget(local=system.file(&quot;zip&quot;, &quot;mmstat4.dummy.zip&quot;, package=&quot;mmstat4&quot;))
+#&gt; [1] &quot;local&quot;
 files &lt;- ghlist(pattern=&quot;*.R$&quot;, full.names = TRUE)
 head(Rlibs(files), 30)
 #&gt; 
@@ -650,28 +653,28 @@ based on checksums</li>
 <pre class="r"><code>files &lt;- ghlist(full.names = TRUE)
 head(Rdups(files))
 #&gt; $c300e8fe6f0bc562256e81670c23d8c0
-#&gt; [1] &quot;/tmp/RtmpmbRVUs/mmstat4.dummy/data/BANK2.sav&quot;                        
-#&gt; [2] &quot;/tmp/RtmpmbRVUs/mmstat4.dummy/examples/data/cluster/dbscan/BANK2.sav&quot;
+#&gt; [1] &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy/data/BANK2.sav&quot;                        
+#&gt; [2] &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy/examples/data/cluster/dbscan/BANK2.sav&quot;
 #&gt; 
 #&gt; $`4efddb6dc6c7ed743221295d55133817`
-#&gt; [1] &quot;/tmp/RtmpmbRVUs/mmstat4.dummy/examples/data/nnet/mincer_nnet3.R&quot;
-#&gt; [2] &quot;/tmp/RtmpmbRVUs/mmstat4.dummy/examples/data/nnet/mincer_nnet5.R&quot;
+#&gt; [1] &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy/examples/data/nnet/mincer_nnet3.R&quot;
+#&gt; [2] &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy/examples/data/nnet/mincer_nnet5.R&quot;
 #&gt; 
 #&gt; $`9f9fe7603aa82f33bbc85a9d32e39d03`
-#&gt; [1] &quot;/tmp/RtmpmbRVUs/mmstat4.dummy/examples/data/cluster/dbscan/app.tmpl&quot;       
-#&gt; [2] &quot;/tmp/RtmpmbRVUs/mmstat4.dummy/examples/data/mgraphics/scagnostics/app.tmpl&quot;
+#&gt; [1] &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy/examples/data/cluster/dbscan/app.tmpl&quot;       
+#&gt; [2] &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy/examples/data/mgraphics/scagnostics/app.tmpl&quot;
 #&gt; 
 #&gt; $`0b74b824367df429803599708daf2e2e`
-#&gt; [1] &quot;/tmp/RtmpmbRVUs/mmstat4.dummy/examples/data/subgroup/example_mosaic.R&quot; 
-#&gt; [2] &quot;/tmp/RtmpmbRVUs/mmstat4.dummy/examples/data/mgraphics/example_mosaic.R&quot;
+#&gt; [1] &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy/examples/data/subgroup/example_mosaic.R&quot; 
+#&gt; [2] &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy/examples/data/mgraphics/example_mosaic.R&quot;
 #&gt; 
 #&gt; $`8eaa4f89e233ba69fcda053d238699aa`
-#&gt; [1] &quot;/tmp/RtmpmbRVUs/mmstat4.dummy/examples/data/subgroup/example_mosaic_cotabplot.R&quot; 
-#&gt; [2] &quot;/tmp/RtmpmbRVUs/mmstat4.dummy/examples/data/mgraphics/example_mosaic_cotabplot.R&quot;
+#&gt; [1] &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy/examples/data/subgroup/example_mosaic_cotabplot.R&quot; 
+#&gt; [2] &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy/examples/data/mgraphics/example_mosaic_cotabplot.R&quot;
 #&gt; 
 #&gt; $`8ed6128aab796148df5e71cbeab547da`
-#&gt; [1] &quot;/tmp/RtmpmbRVUs/mmstat4.dummy/examples/data/subgroup/example_mosaic_graphics.R&quot; 
-#&gt; [2] &quot;/tmp/RtmpmbRVUs/mmstat4.dummy/examples/data/mgraphics/example_mosaic_graphics.R&quot;</code></pre>
+#&gt; [1] &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy/examples/data/subgroup/example_mosaic_graphics.R&quot; 
+#&gt; [2] &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy/examples/data/mgraphics/example_mosaic_graphics.R&quot;</code></pre>
 <p>Note: there is also an error message if the necessary libraries are
 not installed!</p>
 </div>
@@ -681,12 +684,13 @@ not installed!</p>
 specific file can be accessed. In the example we use a ZIP file which
 comes with the package <code>mmstat4</code>:</p>
 <pre class="r"><code>ghget(local=system.file(&quot;zip&quot;, &quot;mmstat4.dummy.zip&quot;, package=&quot;mmstat4&quot;))
+#&gt; [1] &quot;local&quot;
 ghnames &lt;- ghdecompose(ghlist(full.names=TRUE))
 ghnames[58,]
 #&gt;                          outpath                inpath minpath  filename
-#&gt; 58 /tmp/RtmpmbRVUs/mmstat4.dummy examples/data/cluster  dbscan BANK2.sav
+#&gt; 58 /tmp/Rtmpb6a0mH/mmstat4.dummy examples/data/cluster  dbscan BANK2.sav
 #&gt;                                                                  source
-#&gt; 58 /tmp/RtmpmbRVUs/mmstat4.dummy/examples/data/cluster/dbscan/BANK2.sav</code></pre>
+#&gt; 58 /tmp/Rtmpb6a0mH/mmstat4.dummy/examples/data/cluster/dbscan/BANK2.sav</code></pre>
 <p>The shortest possible name is determined by <code>minpath</code> and
 <code>filename</code>. But all other paths determined by
 <code>uniquepath</code>, <code>minpath</code> and <code>filename</code>
@@ -748,17 +752,18 @@ ghopen(&quot;dbscan&quot;) # open the app</code></pre>
 <div id="how-can-i-find-all-csv-data-files" class="section level2">
 <h2>How can I find all <code>csv</code> data files?</h2>
 <pre class="r"><code>ghget(&quot;dummy&quot;, .tempdir=TRUE)
+#&gt; [1] &quot;dummy&quot;
 ghlist(pattern=&quot;\\.csv$&quot;, ignore.case=TRUE, full.names=TRUE)
-#&gt;  [1] &quot;/tmp/RtmpmbRVUs/mmstat4.dummy-main/data/12411-0006.csv&quot;       
-#&gt;  [2] &quot;/tmp/RtmpmbRVUs/mmstat4.dummy-main/data/ArbeitsloseBerlin.csv&quot;
-#&gt;  [3] &quot;/tmp/RtmpmbRVUs/mmstat4.dummy-main/data/Preisindex.csv&quot;       
-#&gt;  [4] &quot;/tmp/RtmpmbRVUs/mmstat4.dummy-main/data/TelefonDaten.csv&quot;     
-#&gt;  [5] &quot;/tmp/RtmpmbRVUs/mmstat4.dummy-main/data/haushalte.csv&quot;        
-#&gt;  [6] &quot;/tmp/RtmpmbRVUs/mmstat4.dummy-main/data/haushalte_berlin.csv&quot; 
-#&gt;  [7] &quot;/tmp/RtmpmbRVUs/mmstat4.dummy-main/data/hhberlin.csv&quot;         
-#&gt;  [8] &quot;/tmp/RtmpmbRVUs/mmstat4.dummy-main/data/hhberlin_2017.csv&quot;    
-#&gt;  [9] &quot;/tmp/RtmpmbRVUs/mmstat4.dummy-main/data/pechstein.csv&quot;        
-#&gt; [10] &quot;/tmp/RtmpmbRVUs/mmstat4.dummy-main/data/rentcap.csv&quot;
+#&gt;  [1] &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy-main/data/12411-0006.csv&quot;       
+#&gt;  [2] &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy-main/data/ArbeitsloseBerlin.csv&quot;
+#&gt;  [3] &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy-main/data/Preisindex.csv&quot;       
+#&gt;  [4] &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy-main/data/TelefonDaten.csv&quot;     
+#&gt;  [5] &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy-main/data/haushalte.csv&quot;        
+#&gt;  [6] &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy-main/data/haushalte_berlin.csv&quot; 
+#&gt;  [7] &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy-main/data/hhberlin.csv&quot;         
+#&gt;  [8] &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy-main/data/hhberlin_2017.csv&quot;    
+#&gt;  [9] &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy-main/data/pechstein.csv&quot;        
+#&gt; [10] &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy-main/data/rentcap.csv&quot;
 # use mmstat4::ghload for importing
 ghlist(pattern=&quot;\\.csv$&quot;)
 #&gt;  [1] &quot;12411-0006.csv&quot;        &quot;ArbeitsloseBerlin.csv&quot; &quot;Preisindex.csv&quot;       

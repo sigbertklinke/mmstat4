@@ -9,7 +9,7 @@ defaultApp(file, wait = FALSE, ...)
 \arguments{
 \item{file}{character: file name}
 
-\item{wait}{logical: indicaties whether the R interpreter should wait for the command to finish, or run it asynchronously (default: \code{TRUE})}
+\item{wait}{logical: indicates whether the R interpreter should wait for the command to finish, or run it asynchronously (default: \code{FALSE})}
 
 \item{...}{further arguments passed to \code{system2}}
 }

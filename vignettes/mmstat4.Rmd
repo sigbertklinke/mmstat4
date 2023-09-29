@@ -60,17 +60,16 @@ ghget('hu.stat')
 ghget('hu.data')
 ```
 
-If you do not use a key, the programme will use the base name of the ZIP file without extension.
+If you do not use a key, the programme will create one and return it as result. 
 
 ```{r, error=TRUE}
 ghget(system.file("zip/mmstat4.dummy.zip", package = "mmstat4"))
 ghget("https://github.com/sigbertklinke/mmstat4.dummy/archive/refs/heads/main.zip")
 # tries https://github.com/my/github_repo/archive/refs/heads/[main|master].zip 
-ghget("my/github_repo", .quiet=FALSE) 
+ghget("my/github_repo")  # will fail
 #
 ghget()                  # uses 'hu.data'
 ```
-
 
 `ghget` downloads the ZIP file, saves it to a temporary location and unpacks it. For non-temporary locations, see the FAQ.
 

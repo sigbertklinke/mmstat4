@@ -21,13 +21,14 @@ ghget(..., .force = FALSE, .tempdir = TRUE, .quiet = !interactive())
 }}
 }
 \value{
-invisibly the name of the current key
+the name of the current key or nothing if unsuccessful
 }
 \description{
 Makes a repository the active repository and downloads it if necessary.
-If the function is run interactively then you are asked if you want to store the repository in the application directory
-\code{\link[rappdirs:user_data_dir]{rappdirs::user_data_dir()}} for \code{mmstat4} or in the temporary directory \code{\link[=tempdir]{tempdir()}}. Otherwise the stored directory
-path is used (usually \code{\link[=tempdir]{tempdir()}}).
+The parameter \code{.tempdir} is \code{TRUE} (default) then the repository is stored in the
+in the temporary directory \code{\link[=tempdir]{tempdir()}} else in the application directory
+\code{\link[rappdirs:user_data_dir]{rappdirs::user_data_dir()}} for \code{mmstat4}.
+The parameter \code{.tempdir} is not \code{logical} then the value will be used as installation path.
 }
 \details{
 Note, the list of repository names, directories and urls is stored in the installation directory, too.

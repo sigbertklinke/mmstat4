@@ -55,7 +55,7 @@ gh <- function (x, what=c("open", "load", "source", "app"), ...) {
 #' Only Windows (`windows`), macOS (`darwin`), Linux (`linux`) and FreeBSD (`freebsd`) is supported.
 #'
 #' @param file character: file name
-#' @param wait logical: indicates whether the R interpreter should wait for the command to finish, or run it asynchronously (default: `TRUE`)
+#' @param wait logical: indicates whether the R interpreter should wait for the command to finish, or run it asynchronously (default: `FALSE`)
 #' @param ... further arguments passed to `system2`
 #'
 #' @seealso \href{https://CRAN.R-project.org/package=berryFunctions}{`berryFunctions::openFile()`}
