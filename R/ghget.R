@@ -45,14 +45,14 @@ ghget <-  function(..., .force=FALSE, .tempdir=TRUE, .quiet=!interactive()) {
     key  <- nargs
   }
   # determine repos
-  repos <- args[[1]]
-  if (is.null(nargs)) { # key or file
-    if (key %in% names(mmstat$repository)) {
-      repos <- mmstat$repository[[key]]$url
-    } else {
-      repos <- c(repos, paste0(sprintf("https://github.com/%s/archive/refs/heads/", args[[1]]), c("main.zip", "master.zip")))
-    }
-  }
+  repos <- ghrepos(args[[1]])
+#  if (is.null(nargs)) { # key or file
+#    if (key %in% names(mmstat$repository)) {
+#      repos <- mmstat$repository[[key]]$url
+#    } else {
+#      repos <- c(repos, paste0(sprintf("https://github.com/%s/archive/refs/heads/", args[[1]]), c("main.zip", "master.zip")))
+#    }
+#  }
   # check if one of the repos exist
   isfile <- NA
   for (i in 1:length(repos)) {
@@ -62,7 +62,7 @@ ghget <-  function(..., .force=FALSE, .tempdir=TRUE, .quiet=!interactive()) {
       break
     }
     res <- try({
-      response <- HEAD(repos[i]);
+      response <- HEAD(repos[i])
       status_code(response) == 200
     }, silent = TRUE)
     if (!inherits(res, 'try-error') && res) {
@@ -85,22 +85,25 @@ ghget <-  function(..., .force=FALSE, .tempdir=TRUE, .quiet=!interactive()) {
   repop    <- normpathes(reposi)
   destfile <- paste0(gsub("[^[:alnum:]._]", "_", repop[[1]]), collapse="_")
   destfile <- paste(ddir, destfile, sep="/")
+  rdown    <- 1
   if (!file.exists(destfile) || .force) {
     if (isfile) {
       if (!.quiet) cat("Read:", reposi, "\n")
       file.copy(repos[i], destfile, overwrite=TRUE)
     } else {
       if (!.quiet) cat("Download:", reposi, "\n")
-      res <- try(download.file(repos[i], destfile, quiet = TRUE), silent = TRUE)
-      if (inherits(res, 'try-error')) stop("Download failed!")
+      rdown <- try(download.file(repos[i], destfile, quiet = TRUE), silent = TRUE)
+      if (inherits(rdown, 'try-error')) stop("Download failed!")
     }
   }
   # unzip, save key, repos, and build names
   mmstat$repository[[key]]$dir    <- ddir
   mmstat$repository[[key]]$url    <- reposi
+  mmstat$repository[[key]]$venv   <- make.names(paste("mmstat4", key))
   mmstat$repository[[key]]$files  <- normalizePath(unzip(destfile, exdir=ddir), winslash="/")
   mmstat$repository[[key]]$sfiles <- ghpath(ghdecompose(mmstat$repository[[key]]$files), "minpath")
   saveRDS(mmstat$repository, file=paste0(ddir, "/repositories.rds"), version=2)
+  if (rdown==0) mmstat$install <- c("R"=TRUE, "py"=TRUE)
   mmstat$repo <- key
   key
 }

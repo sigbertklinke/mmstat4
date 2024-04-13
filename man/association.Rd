@@ -79,22 +79,22 @@ Various association coefficients for nominal and ordinal data; the input formats
 \item \code{nom.CV} Cramer's V (for 2 x 2 tables V = Phi)
 \item \code{nom.lambda} Goodman and Kruskal's Lambda with
 \itemize{
-\item{\code{lambda.cr}}{ The row variable is used as independent, the column variable as dependent variable.}
-\item{\code{lambda.rc}}{ The column variable is used as independent, the row variable as dependent variable.}
-\item{\code{lambda.symmetric}}{ Symmetric Lambda (the mean of both above).}
+\item \code{lambda.cr} The row variable is used as independent, the column variable as dependent variable.
+\item \code{lambda.rc} The column variable is used as independent, the row variable as dependent variable.
+\item \code{lambda.symmetric} Symmetric Lambda (the mean of both above).
 }
 \item \code{nom.uncertainty} Uncertainty Coefficient (Theil's U) with
 \itemize{
-\item{\code{ucc.cr}}{ The row variable is used as independent, the column variable as dependent variable.}
-\item{\code{uc.rc}}{ The column variable is used as independent, the row variable as dependent variable.}
-\item{\code{uc.symmetric}}{ Symmetric uncertainty coefficient.}
+\item \code{ucc.cr} The row variable is used as independent, the column variable as dependent variable.
+\item \code{uc.rc} The column variable is used as independent, the row variable as dependent variable.
+\item \code{uc.symmetric} Symmetric uncertainty coefficient.
 }
 \item \code{ord.gamma} Gamma coefficient
 \item \code{ord.tau} a vector with Kendall-Stuart Tau's
 \itemize{
-\item{\code{tau.a}}{ Tau-a (for quadratic tables only)}
-\item{\code{tau.b}}{ Tau-b}
-\item{\code{tau.c}}{ Tau-c}
+\item \code{tau.a} Tau-a (for quadratic tables only)
+\item \code{tau.b} Tau-b
+\item \code{tau.c} Tau-c
 }
 \item \code{ord.somers.d} Somers' d
 \item \code{eta} Eta coefficient for nominal/interval data

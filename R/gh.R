@@ -1,26 +1,30 @@
 #' @rdname gh
 #' @title gh functions
-#' @aliases ghopen ghload ghsource
+#' @aliases ghopen ghload ghsource ghdata
 #' @description
-#' `gh` performs the operation described below on a file `x`.
-#' A match for `x` is searched for the currently opened ZIP file.
-#' If no unique match is found, then an error is thrown.
-#' Otherwise, the following actions are performed:
+#' The function `gh` carries out the following operation on a file named `x`.
+#' It searches for a match for `x` within the active repository, utilizing fuzzy string
+#' matching. If no unique match is identified, an error is thrown along with suggestions for
+#' potential "best" matches.
+#' Otherwise, the following operation are performed:
 #'
 #' * `gh(x, 'open')` or `ghopen(x)`: Opens a file in the local browser if the file extension is `html` or `pdf`, otherwise in the RStudio editor.
 #' * `gh(x, 'load')` or `ghload(x)`: Loads the contents of a file with `import`.
 #' * `gh(x, 'source')` or `ghsource(x)`: Executes the contents of a file with `source`.
 #' * `gh(x, 'app')` or `ghapp(x)`: Tries to open the file with the default application of the OS, see [defaultApp()].
-##'
+#' * `ghdata(x, pkg)`: Helper function  to load data sets from R packages into Python, simulates `pkg::x`.
+#'
 #' @param x character(1): name of the file, app or data set
 #' @param what character or function: a name of a predefined function or another function. The function must have a formal parameter `file`.
 #' @param ... further parameters used in [utils::browseURL()], [rstudioapi::navigateToFile()], [rio::import()], or [base::source()].
+#' @param .call the original function call (default: `NULL`)
 #'
 #' @return invisibly the result of [utils::browseURL], [rstudioapi::navigateToFile()], [rio::import()], or [base::source()].
 #' @importFrom rstudioapi navigateToFile
-#' @importFrom utils browseURL adist
+#' @importFrom utils browseURL adist menu
 #' @importFrom tools file_ext
 #' @importFrom rio import
+#' @importFrom reticulate use_virtualenv virtualenv_exists
 #' @export
 #'
 #' @examples
@@ -30,12 +34,22 @@
 #'   str(x)
 #'   x <- ghsource("univariate/example_ecdf.R")
 #' }
-gh <- function (x, what=c("open", "load", "source", "app"), ...) {
+gh <- function (x, what=c("open", "load", "source", "app"), ..., .call=NULL) {
   stopifnot(length(x)==1)
-  file <- ghfile(x)
-  ext  <- tolower(file_ext(file))
+  what <- match.arg(what)
+  if (is.null(.call)) .call <- match.call()
+  .call[['x']] <- '%s'
+  msg          <- deparse(.call)
+  file         <- ghfile(x, msg=msg)
+  ext          <- tolower(file_ext(file))
   if (is.character(what)) {
-    fun <- switch(match.arg(what),
+    if (ext %in% getOption("mmstat.ext.r", c('r'))) ghinstall("R")
+    if (ext %in% getOption("mmstat.ext.python", c('py', 'py3'))) {
+      ghinstall("py")
+      venv <- mmstat$repository[[mmstat$repo]]$venv
+      if (virtualenv_exists(venv)) use_virtualenv(venv)
+    }
+    fun <- switch(what,
                   load=rio::import,
                   source=base::source,
                   app=mmstat4::defaultApp,
@@ -88,16 +102,16 @@ defaultApp <- function(file, wait=FALSE, ...) {
 
 #' @rdname gh
 #' @export
-ghopen <- function(x, ...) { gh(x, what='open', ...) }
+ghopen <- function(x, ...) { gh(x, what='open', ..., .call=match.call()) }
 
 #' @rdname gh
 #' @export
-ghload <- function(x, ...) { gh(x, what='load', ...) }
+ghload <- function(x, ...) { gh(x, what='load', ..., .call=match.call()) }
 
 #' @rdname gh
 #' @export
-ghsource <- function(x, ...) { gh(x, what='source', ...) }
+ghsource <- function(x, ...) { gh(x, what='source', ..., .call=match.call()) }
 
 #' @rdname gh
 #' @export
-ghapp <- function(x, ...) { gh(x, what='app', ...) }
+ghapp <- function(x, ...) { gh(x, what='app', ..., .call=match.call()) }

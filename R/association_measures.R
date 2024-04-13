@@ -50,22 +50,22 @@
 #' * `nom.CV` Cramer's V (for 2 x 2 tables V = Phi)
 #' * `nom.lambda` Goodman and Kruskal's Lambda with
 #' \itemize{
-#'   \item{`lambda.cr`}{ The row variable is used as independent, the column variable as dependent variable.}
-#'   \item{`lambda.rc`}{ The column variable is used as independent, the row variable as dependent variable.}
-#'   \item{`lambda.symmetric`}{ Symmetric Lambda (the mean of both above).}
+#'   \item `lambda.cr` The row variable is used as independent, the column variable as dependent variable.
+#'   \item `lambda.rc` The column variable is used as independent, the row variable as dependent variable.
+#'   \item `lambda.symmetric` Symmetric Lambda (the mean of both above).
 #' }
 #' * `nom.uncertainty` Uncertainty Coefficient (Theil's U) with
 #' \itemize{
-#'   \item{`ucc.cr`}{ The row variable is used as independent, the column variable as dependent variable.}
-#'   \item{`uc.rc`}{ The column variable is used as independent, the row variable as dependent variable.}
-#'   \item{`uc.symmetric`}{ Symmetric uncertainty coefficient.}
+#'   \item `ucc.cr` The row variable is used as independent, the column variable as dependent variable.
+#'   \item `uc.rc` The column variable is used as independent, the row variable as dependent variable.
+#'   \item `uc.symmetric` Symmetric uncertainty coefficient.
 #' }
 #' * `ord.gamma` Gamma coefficient
 #' * `ord.tau` a vector with Kendall-Stuart Tau's
 #' \itemize{
-#'   \item{`tau.a`}{ Tau-a (for quadratic tables only)}
-#'   \item{`tau.b`}{ Tau-b}
-#'   \item{`tau.c`}{ Tau-c}
+#'   \item `tau.a` Tau-a (for quadratic tables only)
+#'   \item `tau.b` Tau-b
+#'   \item `tau.c` Tau-c
 #' }
 #' * `ord.somers.d` Somers' d
 #' * `eta` Eta coefficient for nominal/interval data

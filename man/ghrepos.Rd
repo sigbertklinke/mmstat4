@@ -4,13 +4,17 @@
 \alias{ghrepos}
 \title{ghrepos}
 \usage{
-ghrepos()
+ghrepos(key = NULL)
+}
+\arguments{
+\item{key}{character: "name" of the repository to find (default: \code{NULL})}
 }
 \value{
 a data frame with the data about the repositories
 }
 \description{
-Retuuns the known repositories and where there are stored. If \code{dir==''} then \code{tempdir()} is used for storage.
+If \code{key} is \code{NULL}, then it returns the known repositories and where they are stored.
+If \code{key} is not \code{NULL}, then possible addresses for a repository are returned .
 }
 \examples{
 ghrepos()

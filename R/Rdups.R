@@ -1,6 +1,8 @@
-#' Rdups
-#'
-#' Computes checksums to find duplicate files.
+#' @rdname dupFiles
+#' @aliases Rdups
+#' @title Find duplicate files
+#' @description
+#' `dupFiles` computes checksums to find duplicate files.
 #'
 #' @param files character: file name(s)
 #' @param ... further parameters given to [digest::digest()]
@@ -12,9 +14,9 @@
 #' @examples
 #' if (interactive()) {
 #'   files <- list.files(pattern="*.R$", full.names=TRUE, recursive=TRUE)
-#'   Rdups(files)
+#'   dupFiles(files)
 #' }
-Rdups <- function(files, ...) {
+dupFiles <- function(files, ...) {
   index <- 1:length(files)
   ret   <- list()
   for (i in index) {
@@ -25,3 +27,7 @@ Rdups <- function(files, ...) {
   if (any(nret>1)) return(ret[nret>1])
   NULL
 }
+
+#' @export
+#' @rdname dupFiles
+Rdups <- dupFiles

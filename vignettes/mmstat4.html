@@ -352,7 +352,7 @@ display: none;
 <h4 class="author">Sigbert Klinke</h4>
 <a class="author_email" href="mailto:#"><a href="mailto:sigbert@hu-berlin.de" class="email">sigbert@hu-berlin.de</a></a>
 </address>
-<h4 class="date">29 September, 2023</h4>
+<h4 class="date">06 April, 2024</h4>
 
 </div>
 
@@ -374,10 +374,16 @@ files</a></li>
 <li><a href="#rstudio-addins" id="toc-rstudio-addins">RStudio
 addins</a></li>
 </ul></li>
+<li><a href="#using-python-scripts" id="toc-using-python-scripts">Using
+Python scripts</a></li>
 <li><a href="#creating-an-own-zip-file" id="toc-creating-an-own-zip-file">Creating an own ZIP file</a>
 <ul>
-<li><a href="#preparation-libraries-used-and-r-programs-run-standalone" id="toc-preparation-libraries-used-and-r-programs-run-standalone">Preparation:
-Libraries used and R programs run standalone</a></li>
+<li><a href="#preparation-1-librariesmodules-used" id="toc-preparation-1-librariesmodules-used">Preparation 1:
+Libraries/Modules used</a></li>
+<li><a href="#preparation-2-scripts-run-standalone" id="toc-preparation-2-scripts-run-standalone">Preparation 2: Scripts run
+standalone</a></li>
+<li><a href="#preparation-3-search-and-eliminate-duplicate-files" id="toc-preparation-3-search-and-eliminate-duplicate-files">Preparation
+3: Search (and eliminate) duplicate files</a></li>
 <li><a href="#zip-file-and-access-names" id="toc-zip-file-and-access-names">ZIP file and access names</a></li>
 </ul></li>
 <li><a href="#frequently-asked-questions" id="toc-frequently-asked-questions">Frequently asked questions</a>
@@ -394,6 +400,9 @@ file permanently?</a></li>
 all directories with Shiny apps?</a></li>
 <li><a href="#how-can-i-find-all-csv-data-files" id="toc-how-can-i-find-all-csv-data-files">How can I find all
 <code>csv</code> data files?</a></li>
+<li><a href="#init_py.r-is-only-called-if-the-virtual-environment-is-created.-can-i-force-a-new-call" id="toc-init_py.r-is-only-called-if-the-virtual-environment-is-created.-can-i-force-a-new-call"><code>init_py.R</code>
+is only called if the virtual environment is created. Can I force a new
+call?</a></li>
 </ul></li>
 <li><a href="#default-repositories" id="toc-default-repositories">Default repositories</a>
 <ul>
@@ -412,7 +421,7 @@ various statistics courses that are aimed at students.</p>
 <p>The main function of this package is called <code>gh</code>, which
 can be used to perform several tasks such as:</p>
 <ul>
-<li>Opening Shiny Apps, R and R Markdown files in RStudio,</li>
+<li>Opening Shiny Apps, R, Python and R Markdown files in RStudio,</li>
 <li>Loading data files, and</li>
 <li>Displaying HTML and PDF files in a browser.</li>
 </ul>
@@ -446,8 +455,8 @@ via</p>
 <pre class="r"><code>ghget(&#39;dummy&#39;)
 ghget(&#39;hu.stat&#39;)
 ghget(&#39;hu.data&#39;)</code></pre>
-<p>If you do not use a key, the programme will use the base name of the
-ZIP file without extension.</p>
+<p>If you do not use a key, the programme will create one and return it
+as result.</p>
 <pre class="r"><code>ghget(system.file(&quot;zip/mmstat4.dummy.zip&quot;, package = &quot;mmstat4&quot;))
 #&gt; [1] &quot;mmstat4.dummy&quot;
 ghget(&quot;https://github.com/sigbertklinke/mmstat4.dummy/archive/refs/heads/main.zip&quot;)
@@ -466,7 +475,7 @@ location and unpacks it. For non-temporary locations, see the FAQ.</p>
 </div>
 <div id="full-and-short-names-for-files" class="section level2">
 <h2>Full and short names for files</h2>
-<p>In addition, unique short names, related to the zip file content, are
+<p>In addition, unique short names, related to the ZIP file content, are
 generated from the path components.</p>
 <p>After unpacking the ZIP file, unique short names are generated for
 these files.</p>
@@ -475,19 +484,19 @@ these files.</p>
 gd &lt;- ghdecompose(ghlist(full.names=TRUE))
 head(gd)
 #&gt;                              outpath inpath minpath              filename
-#&gt; 1 /tmp/Rtmpb6a0mH/mmstat4.dummy-main                              LICENSE
-#&gt; 2 /tmp/Rtmpb6a0mH/mmstat4.dummy-main                            README.md
-#&gt; 3 /tmp/Rtmpb6a0mH/mmstat4.dummy-main   data                12411-0006.csv
-#&gt; 4 /tmp/Rtmpb6a0mH/mmstat4.dummy-main   data         ArbeitsloseBerlin.csv
-#&gt; 5 /tmp/Rtmpb6a0mH/mmstat4.dummy-main           data             BANK2.sav
-#&gt; 6 /tmp/Rtmpb6a0mH/mmstat4.dummy-main   data                Preisindex.csv
+#&gt; 1 /tmp/RtmpzS1Gs4/mmstat4.dummy-main                              LICENSE
+#&gt; 2 /tmp/RtmpzS1Gs4/mmstat4.dummy-main                            README.md
+#&gt; 3 /tmp/RtmpzS1Gs4/mmstat4.dummy-main   data                12411-0006.csv
+#&gt; 4 /tmp/RtmpzS1Gs4/mmstat4.dummy-main   data         ArbeitsloseBerlin.csv
+#&gt; 5 /tmp/RtmpzS1Gs4/mmstat4.dummy-main           data             BANK2.sav
+#&gt; 6 /tmp/RtmpzS1Gs4/mmstat4.dummy-main   data                Preisindex.csv
 #&gt;                                                          source
-#&gt; 1                    /tmp/Rtmpb6a0mH/mmstat4.dummy-main/LICENSE
-#&gt; 2                  /tmp/Rtmpb6a0mH/mmstat4.dummy-main/README.md
-#&gt; 3        /tmp/Rtmpb6a0mH/mmstat4.dummy-main/data/12411-0006.csv
-#&gt; 4 /tmp/Rtmpb6a0mH/mmstat4.dummy-main/data/ArbeitsloseBerlin.csv
-#&gt; 5             /tmp/Rtmpb6a0mH/mmstat4.dummy-main/data/BANK2.sav
-#&gt; 6        /tmp/Rtmpb6a0mH/mmstat4.dummy-main/data/Preisindex.csv</code></pre>
+#&gt; 1                    /tmp/RtmpzS1Gs4/mmstat4.dummy-main/LICENSE
+#&gt; 2                  /tmp/RtmpzS1Gs4/mmstat4.dummy-main/README.md
+#&gt; 3        /tmp/RtmpzS1Gs4/mmstat4.dummy-main/data/12411-0006.csv
+#&gt; 4 /tmp/RtmpzS1Gs4/mmstat4.dummy-main/data/ArbeitsloseBerlin.csv
+#&gt; 5             /tmp/RtmpzS1Gs4/mmstat4.dummy-main/data/BANK2.sav
+#&gt; 6        /tmp/RtmpzS1Gs4/mmstat4.dummy-main/data/Preisindex.csv</code></pre>
 <p>The file name is split into four parts. The last two parts,
 <code>minpath</code> and <code>filename</code>, are used to create short
 names:</p>
@@ -507,8 +516,8 @@ made whether two files with identical basenames are also identical in
 content.</li>
 </ol>
 <pre class="r"><code>ghlist(&quot;BANK2&quot;, full.names=TRUE) # full names
-#&gt; [1] &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy-main/data/BANK2.sav&quot;                        
-#&gt; [2] &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy-main/examples/data/cluster/dbscan/BANK2.sav&quot;
+#&gt; [1] &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy-main/data/BANK2.sav&quot;                        
+#&gt; [2] &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy-main/examples/data/cluster/dbscan/BANK2.sav&quot;
 ghlist(&quot;BANK2&quot;)                  # short names
 #&gt; [1] &quot;data/BANK2.sav&quot;   &quot;dbscan/BANK2.sav&quot;</code></pre>
 </div>
@@ -562,39 +571,39 @@ uniquely addressable,</li>
 <p><code>ghpath</code> builds up the short name with various path
 components from a <code>ghdecompose</code> object.</p>
 <pre class="r"><code>ghfile(&#39;data/BANK2.sav&#39;)
-#&gt; [1] &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy-main/data/BANK2.sav&quot;
+#&gt; [1] &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy-main/data/BANK2.sav&quot;
 ghget(local=system.file(&quot;zip&quot;, &quot;mmstat4.dummy.zip&quot;, package=&quot;mmstat4&quot;))
 #&gt; [1] &quot;local&quot;
 fnf &lt;- ghlist(full.names=TRUE)
 dfn &lt;- ghdecompose(fnf)
 head(dfn)
 #&gt;                         outpath inpath minpath       filename
-#&gt; 1 /tmp/Rtmpb6a0mH/mmstat4.dummy   data           hhberlin.csv
-#&gt; 2 /tmp/Rtmpb6a0mH/mmstat4.dummy   data         Preisindex.csv
-#&gt; 3 /tmp/Rtmpb6a0mH/mmstat4.dummy           data      BANK2.sav
-#&gt; 4 /tmp/Rtmpb6a0mH/mmstat4.dummy   data         12411-0006.csv
-#&gt; 5 /tmp/Rtmpb6a0mH/mmstat4.dummy   data         child_data.sav
-#&gt; 6 /tmp/Rtmpb6a0mH/mmstat4.dummy   data                hhD.rda
+#&gt; 1 /tmp/RtmpzS1Gs4/mmstat4.dummy   data           hhberlin.csv
+#&gt; 2 /tmp/RtmpzS1Gs4/mmstat4.dummy   data         Preisindex.csv
+#&gt; 3 /tmp/RtmpzS1Gs4/mmstat4.dummy           data      BANK2.sav
+#&gt; 4 /tmp/RtmpzS1Gs4/mmstat4.dummy   data         12411-0006.csv
+#&gt; 5 /tmp/RtmpzS1Gs4/mmstat4.dummy   data         child_data.sav
+#&gt; 6 /tmp/RtmpzS1Gs4/mmstat4.dummy   data                hhD.rda
 #&gt;                                              source
-#&gt; 1   /tmp/Rtmpb6a0mH/mmstat4.dummy/data/hhberlin.csv
-#&gt; 2 /tmp/Rtmpb6a0mH/mmstat4.dummy/data/Preisindex.csv
-#&gt; 3      /tmp/Rtmpb6a0mH/mmstat4.dummy/data/BANK2.sav
-#&gt; 4 /tmp/Rtmpb6a0mH/mmstat4.dummy/data/12411-0006.csv
-#&gt; 5 /tmp/Rtmpb6a0mH/mmstat4.dummy/data/child_data.sav
-#&gt; 6        /tmp/Rtmpb6a0mH/mmstat4.dummy/data/hhD.rda
+#&gt; 1   /tmp/RtmpzS1Gs4/mmstat4.dummy/data/hhberlin.csv
+#&gt; 2 /tmp/RtmpzS1Gs4/mmstat4.dummy/data/Preisindex.csv
+#&gt; 3      /tmp/RtmpzS1Gs4/mmstat4.dummy/data/BANK2.sav
+#&gt; 4 /tmp/RtmpzS1Gs4/mmstat4.dummy/data/12411-0006.csv
+#&gt; 5 /tmp/RtmpzS1Gs4/mmstat4.dummy/data/child_data.sav
+#&gt; 6        /tmp/RtmpzS1Gs4/mmstat4.dummy/data/hhD.rda
 head(ghpath(dfn))
 #&gt;                                                   1 
-#&gt;   &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy/data/hhberlin.csv&quot; 
+#&gt;   &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy/data/hhberlin.csv&quot; 
 #&gt;                                                   2 
-#&gt; &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy/data/Preisindex.csv&quot; 
+#&gt; &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy/data/Preisindex.csv&quot; 
 #&gt;                                                   3 
-#&gt;      &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy/data/BANK2.sav&quot; 
+#&gt;      &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy/data/BANK2.sav&quot; 
 #&gt;                                                   4 
-#&gt; &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy/data/12411-0006.csv&quot; 
+#&gt; &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy/data/12411-0006.csv&quot; 
 #&gt;                                                   5 
-#&gt; &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy/data/child_data.sav&quot; 
+#&gt; &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy/data/child_data.sav&quot; 
 #&gt;                                                   6 
-#&gt;        &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy/data/hhD.rda&quot;</code></pre>
+#&gt;        &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy/data/hhD.rda&quot;</code></pre>
 </div>
 <div id="rstudio-addins" class="section level2">
 <h2>RStudio addins</h2>
@@ -611,21 +620,38 @@ default browser).</p></li>
 </ul>
 </div>
 </div>
+<div id="using-python-scripts" class="section level1">
+<h1>Using Python scripts</h1>
+<p>In order to use Python scripts, Python must be installed locally. The
+scripts are executed in a virtual environment called
+<code>mmstat4.xxxx</code>, which is created when a Python script is
+either executed or opened. During the creation of the virtual
+environment, users are prompted to approve the setup of this
+environment; this step is critical for the proper execution of Python
+scripts.</p>
+<p>Once the virtual environment is set up, the script checks for the
+presence of a file called <code>init_py.R</code> in the ZIP file. If
+this file exists, it is extracted and executed with the source command.
+Normally, this file is used to install Python modules with
+<code>reticulate::py_install(&#39;module name&#39;)</code>.</p>
+</div>
 <div id="creating-an-own-zip-file" class="section level1">
 <h1>Creating an own ZIP file</h1>
-<div id="preparation-libraries-used-and-r-programs-run-standalone" class="section level2">
-<h2>Preparation: Libraries used and R programs run standalone</h2>
+<div id="preparation-1-librariesmodules-used" class="section level2">
+<h2>Preparation 1: Libraries/Modules used</h2>
 <p>Currently there are the following routines to support R code
 snippets:</p>
 <ul>
-<li><code>Rlibs</code>, which extracts all <code>library</code> and
-<code>require</code> calls from the R code snippets and returns a
-frequency table of the packages called.</li>
+<li><code>packages</code> or <code>modules</code>, which extracts all
+<code>library</code>/<code>require</code>/<code>import</code> calls from
+code snippets and returns a frequency table of the packages or and
+modules called.</li>
 </ul>
 <pre class="r"><code>ghget(local=system.file(&quot;zip&quot;, &quot;mmstat4.dummy.zip&quot;, package=&quot;mmstat4&quot;))
 #&gt; [1] &quot;local&quot;
 files &lt;- ghlist(pattern=&quot;*.R$&quot;, full.names = TRUE)
 head(Rlibs(files), 30)
+#&gt; $R
 #&gt; 
 #&gt; additivityTests       agricolae       alphahull          Amelia         andrews 
 #&gt;               1               5               1               1               4 
@@ -638,43 +664,77 @@ head(Rlibs(files), 30)
 #&gt;       flexclust         foreign             fpc             gam          GGally 
 #&gt;               2               4               1               4               4 
 #&gt;           ggmap         ggplot2          glmnet          gplots          hexbin 
-#&gt;               1              20               2               3               1</code></pre>
-<ul>
-<li><code>Rsolo</code>, which checks that each R code snippet runs
-smoothly in a freshly started R.</li>
-</ul>
+#&gt;               1              20               2               3               1 
+#&gt;           Hmisc          igraph         lattice         lawstat          lmtest 
+#&gt;               1               2              27               1               3 
+#&gt;          locfit            MASS          mclust            mgcv            mice 
+#&gt;               2             130               2               2               1 
+#&gt;  MissingDataGUI         mitools         mlbench         mmstat4         moments 
+#&gt;               1               2               4               2               3 
+#&gt;         NbClust       neuralnet            nnet         nortest              np 
+#&gt;               1               1               9               3              14 
+#&gt;           olsrr        outliers           paran         perturb         plot.3d 
+#&gt;               6               3               2               1              14 
+#&gt;     plot.matrix          plot3d         plotrix           proxy            pscl 
+#&gt;               1               1               5               2               2 
+#&gt;           psych    qualityTools       QuantPsyc    randomForest    RColorBrewer 
+#&gt;              14               1               6               1               2 
+#&gt;        reshape2          rggobi             rgl             rio      robustbase 
+#&gt;               1               1               2              26               2 
+#&gt;           rpart      rpart.plot       ryouready        sampling     scagnostics 
+#&gt;              15               2               1               3              13 
+#&gt;   scatterplot3d           shiny        shinyApp  shinydashboard    shinyExample 
+#&gt;              13               6               3               6               1 
+#&gt;    shinyWidgets              sm        smvgraph           spdep         tabplot 
+#&gt;               2               2               1               3               3 
+#&gt;   TeachingDemos          tibble          UsingR             vcd        vcdExtra 
+#&gt;               1               1               1               7               1 
+#&gt;             VIM         vioplot            xlsx          xtable 
+#&gt;               2               2               1               4</code></pre>
+<p>You can add a file <code>init_R.R</code> or <code>init_py.R</code> to
+your ZIP file, which installs the necessary R packages or Python
+modules. A vector with the names of the R packages
+(<code>rlibs=...</code>) or Python modules
+(’pymods=…<code>) to be installed can be passed to the</code>install`
+command.</p>
+</div>
+<div id="preparation-2-scripts-run-standalone" class="section level2">
+<h2>Preparation 2: Scripts run standalone</h2>
+<p><code>Rsolo</code> checks whether each R code snippet runs smoothly
+in a freshly started R.</p>
 <pre class="r"><code># just check the last files from the list 
 # Note that the R console will show more output (warnings etc.)
 Rsolo(files, start=435)  </code></pre>
-<ul>
-<li><code>Rdups</code>, which checks if the duplicate files can be found
-based on checksums</li>
-</ul>
+</div>
+<div id="preparation-3-search-and-eliminate-duplicate-files" class="section level2">
+<h2>Preparation 3: Search (and eliminate) duplicate files</h2>
+<p><code>dupFiles</code> uses checksums to check whether files are
+duplicated.</p>
 <pre class="r"><code>files &lt;- ghlist(full.names = TRUE)
 head(Rdups(files))
 #&gt; $c300e8fe6f0bc562256e81670c23d8c0
-#&gt; [1] &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy/data/BANK2.sav&quot;                        
-#&gt; [2] &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy/examples/data/cluster/dbscan/BANK2.sav&quot;
+#&gt; [1] &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy/data/BANK2.sav&quot;                        
+#&gt; [2] &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy/examples/data/cluster/dbscan/BANK2.sav&quot;
 #&gt; 
 #&gt; $`4efddb6dc6c7ed743221295d55133817`
-#&gt; [1] &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy/examples/data/nnet/mincer_nnet3.R&quot;
-#&gt; [2] &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy/examples/data/nnet/mincer_nnet5.R&quot;
+#&gt; [1] &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy/examples/data/nnet/mincer_nnet3.R&quot;
+#&gt; [2] &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy/examples/data/nnet/mincer_nnet5.R&quot;
 #&gt; 
 #&gt; $`9f9fe7603aa82f33bbc85a9d32e39d03`
-#&gt; [1] &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy/examples/data/cluster/dbscan/app.tmpl&quot;       
-#&gt; [2] &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy/examples/data/mgraphics/scagnostics/app.tmpl&quot;
+#&gt; [1] &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy/examples/data/cluster/dbscan/app.tmpl&quot;       
+#&gt; [2] &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy/examples/data/mgraphics/scagnostics/app.tmpl&quot;
 #&gt; 
 #&gt; $`0b74b824367df429803599708daf2e2e`
-#&gt; [1] &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy/examples/data/subgroup/example_mosaic.R&quot; 
-#&gt; [2] &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy/examples/data/mgraphics/example_mosaic.R&quot;
+#&gt; [1] &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy/examples/data/subgroup/example_mosaic.R&quot; 
+#&gt; [2] &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy/examples/data/mgraphics/example_mosaic.R&quot;
 #&gt; 
 #&gt; $`8eaa4f89e233ba69fcda053d238699aa`
-#&gt; [1] &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy/examples/data/subgroup/example_mosaic_cotabplot.R&quot; 
-#&gt; [2] &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy/examples/data/mgraphics/example_mosaic_cotabplot.R&quot;
+#&gt; [1] &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy/examples/data/subgroup/example_mosaic_cotabplot.R&quot; 
+#&gt; [2] &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy/examples/data/mgraphics/example_mosaic_cotabplot.R&quot;
 #&gt; 
 #&gt; $`8ed6128aab796148df5e71cbeab547da`
-#&gt; [1] &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy/examples/data/subgroup/example_mosaic_graphics.R&quot; 
-#&gt; [2] &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy/examples/data/mgraphics/example_mosaic_graphics.R&quot;</code></pre>
+#&gt; [1] &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy/examples/data/subgroup/example_mosaic_graphics.R&quot; 
+#&gt; [2] &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy/examples/data/mgraphics/example_mosaic_graphics.R&quot;</code></pre>
 <p>Note: there is also an error message if the necessary libraries are
 not installed!</p>
 </div>
@@ -688,9 +748,9 @@ comes with the package <code>mmstat4</code>:</p>
 ghnames &lt;- ghdecompose(ghlist(full.names=TRUE))
 ghnames[58,]
 #&gt;                          outpath                inpath minpath  filename
-#&gt; 58 /tmp/Rtmpb6a0mH/mmstat4.dummy examples/data/cluster  dbscan BANK2.sav
+#&gt; 58 /tmp/RtmpzS1Gs4/mmstat4.dummy examples/data/cluster  dbscan BANK2.sav
 #&gt;                                                                  source
-#&gt; 58 /tmp/Rtmpb6a0mH/mmstat4.dummy/examples/data/cluster/dbscan/BANK2.sav</code></pre>
+#&gt; 58 /tmp/RtmpzS1Gs4/mmstat4.dummy/examples/data/cluster/dbscan/BANK2.sav</code></pre>
 <p>The shortest possible name is determined by <code>minpath</code> and
 <code>filename</code>. But all other paths determined by
 <code>uniquepath</code>, <code>minpath</code> and <code>filename</code>
@@ -706,10 +766,10 @@ possible name.</li>
 <code>examples/data/cluster/dbscan/BANK2.sav</code> will work.</li>
 </ul>
 <pre class="r"><code>x1 &lt;- ghload(&quot;BANK2.sav&quot;)
-#&gt; Possible matches: 
-#&gt;   data/BANK2.sav
-#&gt;   dbscan/BANK2.sav
-#&gt; Error in ghfile(x): Several files for &#39;BANK2.sav&#39; found, check matches!
+#&gt; Best matches: 
+#&gt;   ghload(x = &quot;data/BANK2.sav&quot;)
+#&gt;   ghload(x = &quot;dbscan/BANK2.sav&quot;)
+#&gt; Error in ghfile(x, msg = msg): No (unique) file &#39;BANK2.sav&#39; found, check matches!
 x2 &lt;- ghload(&quot;dbscan/BANK2.sav&quot;)
 x3 &lt;- ghload(&quot;cluster/dbscan/BANK2.sav&quot;)
 x4 &lt;- ghload(&quot;data/cluster/dbscan/BANK2.sav&quot;)
@@ -754,16 +814,16 @@ ghopen(&quot;dbscan&quot;) # open the app</code></pre>
 <pre class="r"><code>ghget(&quot;dummy&quot;, .tempdir=TRUE)
 #&gt; [1] &quot;dummy&quot;
 ghlist(pattern=&quot;\\.csv$&quot;, ignore.case=TRUE, full.names=TRUE)
-#&gt;  [1] &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy-main/data/12411-0006.csv&quot;       
-#&gt;  [2] &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy-main/data/ArbeitsloseBerlin.csv&quot;
-#&gt;  [3] &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy-main/data/Preisindex.csv&quot;       
-#&gt;  [4] &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy-main/data/TelefonDaten.csv&quot;     
-#&gt;  [5] &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy-main/data/haushalte.csv&quot;        
-#&gt;  [6] &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy-main/data/haushalte_berlin.csv&quot; 
-#&gt;  [7] &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy-main/data/hhberlin.csv&quot;         
-#&gt;  [8] &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy-main/data/hhberlin_2017.csv&quot;    
-#&gt;  [9] &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy-main/data/pechstein.csv&quot;        
-#&gt; [10] &quot;/tmp/Rtmpb6a0mH/mmstat4.dummy-main/data/rentcap.csv&quot;
+#&gt;  [1] &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy-main/data/12411-0006.csv&quot;       
+#&gt;  [2] &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy-main/data/ArbeitsloseBerlin.csv&quot;
+#&gt;  [3] &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy-main/data/Preisindex.csv&quot;       
+#&gt;  [4] &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy-main/data/TelefonDaten.csv&quot;     
+#&gt;  [5] &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy-main/data/haushalte.csv&quot;        
+#&gt;  [6] &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy-main/data/haushalte_berlin.csv&quot; 
+#&gt;  [7] &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy-main/data/hhberlin.csv&quot;         
+#&gt;  [8] &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy-main/data/hhberlin_2017.csv&quot;    
+#&gt;  [9] &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy-main/data/pechstein.csv&quot;        
+#&gt; [10] &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy-main/data/rentcap.csv&quot;
 # use mmstat4::ghload for importing
 ghlist(pattern=&quot;\\.csv$&quot;)
 #&gt;  [1] &quot;12411-0006.csv&quot;        &quot;ArbeitsloseBerlin.csv&quot; &quot;Preisindex.csv&quot;       
@@ -776,6 +836,14 @@ str(pechstein)
 #&gt;  $ Datum        : chr  &quot;04.02.00&quot; &quot;01.02.01&quot; &quot;10.11.01&quot; &quot;06.02.02&quot; ...
 #&gt;  $ Tag          : int  34 397 679 767 771 783 1043 1160 1166 1421 ...
 #&gt;  $ Retikulozyten: chr  &quot;2,3&quot; &quot;2,5&quot; &quot;2,45&quot; &quot;2,1&quot; ...</code></pre>
+</div>
+<div id="init_py.r-is-only-called-if-the-virtual-environment-is-created.-can-i-force-a-new-call" class="section level2">
+<h2><code>init_py.R</code> is only called if the virtual environment is
+created. Can I force a new call?</h2>
+<p>Yes, delete the virtual environment and recreate it</p>
+<pre class="r"><code>reticulate::virtualenv_remove(&#39;mmstat4&#39;)
+ghinstall(&#39;py&#39;, force=TRUE)</code></pre>
+<pre class="r"><code>sudo apt-get install python3 python3-dev python3-pip python3-venv libbz2-dev</code></pre>
 </div>
 </div>
 <div id="default-repositories" class="section level1">

@@ -4,10 +4,16 @@
 \alias{ghfile}
 \title{ghfile}
 \usage{
-ghfile(x)
+ghfile(x, n = 6, silent = FALSE, msg = "\%s")
 }
 \arguments{
-\item{x}{character: file names}
+\item{x}{character: a single file name}
+
+\item{n}{logical: if \code{x} can not be found how many best matches should be returned (default: \code{6})}
+
+\item{silent}{logical: if no (unique) match is found, then \code{NULL} is returned, otherwise an error is thrown (default: \code{FALSE}, throw error)}
+
+\item{msg}{character: error message how to put the file name(s (default: \verb{\%s})}
 }
 \value{
 the full matching file

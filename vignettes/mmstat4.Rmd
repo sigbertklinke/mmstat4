@@ -27,19 +27,21 @@ suppressPackageStartupMessages(library("mmstat4"))
 
 # General
 
-This package has been designed to provide teaching materials for various statistics courses that are aimed at students.
+This package was developed to create teaching material for various statistics courses aimed at students.
 
-The main function of this package is called `gh`, which can be used to perform several tasks such as:
+This package was developed to create teaching material for various statistics courses aimed at students.
 
-* Opening Shiny Apps, R and R Markdown files in RStudio,
+The main function of this package is called `gh`, which can be used to perform various tasks, such as:
+
+* Opening Shiny Apps, R, Python and R Markdown files in RStudio,
 * Loading data files, and
-* Displaying HTML and PDF files in a browser.
+* Viewing HTML and PDF files in a browser.
 
-Using this function, students can access various teaching materials such as interactive apps, R code, data files, and other resources, which can be helpful in learning statistics concepts. By providing easy access to these materials, the package aims to facilitate the learning process for students and make it more interactive and engaging.
+With this feature, students can access various educational materials such as interactive apps, R code, data files, and other resources that can be helpful in learning statistical concepts. By providing easy access to these materials, the package aims to facilitate the learning process for students and make it more interactive and engaging.
 
-GitHub allows downloading the repository as a ZIP file, see in the repository under the `Code` button (`Download ZIP`). `mmstat4` works with this ZIP file, but you can also use any of your own ZIP files.
+GitHub allows you to download the repository as a ZIP file, see in the repository under the `Code` button (`Download ZIP`). mmstat4" works with this ZIP file, but you can also use one of your own ZIP files.
 
-In my courses I assume that all R programs run in a freshly started R, i.e. there are no path dependencies, all necessary libraries are loaded in the R program and so on. My repositories contain not only the example programs for the students, but also the programs I use to generate images and tables, and also the Shiny Apps I show.
+In my courses I assume that all R programs run in a freshly started R, i.e. there are no path dependencies, all necessary libraries are loaded in the R program and so on. My repositories contain not only the example programs for the students, but also the programs I use to create images and tables, and also the Shiny Apps I show.
 
 # Using a ZIP file or repository
 
@@ -75,7 +77,7 @@ ghget()                  # uses 'hu.data'
 
 ## Full and short names for files
 
-In addition, unique short names, related to the zip file content, are generated from the path components.
+In addition, unique short names, related to the ZIP file content, are generated from the path components.
 
 After unpacking the ZIP file, unique short names are generated for these files.
 
@@ -155,13 +157,21 @@ The package comes with two RStudio addins (see under `Addins -> MMSTAT4`):
 
 * _Execute a Shiny app from a zip file_ (`ghappAddin`), which extracts all directories containing Shiny apps and opens the selected app in a web browser (using the default browser).
 
+# Using Python scripts
+
+In order to use Python scripts, Python must be installed locally. The scripts are executed in a virtual environment called `mmstat4.xxxx`, which is created when a Python script is either executed or opened. During the creation of the virtual environment, 
+users are prompted to approve the setup of this environment; this step is critical for the proper execution of Python scripts.
+
+Once the virtual environment is set up, the script checks for the presence of a file called `init_py.R` in the ZIP file. 
+If this file exists, it is extracted and executed with the source command. Normally, this file is used to install Python modules with `reticulate::py_install('module name')`. 
+
 # Creating an own ZIP file
 
-## Preparation: Libraries used and R programs run standalone
+## Preparation 1: Libraries/Modules used
 
 Currently there are the following routines to support R code snippets:
 
-* `Rlibs`, which extracts all `library` and `require` calls from the R code snippets and returns a frequency table of the packages called.
+* `packages` or `modules`, which extracts all `library`/`require`/`import` calls from  code snippets and returns a frequency table of the packages or and modules called.
 
 ```{r}
 ghget(local=system.file("zip", "mmstat4.dummy.zip", package="mmstat4"))
@@ -169,19 +179,31 @@ files <- ghlist(pattern="*.R$", full.names = TRUE)
 head(Rlibs(files), 30)
 ```
 
-* `Rsolo`, which checks that each R code snippet runs smoothly in a freshly started R. 
+You can add a file `init_R.R` or `init_py.R` to your ZIP file, which installs the necessary R packages or Python modules. A vector with the names of the R packages (`rlibs=...`) or Python modules (`pymods=...`) to be installed can be passed to the `install` command.
+
+## Preparation 2: Scripts run independently
+
+`checkFiles` checks whether each R code snippet runs smoothly in a freshly started R. 
 
 ```{r, eval=FALSE}
 # just check the last files from the list 
 # Note that the R console will show more output (warnings etc.)
-Rsolo(files, start=435)  
+checkFile(files, start=435)  # alternatively: Rsolo
 ```
 
-* `Rdups`, which checks if the duplicate files can be found based on checksums
+Three modes are available for checking a `file`:
+
+1. `exist`: Does the source file exist?
+2. `parse`: Is `parse(file)` or `python -m "file"` successful? (default)
+3. `run`: Is `Rscript "file"` or `python3 "file"` successful?
+
+## Preparation 3: Searching for (and removing) duplicate files
+
+`dupFiles` uses checksums to check whether files exist twice.
 
 ```{r}
 files <- ghlist(full.names = TRUE)
-head(Rdups(files))
+head(dupFiles(files))  # alternatively: Rdups
 ```
 
 Note: there is also an error message if the necessary libraries are not installed!
@@ -266,9 +288,28 @@ pechstein <- ghload("pechstein.csv")
 str(pechstein)
 ```
 
+## What should I install to use Python scripts?
+
+For Ubuntu (Linux) install:
+
+```{r, eval=FALSE}
+sudo apt-get install python3 python3-dev python3-pip python3-venv libbz2-dev
+```
+
+Note: `mmstat4` installs these Python modules `numpy`, `scipy`, `statsmodels`, `pandas`,  `scikit-learn`, `matplotlib`, and `seaborn` by default.
+
+## `init_py.R` is only called if the virtual environment is created. Can I force a new call?
+
+Yes, delete the virtual environment and recreate it
+
+```{r, eval=FALSE}
+reticulate::virtualenv_remove('mmstat4')
+ghinstall('py', force=TRUE)
+```
+
 # Default repositories
 
-The package has three default repositories: `dummy`, `hu.stat`, and  `hu.data`. 
+The package recognises three standard repositories: `dummy`, `hu.stat`, and  `hu.data`. 
 
 ```{r, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
 tabl <- "
