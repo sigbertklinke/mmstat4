@@ -1,6 +1,8 @@
-#' ghlist
-#'
-#' Returns unique (short) names for accessing each file in the repository according to a regular expression.
+#' @rdname ghgrep
+#' @aliases ghlist
+#' @title ghgrep, ghlist
+#' @description
+#' Both functions return unique (short) names for accessing each file in the repository according to a regular expression.
 #' For details about regular expressions, see [base::regex].
 #'
 #' @inheritParams base::grepl
@@ -10,10 +12,14 @@
 #' @export
 #'
 #' @examples
-#' if (interactive()) ghlist()
+#' if (interactive()) ghgrep()
 ghlist <- function(pattern='.', ignore.case = FALSE, perl = FALSE,
                    fixed = FALSE, useBytes = FALSE, full.names=FALSE) {
   ghget(mmstat$repo)
   x <- if (full.names) mmstat$repository[[mmstat$repo]]$files else  mmstat$repository[[mmstat$repo]]$sfiles
   setdiff(unique(x[grepl(pattern, x, ignore.case, perl, fixed, useBytes)]), '.')
 }
+
+#' @rdname ghgrep
+#' @export
+ghgrep <- ghlist

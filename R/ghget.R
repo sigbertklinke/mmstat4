@@ -19,7 +19,6 @@
 #'
 #' @importFrom utils download.file unzip URLencode tail
 #' @importFrom tools file_path_sans_ext file_ext
-#' @importFrom httr HEAD status_code
 #' @importFrom rappdirs user_data_dir
 #' @export
 #'
@@ -61,11 +60,7 @@ ghget <-  function(..., .force=FALSE, .tempdir=TRUE, .quiet=!interactive()) {
       reposi <- repos[i]
       break
     }
-    res <- try({
-      response <- HEAD(repos[i])
-      status_code(response) == 200
-    }, silent = TRUE)
-    if (!inherits(res, 'try-error') && res) {
+    if (urlExists(repos[i])) {
       isfile <- FALSE
       reposi <- repos[i]
       break
@@ -89,7 +84,7 @@ ghget <-  function(..., .force=FALSE, .tempdir=TRUE, .quiet=!interactive()) {
   if (!file.exists(destfile) || .force) {
     if (isfile) {
       if (!.quiet) cat("Read:", reposi, "\n")
-      file.copy(repos[i], destfile, overwrite=TRUE)
+      rdown <- !file.copy(repos[i], destfile, overwrite=TRUE)
     } else {
       if (!.quiet) cat("Download:", reposi, "\n")
       rdown <- try(download.file(repos[i], destfile, quiet = TRUE), silent = TRUE)

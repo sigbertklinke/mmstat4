@@ -1,6 +1,7 @@
 mmstat            <- new.env(parent=emptyenv())
 mmstat$data       <- list()
 mmstat$lang       <- list()
+mmstat$notes      <- character()
 mmstat$repository <- list()
 mmstat$version    <- '22.2'
 mmstat$install    <- c("R"=FALSE, "py"=FALSE)
@@ -17,10 +18,9 @@ if (length(mmstat$repository)==0) {
                  venv="mmstat4.hu.stat"),
     dummy=list(url="https://github.com/sigbertklinke/mmstat4.dummy/archive/refs/heads/main.zip",
                dir=tempdir(),
-               venv="mmstat4.dummy")
-    )
+               venv="mmstat4.dummy"))
+  mmstat$repo <- names(mmstat$repository)[1]
 }
-mmstat$repo <- names(mmstat$repository)[1]
 
 .onLoad <- function(libname, pkgname) {
   # colors
@@ -30,6 +30,14 @@ mmstat$repo <- names(mmstat$repository)[1]
           mmstat.ext.python     = c('py', 'py3'),
           mmstat.ext.prg        = c('', 'r', 'rmd', 'ma', 'py')
   )
+  #
+  local <- system.file('zip', 'mmstat4.dummy.zip', package = "mmstat4")
+  if (file.exists(local)) {
+    mmstat$repository[['local']] <- list(url=local,
+                                         dir=tempdir(),
+                                         venv="mmstat4.local")
+  }
+  # if (!'r-reticulate' %in% reticulate::virtualenv_list()) warning('Virtual environment `r-reticulate` is missing, run `r_reticulate()`')
 }
 
 .onAttach <- function(libname, pkgname) {

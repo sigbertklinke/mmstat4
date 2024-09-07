@@ -20,10 +20,10 @@ Currently, only \code{type=="py"} for Python scripts and \verb{type=="R"`` for R
 }
 \details{
 \describe{
-\item{\code{R}}{\code{mmstat4} \code{init_R.R} is executed if present in the active repository.}
+\item{\code{R}}{\code{mmstat4} \code{init_R.R} is opened if present in the active repository.}
 \item{\code{py}}{\code{mmstat4} internally utilizes a virtual environment named \code{mmstat4.xxxx},
 where xxxx\verb{, varies depending on the repository. When }ghinstall\verb{is invoked, it verifies the existence of the virtual environment}mmstat4.xxxx\verb{. If it does not exist, the environment is created, and }init_py.R`
-is executed if present in the active repository.}
+is opened if present in the active repository.}
 }
 }
 \examples{

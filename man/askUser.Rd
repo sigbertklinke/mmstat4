@@ -4,7 +4,12 @@
 \alias{askUser}
 \title{askUser}
 \usage{
-askUser(msg, choices = c("Yes", "No", "Cancel"), default = 1)
+askUser(
+  msg,
+  choices = c("Yes", "No", "Cancel"),
+  default = 1,
+  col = crayon::black
+)
 }
 \arguments{
 \item{msg}{character: the prompt message for the user}
@@ -12,6 +17,8 @@ askUser(msg, choices = c("Yes", "No", "Cancel"), default = 1)
 \item{choices}{character: vector of choices (default: \code{c("Yes", "No", "Cancel")})}
 
 \item{default}{character/integer: default option if only \code{Enter} pressed (default: \code{1})}
+
+\item{col}{function: a color function (default: \code{crayon::black})}
 }
 \value{
 the integer number choosen by the user

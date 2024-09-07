@@ -9,18 +9,17 @@
 #' Otherwise, the following operation are performed:
 #'
 #' * `gh(x, 'open')` or `ghopen(x)`: Opens a file in the local browser if the file extension is `html` or `pdf`, otherwise in the RStudio editor.
-#' * `gh(x, 'load')` or `ghload(x)`: Loads the contents of a file with `import`.
+#' * `gh(x, 'load')` or `ghload(x)`: Loads the contents of a file with `import` and `trust=TRUE`.
 #' * `gh(x, 'source')` or `ghsource(x)`: Executes the contents of a file with `source`.
 #' * `gh(x, 'app')` or `ghapp(x)`: Tries to open the file with the default application of the OS, see [defaultApp()].
 #' * `ghdata(x, pkg)`: Helper function  to load data sets from R packages into Python, simulates `pkg::x`.
 #'
 #' @param x character(1): name of the file, app or data set
 #' @param what character or function: a name of a predefined function or another function. The function must have a formal parameter `file`.
-#' @param ... further parameters used in [utils::browseURL()], [rstudioapi::navigateToFile()], [rio::import()], or [base::source()].
+#' @param ... further parameters used in [utils::browseURL()], [openFile()], [rio::import()], or [base::source()].
 #' @param .call the original function call (default: `NULL`)
 #'
-#' @return invisibly the result of [utils::browseURL], [rstudioapi::navigateToFile()], [rio::import()], or [base::source()].
-#' @importFrom rstudioapi navigateToFile
+#' @return invisibly the result of [utils::browseURL], [openFile()], [rio::import()], or [base::source()].
 #' @importFrom utils browseURL adist menu
 #' @importFrom tools file_ext
 #' @importFrom rio import
@@ -43,21 +42,24 @@ gh <- function (x, what=c("open", "load", "source", "app"), ..., .call=NULL) {
   file         <- ghfile(x, msg=msg)
   ext          <- tolower(file_ext(file))
   if (is.character(what)) {
-    if (ext %in% getOption("mmstat.ext.r", c('r'))) ghinstall("R")
-    if (ext %in% getOption("mmstat.ext.python", c('py', 'py3'))) {
+    isR      <- ext %in% getOption("mmstat.ext.r", c('r'))
+    isPython <- ext %in% getOption("mmstat.ext.python", c('py', 'py3'))
+    if (isR) ghinstall("R")
+    if (isPython) {
       ghinstall("py")
       venv <- mmstat$repository[[mmstat$repo]]$venv
       if (virtualenv_exists(venv)) use_virtualenv(venv)
     }
     fun <- switch(what,
                   load=rio::import,
-                  source=base::source,
+                  source=if(isPython) reticulate::py_run_file else base::source,
                   app=mmstat4::defaultApp,
-                  if (ext %in% getOption("mmstat.ext.doc", c('html', 'pdf'))) utils::browseURL else rstudioapi::navigateToFile)
+                  if (ext %in% getOption("mmstat.ext.doc", c('html', 'pdf'))) utils::browseURL else openFile)
   }
   stopifnot(is.function(fun))
   ffun <- formals(fun)
   args <- list(...)
+  if ((what=='load') && is.null(args$trust)) args$trust <- TRUE
   if ('file' %in% names(ffun)) args$file <- file
   if ('url' %in% names(ffun)) args$url <- file
   invisible(do.call(fun, args))

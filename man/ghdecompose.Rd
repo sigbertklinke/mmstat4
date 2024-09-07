@@ -27,7 +27,7 @@ Decomposes a path of a set of files (or dirs) in several parts:
 }
 }
 \examples{
-ghget("dummy")
+ghget("local")
 pdf <- ghdecompose(ghlist(full.names=TRUE))
 pdf
 }

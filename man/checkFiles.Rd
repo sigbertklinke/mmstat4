@@ -9,7 +9,7 @@ checkFiles(
   files,
   index = seq_along(files),
   path = NULL,
-  open = rstudioapi::navigateToFile,
+  open = openFile,
   mode = c("parse", "run", "exist"),
   ...
 )
@@ -18,7 +18,7 @@ Rsolo(
   files,
   index = seq_along(files),
   path = NULL,
-  open = rstudioapi::navigateToFile,
+  open = openFile,
   mode = c("parse", "run", "exist"),
   ...
 )
@@ -30,7 +30,7 @@ Rsolo(
 
 \item{path}{character: path to start from (default: \code{getwd()})}
 
-\item{open}{function: function or function name to call after an error occurs (default: \code{rstudioapi::navigateToFile})}
+\item{open}{function: function or function name to call after an error occurs (default: \code{openFile})}
 
 \item{mode}{character which check to do}
 
@@ -40,10 +40,11 @@ Rsolo(
 nothing
 }
 \description{
-\code{checkFiles} checks whether all specified files are valid source files that can be executed
-independently of each other. If an error occurs then:
+\code{checkFiles} verifies whether all specified files are valid source files
+that can be executed independently of each other. If an error occurs, the following actions are taken:
 \enumerate{
-\item If \code{open} is a function name or a function with a \code{file} parameter, then \code{checkFiles} will try to open the faulty source file, otherwise not.
+\item If \code{open} is either a function name or a function with a \code{file} parameter, then \code{checkFiles}
+will attempt to open the faulty source file; otherwise, it will not.
 \item The execution of \code{checkFiles} is stopped.
 }
 
@@ -52,12 +53,13 @@ If you do not want the faulty source file to be opened immediately, use \code{op
 Three modes are available for checking a \code{file}:
 \enumerate{
 \item \code{exist}: Does the source file exist?
-\item \code{parse}: (default) is \code{parse(file)} or \verb{python -m "file"} successful?
-\item \code{run}: is \verb{Rscript "file"} or \verb{python "file"} successful?
+\item \code{parse}: (default) Is \code{parse(file)} (in R) or \verb{python -m py_compile "file"} (in Python) successful?
+\item \code{run}: Is \verb{Rscript "file"} (in R) or \code{reticulate::py_run_file(file)} (in Python) successful?
 }
 
-If source files has side effects, e.g. generating an image or some other output, and \code{mode=="parse"} then
-this will done during the check.
+If source files have side effects, e.g., generating an image or producing other outputs,
+and \code{mode == "parse"}, these side effects will occur during the check.
+To prevent a script from being executed during the check, add a \verb{## Not check:} comment at the top of the script.
 }
 \examples{
 if (interactive()) {

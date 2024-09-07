@@ -352,7 +352,7 @@ display: none;
 <h4 class="author">Sigbert Klinke</h4>
 <a class="author_email" href="mailto:#"><a href="mailto:sigbert@hu-berlin.de" class="email">sigbert@hu-berlin.de</a></a>
 </address>
-<h4 class="date">06 April, 2024</h4>
+<h4 class="date">27 April, 2024</h4>
 
 </div>
 
@@ -380,10 +380,10 @@ Python scripts</a></li>
 <ul>
 <li><a href="#preparation-1-librariesmodules-used" id="toc-preparation-1-librariesmodules-used">Preparation 1:
 Libraries/Modules used</a></li>
-<li><a href="#preparation-2-scripts-run-standalone" id="toc-preparation-2-scripts-run-standalone">Preparation 2: Scripts run
-standalone</a></li>
-<li><a href="#preparation-3-search-and-eliminate-duplicate-files" id="toc-preparation-3-search-and-eliminate-duplicate-files">Preparation
-3: Search (and eliminate) duplicate files</a></li>
+<li><a href="#preparation-2-scripts-run-independently" id="toc-preparation-2-scripts-run-independently">Preparation 2: Scripts
+run independently</a></li>
+<li><a href="#preparation-3-searching-for-and-removing-duplicate-files" id="toc-preparation-3-searching-for-and-removing-duplicate-files">Preparation
+3: Searching for (and removing) duplicate files</a></li>
 <li><a href="#zip-file-and-access-names" id="toc-zip-file-and-access-names">ZIP file and access names</a></li>
 </ul></li>
 <li><a href="#frequently-asked-questions" id="toc-frequently-asked-questions">Frequently asked questions</a>
@@ -400,6 +400,8 @@ file permanently?</a></li>
 all directories with Shiny apps?</a></li>
 <li><a href="#how-can-i-find-all-csv-data-files" id="toc-how-can-i-find-all-csv-data-files">How can I find all
 <code>csv</code> data files?</a></li>
+<li><a href="#what-should-i-install-to-use-python-scripts" id="toc-what-should-i-install-to-use-python-scripts">What should I
+install to use Python scripts?</a></li>
 <li><a href="#init_py.r-is-only-called-if-the-virtual-environment-is-created.-can-i-force-a-new-call" id="toc-init_py.r-is-only-called-if-the-virtual-environment-is-created.-can-i-force-a-new-call"><code>init_py.R</code>
 is only called if the virtual environment is created. Can I force a new
 call?</a></li>
@@ -416,29 +418,31 @@ Bernd Rönz, HU Berlin (in german)</a></li>
 
 <div id="general" class="section level1">
 <h1>General</h1>
-<p>This package has been designed to provide teaching materials for
-various statistics courses that are aimed at students.</p>
+<p>This package was developed to create teaching material for various
+statistics courses aimed at students.</p>
+<p>This package was developed to create teaching material for various
+statistics courses aimed at students.</p>
 <p>The main function of this package is called <code>gh</code>, which
-can be used to perform several tasks such as:</p>
+can be used to perform various tasks, such as:</p>
 <ul>
 <li>Opening Shiny Apps, R, Python and R Markdown files in RStudio,</li>
 <li>Loading data files, and</li>
-<li>Displaying HTML and PDF files in a browser.</li>
+<li>Viewing HTML and PDF files in a browser.</li>
 </ul>
-<p>Using this function, students can access various teaching materials
-such as interactive apps, R code, data files, and other resources, which
-can be helpful in learning statistics concepts. By providing easy access
-to these materials, the package aims to facilitate the learning process
-for students and make it more interactive and engaging.</p>
-<p>GitHub allows downloading the repository as a ZIP file, see in the
-repository under the <code>Code</code> button
-(<code>Download ZIP</code>). <code>mmstat4</code> works with this ZIP
-file, but you can also use any of your own ZIP files.</p>
+<p>With this feature, students can access various educational materials
+such as interactive apps, R code, data files, and other resources that
+can be helpful in learning statistical concepts. By providing easy
+access to these materials, the package aims to facilitate the learning
+process for students and make it more interactive and engaging.</p>
+<p>GitHub allows you to download the repository as a ZIP file, see in
+the repository under the <code>Code</code> button
+(<code>Download ZIP</code>). mmstat4” works with this ZIP file, but you
+can also use one of your own ZIP files.</p>
 <p>In my courses I assume that all R programs run in a freshly started
 R, i.e. there are no path dependencies, all necessary libraries are
 loaded in the R program and so on. My repositories contain not only the
-example programs for the students, but also the programs I use to
-generate images and tables, and also the Shiny Apps I show.</p>
+example programs for the students, but also the programs I use to create
+images and tables, and also the Shiny Apps I show.</p>
 </div>
 <div id="using-a-zip-file-or-repository" class="section level1">
 <h1>Using a ZIP file or repository</h1>
@@ -484,19 +488,19 @@ these files.</p>
 gd &lt;- ghdecompose(ghlist(full.names=TRUE))
 head(gd)
 #&gt;                              outpath inpath minpath              filename
-#&gt; 1 /tmp/RtmpzS1Gs4/mmstat4.dummy-main                              LICENSE
-#&gt; 2 /tmp/RtmpzS1Gs4/mmstat4.dummy-main                            README.md
-#&gt; 3 /tmp/RtmpzS1Gs4/mmstat4.dummy-main   data                12411-0006.csv
-#&gt; 4 /tmp/RtmpzS1Gs4/mmstat4.dummy-main   data         ArbeitsloseBerlin.csv
-#&gt; 5 /tmp/RtmpzS1Gs4/mmstat4.dummy-main           data             BANK2.sav
-#&gt; 6 /tmp/RtmpzS1Gs4/mmstat4.dummy-main   data                Preisindex.csv
+#&gt; 1 /tmp/RtmprPuDPx/mmstat4.dummy-main                              LICENSE
+#&gt; 2 /tmp/RtmprPuDPx/mmstat4.dummy-main                            README.md
+#&gt; 3 /tmp/RtmprPuDPx/mmstat4.dummy-main   data                12411-0006.csv
+#&gt; 4 /tmp/RtmprPuDPx/mmstat4.dummy-main   data         ArbeitsloseBerlin.csv
+#&gt; 5 /tmp/RtmprPuDPx/mmstat4.dummy-main           data             BANK2.sav
+#&gt; 6 /tmp/RtmprPuDPx/mmstat4.dummy-main   data                Preisindex.csv
 #&gt;                                                          source
-#&gt; 1                    /tmp/RtmpzS1Gs4/mmstat4.dummy-main/LICENSE
-#&gt; 2                  /tmp/RtmpzS1Gs4/mmstat4.dummy-main/README.md
-#&gt; 3        /tmp/RtmpzS1Gs4/mmstat4.dummy-main/data/12411-0006.csv
-#&gt; 4 /tmp/RtmpzS1Gs4/mmstat4.dummy-main/data/ArbeitsloseBerlin.csv
-#&gt; 5             /tmp/RtmpzS1Gs4/mmstat4.dummy-main/data/BANK2.sav
-#&gt; 6        /tmp/RtmpzS1Gs4/mmstat4.dummy-main/data/Preisindex.csv</code></pre>
+#&gt; 1                    /tmp/RtmprPuDPx/mmstat4.dummy-main/LICENSE
+#&gt; 2                  /tmp/RtmprPuDPx/mmstat4.dummy-main/README.md
+#&gt; 3        /tmp/RtmprPuDPx/mmstat4.dummy-main/data/12411-0006.csv
+#&gt; 4 /tmp/RtmprPuDPx/mmstat4.dummy-main/data/ArbeitsloseBerlin.csv
+#&gt; 5             /tmp/RtmprPuDPx/mmstat4.dummy-main/data/BANK2.sav
+#&gt; 6        /tmp/RtmprPuDPx/mmstat4.dummy-main/data/Preisindex.csv</code></pre>
 <p>The file name is split into four parts. The last two parts,
 <code>minpath</code> and <code>filename</code>, are used to create short
 names:</p>
@@ -516,8 +520,8 @@ made whether two files with identical basenames are also identical in
 content.</li>
 </ol>
 <pre class="r"><code>ghlist(&quot;BANK2&quot;, full.names=TRUE) # full names
-#&gt; [1] &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy-main/data/BANK2.sav&quot;                        
-#&gt; [2] &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy-main/examples/data/cluster/dbscan/BANK2.sav&quot;
+#&gt; [1] &quot;/tmp/RtmprPuDPx/mmstat4.dummy-main/data/BANK2.sav&quot;                        
+#&gt; [2] &quot;/tmp/RtmprPuDPx/mmstat4.dummy-main/examples/data/cluster/dbscan/BANK2.sav&quot;
 ghlist(&quot;BANK2&quot;)                  # short names
 #&gt; [1] &quot;data/BANK2.sav&quot;   &quot;dbscan/BANK2.sav&quot;</code></pre>
 </div>
@@ -571,39 +575,39 @@ uniquely addressable,</li>
 <p><code>ghpath</code> builds up the short name with various path
 components from a <code>ghdecompose</code> object.</p>
 <pre class="r"><code>ghfile(&#39;data/BANK2.sav&#39;)
-#&gt; [1] &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy-main/data/BANK2.sav&quot;
+#&gt; [1] &quot;/tmp/RtmprPuDPx/mmstat4.dummy-main/data/BANK2.sav&quot;
 ghget(local=system.file(&quot;zip&quot;, &quot;mmstat4.dummy.zip&quot;, package=&quot;mmstat4&quot;))
 #&gt; [1] &quot;local&quot;
 fnf &lt;- ghlist(full.names=TRUE)
 dfn &lt;- ghdecompose(fnf)
 head(dfn)
 #&gt;                         outpath inpath minpath       filename
-#&gt; 1 /tmp/RtmpzS1Gs4/mmstat4.dummy   data           hhberlin.csv
-#&gt; 2 /tmp/RtmpzS1Gs4/mmstat4.dummy   data         Preisindex.csv
-#&gt; 3 /tmp/RtmpzS1Gs4/mmstat4.dummy           data      BANK2.sav
-#&gt; 4 /tmp/RtmpzS1Gs4/mmstat4.dummy   data         12411-0006.csv
-#&gt; 5 /tmp/RtmpzS1Gs4/mmstat4.dummy   data         child_data.sav
-#&gt; 6 /tmp/RtmpzS1Gs4/mmstat4.dummy   data                hhD.rda
+#&gt; 1 /tmp/RtmprPuDPx/mmstat4.dummy   data           hhberlin.csv
+#&gt; 2 /tmp/RtmprPuDPx/mmstat4.dummy   data         Preisindex.csv
+#&gt; 3 /tmp/RtmprPuDPx/mmstat4.dummy           data      BANK2.sav
+#&gt; 4 /tmp/RtmprPuDPx/mmstat4.dummy   data         12411-0006.csv
+#&gt; 5 /tmp/RtmprPuDPx/mmstat4.dummy   data         child_data.sav
+#&gt; 6 /tmp/RtmprPuDPx/mmstat4.dummy   data                hhD.rda
 #&gt;                                              source
-#&gt; 1   /tmp/RtmpzS1Gs4/mmstat4.dummy/data/hhberlin.csv
-#&gt; 2 /tmp/RtmpzS1Gs4/mmstat4.dummy/data/Preisindex.csv
-#&gt; 3      /tmp/RtmpzS1Gs4/mmstat4.dummy/data/BANK2.sav
-#&gt; 4 /tmp/RtmpzS1Gs4/mmstat4.dummy/data/12411-0006.csv
-#&gt; 5 /tmp/RtmpzS1Gs4/mmstat4.dummy/data/child_data.sav
-#&gt; 6        /tmp/RtmpzS1Gs4/mmstat4.dummy/data/hhD.rda
+#&gt; 1   /tmp/RtmprPuDPx/mmstat4.dummy/data/hhberlin.csv
+#&gt; 2 /tmp/RtmprPuDPx/mmstat4.dummy/data/Preisindex.csv
+#&gt; 3      /tmp/RtmprPuDPx/mmstat4.dummy/data/BANK2.sav
+#&gt; 4 /tmp/RtmprPuDPx/mmstat4.dummy/data/12411-0006.csv
+#&gt; 5 /tmp/RtmprPuDPx/mmstat4.dummy/data/child_data.sav
+#&gt; 6        /tmp/RtmprPuDPx/mmstat4.dummy/data/hhD.rda
 head(ghpath(dfn))
 #&gt;                                                   1 
-#&gt;   &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy/data/hhberlin.csv&quot; 
+#&gt;   &quot;/tmp/RtmprPuDPx/mmstat4.dummy/data/hhberlin.csv&quot; 
 #&gt;                                                   2 
-#&gt; &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy/data/Preisindex.csv&quot; 
+#&gt; &quot;/tmp/RtmprPuDPx/mmstat4.dummy/data/Preisindex.csv&quot; 
 #&gt;                                                   3 
-#&gt;      &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy/data/BANK2.sav&quot; 
+#&gt;      &quot;/tmp/RtmprPuDPx/mmstat4.dummy/data/BANK2.sav&quot; 
 #&gt;                                                   4 
-#&gt; &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy/data/12411-0006.csv&quot; 
+#&gt; &quot;/tmp/RtmprPuDPx/mmstat4.dummy/data/12411-0006.csv&quot; 
 #&gt;                                                   5 
-#&gt; &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy/data/child_data.sav&quot; 
+#&gt; &quot;/tmp/RtmprPuDPx/mmstat4.dummy/data/child_data.sav&quot; 
 #&gt;                                                   6 
-#&gt;        &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy/data/hhD.rda&quot;</code></pre>
+#&gt;        &quot;/tmp/RtmprPuDPx/mmstat4.dummy/data/hhD.rda&quot;</code></pre>
 </div>
 <div id="rstudio-addins" class="section level2">
 <h2>RStudio addins</h2>
@@ -642,7 +646,7 @@ Normally, this file is used to install Python modules with
 <p>Currently there are the following routines to support R code
 snippets:</p>
 <ul>
-<li><code>packages</code> or <code>modules</code>, which extracts all
+<li><code>pkglist</code> or <code>modlist</code>, which extracts all
 <code>library</code>/<code>require</code>/<code>import</code> calls from
 code snippets and returns a frequency table of the packages or and
 modules called.</li>
@@ -650,91 +654,120 @@ modules called.</li>
 <pre class="r"><code>ghget(local=system.file(&quot;zip&quot;, &quot;mmstat4.dummy.zip&quot;, package=&quot;mmstat4&quot;))
 #&gt; [1] &quot;local&quot;
 files &lt;- ghlist(pattern=&quot;*.R$&quot;, full.names = TRUE)
-head(Rlibs(files), 30)
-#&gt; $R
-#&gt; 
-#&gt; additivityTests       agricolae       alphahull          Amelia         andrews 
-#&gt;               1               5               1               1               4 
-#&gt;             ape         aplpack             ash            boot             car 
-#&gt;               1               3               2               4              13 
-#&gt;           CHAID         cluster            coin          dbscan          deldir 
-#&gt;               1              17               1               3               1 
-#&gt;       DescTools        devtools           e1071         effsize         entropy 
-#&gt;               6               3               5               1               3 
-#&gt;       flexclust         foreign             fpc             gam          GGally 
-#&gt;               2               4               1               4               4 
-#&gt;           ggmap         ggplot2          glmnet          gplots          hexbin 
-#&gt;               1              20               2               3               1 
-#&gt;           Hmisc          igraph         lattice         lawstat          lmtest 
-#&gt;               1               2              27               1               3 
-#&gt;          locfit            MASS          mclust            mgcv            mice 
-#&gt;               2             130               2               2               1 
-#&gt;  MissingDataGUI         mitools         mlbench         mmstat4         moments 
-#&gt;               1               2               4               2               3 
-#&gt;         NbClust       neuralnet            nnet         nortest              np 
-#&gt;               1               1               9               3              14 
-#&gt;           olsrr        outliers           paran         perturb         plot.3d 
-#&gt;               6               3               2               1              14 
-#&gt;     plot.matrix          plot3d         plotrix           proxy            pscl 
-#&gt;               1               1               5               2               2 
-#&gt;           psych    qualityTools       QuantPsyc    randomForest    RColorBrewer 
-#&gt;              14               1               6               1               2 
-#&gt;        reshape2          rggobi             rgl             rio      robustbase 
-#&gt;               1               1               2              26               2 
-#&gt;           rpart      rpart.plot       ryouready        sampling     scagnostics 
-#&gt;              15               2               1               3              13 
-#&gt;   scatterplot3d           shiny        shinyApp  shinydashboard    shinyExample 
-#&gt;              13               6               3               6               1 
-#&gt;    shinyWidgets              sm        smvgraph           spdep         tabplot 
-#&gt;               2               2               1               3               3 
-#&gt;   TeachingDemos          tibble          UsingR             vcd        vcdExtra 
-#&gt;               1               1               1               7               1 
-#&gt;             VIM         vioplot            xlsx          xtable 
-#&gt;               2               2               1               4</code></pre>
+head(pkglist(files, repos=&quot;https://cloud.r-project.org&quot;), 30)
+#&gt;                                                                                                                additivityTests 
+#&gt; &quot;if(!require(\&quot;additivityTests\&quot;)) install.packages(\&quot;additivityTests\&quot;, repos=\&quot;https://cloud.r-project.org/src/contrib\&quot;)\n&quot; 
+#&gt;                                                                                                                      agricolae 
+#&gt;             &quot;if(!require(\&quot;agricolae\&quot;)) install.packages(\&quot;agricolae\&quot;, repos=\&quot;https://cloud.r-project.org/src/contrib\&quot;)\n&quot; 
+#&gt;                                                                                                                      alphahull 
+#&gt;             &quot;if(!require(\&quot;alphahull\&quot;)) install.packages(\&quot;alphahull\&quot;, repos=\&quot;https://cloud.r-project.org/src/contrib\&quot;)\n&quot; 
+#&gt;                                                                                                                         Amelia 
+#&gt;                   &quot;if(!require(\&quot;Amelia\&quot;)) install.packages(\&quot;Amelia\&quot;, repos=\&quot;https://cloud.r-project.org/src/contrib\&quot;)\n&quot; 
+#&gt;                                                                                                                        andrews 
+#&gt;                 &quot;if(!require(\&quot;andrews\&quot;)) install.packages(\&quot;andrews\&quot;, repos=\&quot;https://cloud.r-project.org/src/contrib\&quot;)\n&quot; 
+#&gt;                                                                                                                            ape 
+#&gt;                         &quot;if(!require(\&quot;ape\&quot;)) install.packages(\&quot;ape\&quot;, repos=\&quot;https://cloud.r-project.org/src/contrib\&quot;)\n&quot; 
+#&gt;                                                                                                                        aplpack 
+#&gt;                 &quot;if(!require(\&quot;aplpack\&quot;)) install.packages(\&quot;aplpack\&quot;, repos=\&quot;https://cloud.r-project.org/src/contrib\&quot;)\n&quot; 
+#&gt;                                                                                                                            ash 
+#&gt;                         &quot;if(!require(\&quot;ash\&quot;)) install.packages(\&quot;ash\&quot;, repos=\&quot;https://cloud.r-project.org/src/contrib\&quot;)\n&quot; 
+#&gt;                                                                                                                           boot 
+#&gt;                       &quot;if(!require(\&quot;boot\&quot;)) install.packages(\&quot;boot\&quot;, repos=\&quot;https://cloud.r-project.org/src/contrib\&quot;)\n&quot; 
+#&gt;                                                                                                                            car 
+#&gt;                         &quot;if(!require(\&quot;car\&quot;)) install.packages(\&quot;car\&quot;, repos=\&quot;https://cloud.r-project.org/src/contrib\&quot;)\n&quot; 
+#&gt;                                                                                                                           &lt;NA&gt; 
+#&gt;                                                                      &quot;# if(!require(\&quot;CHAID\&quot;)) install.packages(\&quot;CHAID\&quot;)\n&quot; 
+#&gt;                                                                                                                        cluster 
+#&gt;                 &quot;if(!require(\&quot;cluster\&quot;)) install.packages(\&quot;cluster\&quot;, repos=\&quot;https://cloud.r-project.org/src/contrib\&quot;)\n&quot; 
+#&gt;                                                                                                                           coin 
+#&gt;                       &quot;if(!require(\&quot;coin\&quot;)) install.packages(\&quot;coin\&quot;, repos=\&quot;https://cloud.r-project.org/src/contrib\&quot;)\n&quot; 
+#&gt;                                                                                                                         dbscan 
+#&gt;                   &quot;if(!require(\&quot;dbscan\&quot;)) install.packages(\&quot;dbscan\&quot;, repos=\&quot;https://cloud.r-project.org/src/contrib\&quot;)\n&quot; 
+#&gt;                                                                                                                         deldir 
+#&gt;                   &quot;if(!require(\&quot;deldir\&quot;)) install.packages(\&quot;deldir\&quot;, repos=\&quot;https://cloud.r-project.org/src/contrib\&quot;)\n&quot; 
+#&gt;                                                                                                                      DescTools 
+#&gt;             &quot;if(!require(\&quot;DescTools\&quot;)) install.packages(\&quot;DescTools\&quot;, repos=\&quot;https://cloud.r-project.org/src/contrib\&quot;)\n&quot; 
+#&gt;                                                                                                                       devtools 
+#&gt;               &quot;if(!require(\&quot;devtools\&quot;)) install.packages(\&quot;devtools\&quot;, repos=\&quot;https://cloud.r-project.org/src/contrib\&quot;)\n&quot; 
+#&gt;                                                                                                                          e1071 
+#&gt;                     &quot;if(!require(\&quot;e1071\&quot;)) install.packages(\&quot;e1071\&quot;, repos=\&quot;https://cloud.r-project.org/src/contrib\&quot;)\n&quot; 
+#&gt;                                                                                                                        effsize 
+#&gt;                 &quot;if(!require(\&quot;effsize\&quot;)) install.packages(\&quot;effsize\&quot;, repos=\&quot;https://cloud.r-project.org/src/contrib\&quot;)\n&quot; 
+#&gt;                                                                                                                        entropy 
+#&gt;                 &quot;if(!require(\&quot;entropy\&quot;)) install.packages(\&quot;entropy\&quot;, repos=\&quot;https://cloud.r-project.org/src/contrib\&quot;)\n&quot; 
+#&gt;                                                                                                                      flexclust 
+#&gt;             &quot;if(!require(\&quot;flexclust\&quot;)) install.packages(\&quot;flexclust\&quot;, repos=\&quot;https://cloud.r-project.org/src/contrib\&quot;)\n&quot; 
+#&gt;                                                                                                                        foreign 
+#&gt;                 &quot;if(!require(\&quot;foreign\&quot;)) install.packages(\&quot;foreign\&quot;, repos=\&quot;https://cloud.r-project.org/src/contrib\&quot;)\n&quot; 
+#&gt;                                                                                                                            fpc 
+#&gt;                         &quot;if(!require(\&quot;fpc\&quot;)) install.packages(\&quot;fpc\&quot;, repos=\&quot;https://cloud.r-project.org/src/contrib\&quot;)\n&quot; 
+#&gt;                                                                                                                            gam 
+#&gt;                         &quot;if(!require(\&quot;gam\&quot;)) install.packages(\&quot;gam\&quot;, repos=\&quot;https://cloud.r-project.org/src/contrib\&quot;)\n&quot; 
+#&gt;                                                                                                                         GGally 
+#&gt;                   &quot;if(!require(\&quot;GGally\&quot;)) install.packages(\&quot;GGally\&quot;, repos=\&quot;https://cloud.r-project.org/src/contrib\&quot;)\n&quot; 
+#&gt;                                                                                                                          ggmap 
+#&gt;                     &quot;if(!require(\&quot;ggmap\&quot;)) install.packages(\&quot;ggmap\&quot;, repos=\&quot;https://cloud.r-project.org/src/contrib\&quot;)\n&quot; 
+#&gt;                                                                                                                        ggplot2 
+#&gt;                 &quot;if(!require(\&quot;ggplot2\&quot;)) install.packages(\&quot;ggplot2\&quot;, repos=\&quot;https://cloud.r-project.org/src/contrib\&quot;)\n&quot; 
+#&gt;                                                                                                                         glmnet 
+#&gt;                   &quot;if(!require(\&quot;glmnet\&quot;)) install.packages(\&quot;glmnet\&quot;, repos=\&quot;https://cloud.r-project.org/src/contrib\&quot;)\n&quot; 
+#&gt;                                                                                                                         gplots 
+#&gt;                   &quot;if(!require(\&quot;gplots\&quot;)) install.packages(\&quot;gplots\&quot;, repos=\&quot;https://cloud.r-project.org/src/contrib\&quot;)\n&quot; 
+#&gt;                                                                                                                         hexbin 
+#&gt;                   &quot;if(!require(\&quot;hexbin\&quot;)) install.packages(\&quot;hexbin\&quot;, repos=\&quot;https://cloud.r-project.org/src/contrib\&quot;)\n&quot;</code></pre>
+<p>Note that the line for <code>CHAID</code> is commented out. The
+package cannot be found in CRAN, but you can install it from
+R-Forge.</p>
+<pre class="r"><code>if(!require(\&quot;CHAID\&quot;)) install.packages(&quot;CHAID&quot;, repos=&quot;http://R-Forge.R-project.org&quot;)</code></pre>
 <p>You can add a file <code>init_R.R</code> or <code>init_py.R</code> to
 your ZIP file, which installs the necessary R packages or Python
-modules. A vector with the names of the R packages
-(<code>rlibs=...</code>) or Python modules
-(’pymods=…<code>) to be installed can be passed to the</code>install`
-command.</p>
+modules.</p>
 </div>
-<div id="preparation-2-scripts-run-standalone" class="section level2">
-<h2>Preparation 2: Scripts run standalone</h2>
-<p><code>Rsolo</code> checks whether each R code snippet runs smoothly
-in a freshly started R.</p>
+<div id="preparation-2-scripts-run-independently" class="section level2">
+<h2>Preparation 2: Scripts run independently</h2>
+<p><code>checkFiles</code> checks whether each R code snippet runs
+smoothly in a freshly started R.</p>
 <pre class="r"><code># just check the last files from the list 
 # Note that the R console will show more output (warnings etc.)
-Rsolo(files, start=435)  </code></pre>
+checkFile(files, start=435)  # alternatively: Rsolo</code></pre>
+<p>Three modes are available for checking a <code>file</code>:</p>
+<ol style="list-style-type: decimal">
+<li><code>exist</code>: Does the source file exist?</li>
+<li><code>parse</code>: Is <code>parse(file)</code> or
+<code>python -m &quot;file&quot;</code> successful? (default)</li>
+<li><code>run</code>: Is <code>Rscript &quot;file&quot;</code> or
+<code>python3 &quot;file&quot;</code> successful?</li>
+</ol>
 </div>
-<div id="preparation-3-search-and-eliminate-duplicate-files" class="section level2">
-<h2>Preparation 3: Search (and eliminate) duplicate files</h2>
-<p><code>dupFiles</code> uses checksums to check whether files are
-duplicated.</p>
+<div id="preparation-3-searching-for-and-removing-duplicate-files" class="section level2">
+<h2>Preparation 3: Searching for (and removing) duplicate files</h2>
+<p><code>dupFiles</code> uses checksums to check whether files exist
+twice.</p>
 <pre class="r"><code>files &lt;- ghlist(full.names = TRUE)
-head(Rdups(files))
+head(dupFiles(files))  # alternatively: Rdups
 #&gt; $c300e8fe6f0bc562256e81670c23d8c0
-#&gt; [1] &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy/data/BANK2.sav&quot;                        
-#&gt; [2] &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy/examples/data/cluster/dbscan/BANK2.sav&quot;
+#&gt; [1] &quot;/tmp/RtmprPuDPx/mmstat4.dummy/data/BANK2.sav&quot;                        
+#&gt; [2] &quot;/tmp/RtmprPuDPx/mmstat4.dummy/examples/data/cluster/dbscan/BANK2.sav&quot;
 #&gt; 
 #&gt; $`4efddb6dc6c7ed743221295d55133817`
-#&gt; [1] &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy/examples/data/nnet/mincer_nnet3.R&quot;
-#&gt; [2] &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy/examples/data/nnet/mincer_nnet5.R&quot;
+#&gt; [1] &quot;/tmp/RtmprPuDPx/mmstat4.dummy/examples/data/nnet/mincer_nnet3.R&quot;
+#&gt; [2] &quot;/tmp/RtmprPuDPx/mmstat4.dummy/examples/data/nnet/mincer_nnet5.R&quot;
 #&gt; 
 #&gt; $`9f9fe7603aa82f33bbc85a9d32e39d03`
-#&gt; [1] &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy/examples/data/cluster/dbscan/app.tmpl&quot;       
-#&gt; [2] &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy/examples/data/mgraphics/scagnostics/app.tmpl&quot;
+#&gt; [1] &quot;/tmp/RtmprPuDPx/mmstat4.dummy/examples/data/cluster/dbscan/app.tmpl&quot;       
+#&gt; [2] &quot;/tmp/RtmprPuDPx/mmstat4.dummy/examples/data/mgraphics/scagnostics/app.tmpl&quot;
 #&gt; 
 #&gt; $`0b74b824367df429803599708daf2e2e`
-#&gt; [1] &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy/examples/data/subgroup/example_mosaic.R&quot; 
-#&gt; [2] &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy/examples/data/mgraphics/example_mosaic.R&quot;
+#&gt; [1] &quot;/tmp/RtmprPuDPx/mmstat4.dummy/examples/data/subgroup/example_mosaic.R&quot; 
+#&gt; [2] &quot;/tmp/RtmprPuDPx/mmstat4.dummy/examples/data/mgraphics/example_mosaic.R&quot;
 #&gt; 
 #&gt; $`8eaa4f89e233ba69fcda053d238699aa`
-#&gt; [1] &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy/examples/data/subgroup/example_mosaic_cotabplot.R&quot; 
-#&gt; [2] &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy/examples/data/mgraphics/example_mosaic_cotabplot.R&quot;
+#&gt; [1] &quot;/tmp/RtmprPuDPx/mmstat4.dummy/examples/data/subgroup/example_mosaic_cotabplot.R&quot; 
+#&gt; [2] &quot;/tmp/RtmprPuDPx/mmstat4.dummy/examples/data/mgraphics/example_mosaic_cotabplot.R&quot;
 #&gt; 
 #&gt; $`8ed6128aab796148df5e71cbeab547da`
-#&gt; [1] &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy/examples/data/subgroup/example_mosaic_graphics.R&quot; 
-#&gt; [2] &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy/examples/data/mgraphics/example_mosaic_graphics.R&quot;</code></pre>
+#&gt; [1] &quot;/tmp/RtmprPuDPx/mmstat4.dummy/examples/data/subgroup/example_mosaic_graphics.R&quot; 
+#&gt; [2] &quot;/tmp/RtmprPuDPx/mmstat4.dummy/examples/data/mgraphics/example_mosaic_graphics.R&quot;</code></pre>
 <p>Note: there is also an error message if the necessary libraries are
 not installed!</p>
 </div>
@@ -748,9 +781,9 @@ comes with the package <code>mmstat4</code>:</p>
 ghnames &lt;- ghdecompose(ghlist(full.names=TRUE))
 ghnames[58,]
 #&gt;                          outpath                inpath minpath  filename
-#&gt; 58 /tmp/RtmpzS1Gs4/mmstat4.dummy examples/data/cluster  dbscan BANK2.sav
+#&gt; 58 /tmp/RtmprPuDPx/mmstat4.dummy examples/data/cluster  dbscan BANK2.sav
 #&gt;                                                                  source
-#&gt; 58 /tmp/RtmpzS1Gs4/mmstat4.dummy/examples/data/cluster/dbscan/BANK2.sav</code></pre>
+#&gt; 58 /tmp/RtmprPuDPx/mmstat4.dummy/examples/data/cluster/dbscan/BANK2.sav</code></pre>
 <p>The shortest possible name is determined by <code>minpath</code> and
 <code>filename</code>. But all other paths determined by
 <code>uniquepath</code>, <code>minpath</code> and <code>filename</code>
@@ -814,16 +847,16 @@ ghopen(&quot;dbscan&quot;) # open the app</code></pre>
 <pre class="r"><code>ghget(&quot;dummy&quot;, .tempdir=TRUE)
 #&gt; [1] &quot;dummy&quot;
 ghlist(pattern=&quot;\\.csv$&quot;, ignore.case=TRUE, full.names=TRUE)
-#&gt;  [1] &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy-main/data/12411-0006.csv&quot;       
-#&gt;  [2] &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy-main/data/ArbeitsloseBerlin.csv&quot;
-#&gt;  [3] &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy-main/data/Preisindex.csv&quot;       
-#&gt;  [4] &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy-main/data/TelefonDaten.csv&quot;     
-#&gt;  [5] &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy-main/data/haushalte.csv&quot;        
-#&gt;  [6] &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy-main/data/haushalte_berlin.csv&quot; 
-#&gt;  [7] &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy-main/data/hhberlin.csv&quot;         
-#&gt;  [8] &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy-main/data/hhberlin_2017.csv&quot;    
-#&gt;  [9] &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy-main/data/pechstein.csv&quot;        
-#&gt; [10] &quot;/tmp/RtmpzS1Gs4/mmstat4.dummy-main/data/rentcap.csv&quot;
+#&gt;  [1] &quot;/tmp/RtmprPuDPx/mmstat4.dummy-main/data/12411-0006.csv&quot;       
+#&gt;  [2] &quot;/tmp/RtmprPuDPx/mmstat4.dummy-main/data/ArbeitsloseBerlin.csv&quot;
+#&gt;  [3] &quot;/tmp/RtmprPuDPx/mmstat4.dummy-main/data/Preisindex.csv&quot;       
+#&gt;  [4] &quot;/tmp/RtmprPuDPx/mmstat4.dummy-main/data/TelefonDaten.csv&quot;     
+#&gt;  [5] &quot;/tmp/RtmprPuDPx/mmstat4.dummy-main/data/haushalte.csv&quot;        
+#&gt;  [6] &quot;/tmp/RtmprPuDPx/mmstat4.dummy-main/data/haushalte_berlin.csv&quot; 
+#&gt;  [7] &quot;/tmp/RtmprPuDPx/mmstat4.dummy-main/data/hhberlin.csv&quot;         
+#&gt;  [8] &quot;/tmp/RtmprPuDPx/mmstat4.dummy-main/data/hhberlin_2017.csv&quot;    
+#&gt;  [9] &quot;/tmp/RtmprPuDPx/mmstat4.dummy-main/data/pechstein.csv&quot;        
+#&gt; [10] &quot;/tmp/RtmprPuDPx/mmstat4.dummy-main/data/rentcap.csv&quot;
 # use mmstat4::ghload for importing
 ghlist(pattern=&quot;\\.csv$&quot;)
 #&gt;  [1] &quot;12411-0006.csv&quot;        &quot;ArbeitsloseBerlin.csv&quot; &quot;Preisindex.csv&quot;       
@@ -837,19 +870,27 @@ str(pechstein)
 #&gt;  $ Tag          : int  34 397 679 767 771 783 1043 1160 1166 1421 ...
 #&gt;  $ Retikulozyten: chr  &quot;2,3&quot; &quot;2,5&quot; &quot;2,45&quot; &quot;2,1&quot; ...</code></pre>
 </div>
+<div id="what-should-i-install-to-use-python-scripts" class="section level2">
+<h2>What should I install to use Python scripts?</h2>
+<p>For Ubuntu (Linux) install:</p>
+<pre class="r"><code>sudo apt-get install python3 python3-dev python3-pip python3-venv libbz2-dev</code></pre>
+<p>Note: <code>mmstat4</code> installs these Python modules
+<code>numpy</code>, <code>scipy</code>, <code>statsmodels</code>,
+<code>pandas</code>, <code>scikit-learn</code>, <code>matplotlib</code>,
+and <code>seaborn</code> by default.</p>
+</div>
 <div id="init_py.r-is-only-called-if-the-virtual-environment-is-created.-can-i-force-a-new-call" class="section level2">
 <h2><code>init_py.R</code> is only called if the virtual environment is
 created. Can I force a new call?</h2>
 <p>Yes, delete the virtual environment and recreate it</p>
 <pre class="r"><code>reticulate::virtualenv_remove(&#39;mmstat4&#39;)
 ghinstall(&#39;py&#39;, force=TRUE)</code></pre>
-<pre class="r"><code>sudo apt-get install python3 python3-dev python3-pip python3-venv libbz2-dev</code></pre>
 </div>
 </div>
 <div id="default-repositories" class="section level1">
 <h1>Default repositories</h1>
-<p>The package has three default repositories: <code>dummy</code>,
-<code>hu.stat</code>, and <code>hu.data</code>.</p>
+<p>The package recognises three standard repositories:
+<code>dummy</code>, <code>hu.stat</code>, and <code>hu.data</code>.</p>
 <table>
 <colgroup>
 <col width="41%" />

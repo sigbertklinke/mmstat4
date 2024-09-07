@@ -2,9 +2,19 @@
 % Please edit documentation in R/ghlist.R
 \name{ghlist}
 \alias{ghlist}
-\title{ghlist}
+\alias{ghgrep}
+\title{ghgrep, ghlist}
 \usage{
 ghlist(
+  pattern = ".",
+  ignore.case = FALSE,
+  perl = FALSE,
+  fixed = FALSE,
+  useBytes = FALSE,
+  full.names = FALSE
+)
+
+ghgrep(
   pattern = ".",
   ignore.case = FALSE,
   perl = FALSE,
@@ -40,9 +50,9 @@ ghlist(
 character vector of short names
 }
 \description{
-Returns unique (short) names for accessing each file in the repository according to a regular expression.
+Both functions return unique (short) names for accessing each file in the repository according to a regular expression.
 For details about regular expressions, see \link[base:regex]{base::regex}.
 }
 \examples{
-if (interactive()) ghlist()
+if (interactive()) ghgrep()
 }

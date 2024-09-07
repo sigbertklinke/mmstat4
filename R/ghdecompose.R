@@ -15,7 +15,7 @@
 #' @export
 #'
 #' @examples
-#' ghget("dummy")
+#' ghget("local")
 #' pdf <- ghdecompose(ghlist(full.names=TRUE))
 #' pdf
 ghdecompose <- function (files, dirs=FALSE) {

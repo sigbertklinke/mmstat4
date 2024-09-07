@@ -25,23 +25,79 @@ knitr::opts_chunk$set(
 suppressPackageStartupMessages(library("mmstat4"))
 ```
 
-# General
+# Introduction
 
-This package was developed to create teaching material for various statistics courses aimed at students.
+## Aim
 
-This package was developed to create teaching material for various statistics courses aimed at students.
+This package was designed with the aim of distributing educational resources for statistics courses targeted at students.
 
-The main function of this package is called `gh`, which can be used to perform various tasks, such as:
+Once the teaching materials have been downloaded, the primary functions of this package include:
 
-* Opening Shiny Apps, R, Python and R Markdown files in RStudio,
-* Loading data files, and
-* Viewing HTML and PDF files in a browser.
+* Opening Shiny Apps, R, Python, and R Markdown files directly within RStudio.
+* Loading data files seamlessly.
+* Viewing HTML and PDF files conveniently in a web browser.
 
 With this feature, students can access various educational materials such as interactive apps, R code, data files, and other resources that can be helpful in learning statistical concepts. By providing easy access to these materials, the package aims to facilitate the learning process for students and make it more interactive and engaging.
 
-GitHub allows you to download the repository as a ZIP file, see in the repository under the `Code` button (`Download ZIP`). mmstat4" works with this ZIP file, but you can also use one of your own ZIP files.
+GitHub allows you to download the repository as a ZIP file. You can find the option to download under the Code button (Download ZIP) in the repository. mmstat4 works with this ZIP file, but you can also use one of your own ZIP files.
 
-In my courses I assume that all R programs run in a freshly started R, i.e. there are no path dependencies, all necessary libraries are loaded in the R program and so on. My repositories contain not only the example programs for the students, but also the programs I use to create images and tables, and also the Shiny Apps I show.
+In my courses, I assume that all R programs run in a freshly started R environment, meaning there are no path dependencies, and all necessary libraries are loaded within the R program. My repositories contain not only the example programs for the students but also the programs I use to create images and tables, as well as the Shiny Apps I demonstrate.
+
+## Installation
+
+You can install `mmstat4` from CRAN using:
+
+```{r, eval=FALSE}
+install.packages("mmstat4")
+```
+
+Alternatively, you can install the development version from GitHub using `devtools`:
+
+```{r, eval=FALSE}
+devtools::install_github("sigbertklinke/mmstat")
+```
+
+## Getting started
+
+A component of the package includes a small ZIP file containing educational materials. Initially, we need to instruct `mmstat4` to utilize this ZIP file instead of the larger ZIP file for my Data Analysis I and II courses.
+
+```{r, eval=FALSE}
+ghget('local') 
+ghopen("example_mcnemar.R")  # open a R example file
+```
+
+`ghget` returns the key (`local`) associated with the currently active ZIP file. `ghopen` launches the example file in RStudio. To access the equivalent Python script, use:
+
+```{r, eval=FALSE}
+ghopen("example_mcnemar.py")  # open a Python example file
+```
+
+Note: To run Python scripts, ensure local Python installation. Scripts execute within `mmstat4.xxxx` virtual environment, created upon script run or open. User approval is crucial. Upon setup, script checks for `init_py.R` in ZIP file. If found, it's executed, often installing Python modules with `reticulate::py_install('module name')`.
+
+Shiny apps can also be launched in RStudio and run locally.
+
+```{r, eval=FALSE}
+ghopen("pca_best_line/app.R")  # open a Shiny app
+```
+
+Data files can be loaded with:
+
+```{r, eval=FALSE}
+x <- ghload("TelefonDaten.csv")  # load a data set
+head(x)
+```
+
+```{r, echo=FALSE}
+x <- ghget("local")
+x <- ghload("TelefonDaten.csv")  # load a data set
+head(x)
+```
+
+HTML and PDF files will open in the default application:
+
+```{r, eval=FALSE}
+ghopen("Formelsammlung.pdf")  # open a PDF file
+```
 
 # Using a ZIP file or repository
 
@@ -157,29 +213,26 @@ The package comes with two RStudio addins (see under `Addins -> MMSTAT4`):
 
 * _Execute a Shiny app from a zip file_ (`ghappAddin`), which extracts all directories containing Shiny apps and opens the selected app in a web browser (using the default browser).
 
-# Using Python scripts
-
-In order to use Python scripts, Python must be installed locally. The scripts are executed in a virtual environment called `mmstat4.xxxx`, which is created when a Python script is either executed or opened. During the creation of the virtual environment, 
-users are prompted to approve the setup of this environment; this step is critical for the proper execution of Python scripts.
-
-Once the virtual environment is set up, the script checks for the presence of a file called `init_py.R` in the ZIP file. 
-If this file exists, it is extracted and executed with the source command. Normally, this file is used to install Python modules with `reticulate::py_install('module name')`. 
-
 # Creating an own ZIP file
 
 ## Preparation 1: Libraries/Modules used
 
-Currently there are the following routines to support R code snippets:
+Currently there are the following routines to support R/Python code snippets:
 
-* `packages` or `modules`, which extracts all `library`/`require`/`import` calls from  code snippets and returns a frequency table of the packages or and modules called.
+* `pkglist` or `modlist`, which extracts all `library`/`require`/`import` calls from  code snippets and returns a frequency table of the packages or and modules called.
 
 ```{r}
 ghget(local=system.file("zip", "mmstat4.dummy.zip", package="mmstat4"))
 files <- ghlist(pattern="*.R$", full.names = TRUE)
-head(Rlibs(files), 30)
+cat(head(pkglist(files, repos="https://cloud.r-project.org"), 12))
+```
+Note that the line for `CHAID` is commented out. The package cannot be found in CRAN, but you can install it from R-Forge.
+
+```{r, eval=FALSE}
+cat(head(pkglist(files, repos=c("https://cloud.r-project.org", "http://R-Forge.R-project.org")), 12))
 ```
 
-You can add a file `init_R.R` or `init_py.R` to your ZIP file, which installs the necessary R packages or Python modules. A vector with the names of the R packages (`rlibs=...`) or Python modules (`pymods=...`) to be installed can be passed to the `install` command.
+You can add a file `init_R.R` or `init_py.R` to your ZIP file, which installs the necessary R packages or Python modules.
 
 ## Preparation 2: Scripts run independently
 
